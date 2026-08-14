@@ -1,5 +1,5 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useMemo, useState, useSyncExternalStore } from 'react';
+import { useEffect, useMemo, useState, useSyncExternalStore } from 'react';
 import { EXTENSION_TYPE_LABELS, EXTENSION_TYPES, USE_CATEGORIES, templatesFor, } from "./catalog.js";
 import { ADVISOR_FALLBACK_PROMPT, buildCreationPrompt } from "./prompt.js";
 import styles from './creator-center.module.css';
@@ -8,7 +8,7 @@ function TemplateDetails({ template, disabled, onCopy, onCreate, }) {
     const prompt = buildCreationPrompt({ goal: template.goal, template });
     return (_jsxs("div", { className: styles.details, children: [_jsxs("dl", { className: styles.detailGrid, children: [_jsxs("div", { children: [_jsx("dt", { children: "\u9002\u5408\u4F60\u7684\u60C5\u51B5" }), _jsx("dd", { children: template.suitableFor })] }), _jsxs("div", { children: [_jsx("dt", { children: "\u521B\u5EFA\u540E\u4F1A\u5F97\u5230" }), _jsx("dd", { children: template.result })] }), _jsxs("div", { children: [_jsx("dt", { children: "\u53EF\u80FD\u4FEE\u6539\u7684\u4F4D\u7F6E" }), _jsx("dd", { children: template.changes })] }), _jsxs("div", { children: [_jsx("dt", { children: "\u98CE\u9669\u4E0E\u6743\u9650" }), _jsx("dd", { children: template.risk })] })] }), _jsxs("div", { className: styles.checks, children: [_jsx("strong", { children: "\u5B8C\u6210\u540E\u7684\u68C0\u67E5\u6E05\u5355" }), _jsx("ul", { children: template.checks.map(item => _jsx("li", { children: item }, item)) })] }), _jsxs("label", { className: styles.promptLabel, children: ["\u521B\u5EFA\u8BF4\u660E", _jsx("textarea", { readOnly: true, value: prompt, rows: 8 })] }), _jsxs("div", { className: styles.actions, children: [_jsx("button", { type: "button", disabled: disabled, onClick: () => { onCopy(prompt); }, children: "\u4EC5\u590D\u5236\u63D0\u793A\u8BCD" }), _jsx("button", { type: "button", className: styles.primary, disabled: disabled, onClick: () => { onCreate(prompt); }, children: "\u590D\u5236\u63D0\u793A\u8BCD\u5E76\u5F00\u59CB\u521B\u9020" })] })] }));
 }
-export function CreatorCenter({ launcher, clipboard = navigator.clipboard }) {
+export function CreatorCenter({ launcher, close, clipboard = navigator.clipboard }) {
     const launch = useSyncExternalStore(launcher.subscribe, launcher.getSnapshot);
     const [browseMode, setBrowseMode] = useState('use');
     const [filter, setFilter] = useState('all');
@@ -19,10 +19,15 @@ export function CreatorCenter({ launcher, clipboard = navigator.clipboard }) {
     const [copyError, setCopyError] = useState(null);
     const [status, setStatus] = useState('');
     const [advisorRequested, setAdvisorRequested] = useState(false);
+    const [closeOnLaunch, setCloseOnLaunch] = useState(false);
     const filters = browseMode === 'use' ? USE_CATEGORIES : EXTENSION_TYPES;
     const visibleTemplates = useMemo(() => templatesFor(browseMode, filter), [browseMode, filter]);
     const selectedFilter = filters.find(item => item.id === filter);
     const busy = launch.busy;
+    useEffect(() => {
+        if (closeOnLaunch && launch.launchedPreset !== null)
+            close();
+    }, [close, closeOnLaunch, launch.launchedPreset]);
     const changeMode = (mode) => {
         setBrowseMode(mode);
         setFilter('all');
@@ -43,6 +48,7 @@ export function CreatorCenter({ launcher, clipboard = navigator.clipboard }) {
         if (!await copyOnly(prompt))
             return;
         launcher.clearError();
+        setCloseOnLaunch(true);
         launcher.launch(presetId);
         setStatus('创建说明已复制；请粘贴并发送。');
     };
@@ -61,6 +67,7 @@ export function CreatorCenter({ launcher, clipboard = navigator.clipboard }) {
         setAdvisorRequested(true);
         setCopyError(null);
         launcher.clearError();
+        setCloseOnLaunch(true);
         launcher.launch(ADVISOR_PRESET_ID);
         setStatus('正在打开 AI 扩展顾问；进入对话后直接说你想解决的问题。');
     };

@@ -9,6 +9,7 @@ import {
 test('provisions whale appearance directly into the official Settings surface', () => {
   assert.deepEqual(BUNDLED_FEATURE_PACKAGES, [
     '@whale-desktop/dsh-whale-appearance',
+    '@whale-desktop/dsh-creator-center',
   ])
 })
 

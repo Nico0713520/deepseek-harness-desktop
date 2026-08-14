@@ -355,7 +355,7 @@ ${input.template?.checks.map((item) => `- ${item}`).join("\n") ?? "- 用一个�
 				]
 			});
 		}
-		function CreatorCenter({ launcher, clipboard = navigator.clipboard }) {
+		function CreatorCenter({ launcher, close, clipboard = navigator.clipboard }) {
 			const launch = (0, react.useSyncExternalStore)(launcher.subscribe, launcher.getSnapshot);
 			const [browseMode, setBrowseMode] = (0, react.useState)("use");
 			const [filter, setFilter] = (0, react.useState)("all");
@@ -366,10 +366,18 @@ ${input.template?.checks.map((item) => `- ${item}`).join("\n") ?? "- 用一个�
 			const [copyError, setCopyError] = (0, react.useState)(null);
 			const [status, setStatus] = (0, react.useState)("");
 			const [advisorRequested, setAdvisorRequested] = (0, react.useState)(false);
+			const [closeOnLaunch, setCloseOnLaunch] = (0, react.useState)(false);
 			const filters = browseMode === "use" ? USE_CATEGORIES : EXTENSION_TYPES;
 			const visibleTemplates = (0, react.useMemo)(() => templatesFor(browseMode, filter), [browseMode, filter]);
 			const selectedFilter = filters.find((item) => item.id === filter);
 			const busy = launch.busy;
+			(0, react.useEffect)(() => {
+				if (closeOnLaunch && launch.launchedPreset !== null) close();
+			}, [
+				close,
+				closeOnLaunch,
+				launch.launchedPreset
+			]);
 			const changeMode = (mode) => {
 				setBrowseMode(mode);
 				setFilter("all");
@@ -388,6 +396,7 @@ ${input.template?.checks.map((item) => `- ${item}`).join("\n") ?? "- 用一个�
 			const copyAndCreate = async (prompt, presetId = "cordis") => {
 				if (!await copyOnly(prompt)) return;
 				launcher.clearError();
+				setCloseOnLaunch(true);
 				launcher.launch(presetId);
 				setStatus("创建说明已复制；请粘贴并发送。");
 			};
@@ -405,6 +414,7 @@ ${input.template?.checks.map((item) => `- ${item}`).join("\n") ?? "- 用一个�
 				setAdvisorRequested(true);
 				setCopyError(null);
 				launcher.clearError();
+				setCloseOnLaunch(true);
 				launcher.launch(ADVISOR_PRESET_ID);
 				setStatus("正在打开 AI 扩展顾问；进入对话后直接说你想解决的问题。");
 			};
@@ -758,25 +768,26 @@ ${input.template?.checks.map((item) => `- ${item}`).join("\n") ?? "- 用一个�
 		};
 		//#endregion
 		//#region src/client/index.ts
+		function agentPresetSeat(ctx) {
+			const inject = ctx.slots.entriesOfSlot("conversation.hero.agentPreset")[0]?.inject;
+			const face = inject?.();
+			return typeof face?.select === "function" ? face : void 0;
+		}
 		const inject = [
 			"slots",
-			"connection",
 			"sessions",
 			"workspaces"
 		];
 		function apply(ctx) {
-			const { api } = ctx.get("connection");
 			const launcher = new SessionLauncher({
 				sessions: ctx.sessions.list,
 				startSession: () => {
 					ctx.workspaces.startSession();
 				},
-				selectPreset: async (sessionId, presetId) => {
-					const response = await api.agentPresets.select({
-						sessionId,
-						agentPreset: presetId
-					});
-					if (!response.result.ok) throw new Error(response.result.error.message);
+				selectPreset: async (_sessionId, presetId) => {
+					const seat = agentPresetSeat(ctx);
+					if (seat === void 0) throw new Error("官方 Agent 预设选择器暂时不可用");
+					await seat.select(presetId);
 				}
 			});
 			ctx.effect(() => () => {

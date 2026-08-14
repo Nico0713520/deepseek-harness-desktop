@@ -16,6 +16,9 @@ An unofficial cross-platform desktop distribution for
 - Adds settings controls for the official theme, whale theme, pet selection, pet scale, pet position reset, and one-click restoration of the official appearance.
 - Keeps those controls directly discoverable at `Settings → Appearance`, without adding a floating theme button to the chat canvas.
 - Supports draggable whale-maid and abstract-whale pets with lightweight Harness activity reactions through the standard DSH plugin interface.
+- Adds `Settings → 创造中心` with eight beginner templates that can be browsed by everyday use or by Agent preset, Skill, workflow, plugin, and UI-extension type.
+- Builds guarded creation prompts, copies them for final user review, and opens the official Creator Mode only on a blank session.
+- Adds a clearly labelled AI Extension Advisor with local decision guidance and a safe fallback to official Creator Mode; it does not pretend to be human support or modify files before approval.
 - Adds a secure local Extensions & Tutorials page from the system tray with curated GitHub links and the standard DSH plugin command.
 - Packages macOS ARM64 successfully and verifies the packaged Web UI with an isolated smoke test.
 - Includes macOS ARM64/x64 and Windows x64 GitHub Actions release jobs.
@@ -38,10 +41,16 @@ Requirements: Node.js 24+ and pnpm 11.9.0.
 pnpm install --frozen-lockfile
 pnpm test
 pnpm --filter @whale-desktop/dsh-whale-appearance test
+pnpm --filter @whale-desktop/dsh-creator-center test
 pnpm start
 ```
 
 The first local start may ask Harness to initialize its own user directory and provider configuration.
+
+Creator Center's first catalog is intentionally local and versioned in
+`packages/dsh-creator-center/src/client/catalog.ts`. Reviewed repositories and
+tutorials can be added later as data entries without replacing the Settings UI
+or weakening the creation approval boundary.
 
 ## Build
 

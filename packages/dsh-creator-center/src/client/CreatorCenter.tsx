@@ -1,4 +1,5 @@
-import { useMemo, useState, useSyncExternalStore } from 'react'
+import { useEffect, useMemo, useState, useSyncExternalStore } from 'react'
+import type { SettingsSectionOwnerProps } from '@deepseek-ai/dsh-client-ui-settings/client'
 import {
   CREATOR_TEMPLATES,
   EXTENSION_TYPE_LABELS,
@@ -25,7 +26,7 @@ export interface ClipboardPort {
   writeText(text: string): Promise<void>
 }
 
-export interface CreatorCenterProps {
+export interface CreatorCenterProps extends SettingsSectionOwnerProps {
   readonly launcher: CreatorLauncher
   readonly clipboard?: ClipboardPort
 }
@@ -68,7 +69,7 @@ function TemplateDetails({
   )
 }
 
-export function CreatorCenter({ launcher, clipboard = navigator.clipboard }: CreatorCenterProps) {
+export function CreatorCenter({ launcher, close, clipboard = navigator.clipboard }: CreatorCenterProps) {
   const launch = useSyncExternalStore(launcher.subscribe, launcher.getSnapshot)
   const [browseMode, setBrowseMode] = useState<BrowseMode>('use')
   const [filter, setFilter] = useState('all')
@@ -79,11 +80,16 @@ export function CreatorCenter({ launcher, clipboard = navigator.clipboard }: Cre
   const [copyError, setCopyError] = useState<string | null>(null)
   const [status, setStatus] = useState('')
   const [advisorRequested, setAdvisorRequested] = useState(false)
+  const [closeOnLaunch, setCloseOnLaunch] = useState(false)
 
   const filters = browseMode === 'use' ? USE_CATEGORIES : EXTENSION_TYPES
   const visibleTemplates = useMemo(() => templatesFor(browseMode, filter), [browseMode, filter])
   const selectedFilter = filters.find(item => item.id === filter)
   const busy = launch.busy
+
+  useEffect(() => {
+    if (closeOnLaunch && launch.launchedPreset !== null) close()
+  }, [close, closeOnLaunch, launch.launchedPreset])
 
   const changeMode = (mode: BrowseMode): void => {
     setBrowseMode(mode)
@@ -105,6 +111,7 @@ export function CreatorCenter({ launcher, clipboard = navigator.clipboard }: Cre
   const copyAndCreate = async (prompt: string, presetId = 'cordis'): Promise<void> => {
     if (!await copyOnly(prompt)) return
     launcher.clearError()
+    setCloseOnLaunch(true)
     launcher.launch(presetId)
     setStatus('创建说明已复制；请粘贴并发送。')
   }
@@ -124,6 +131,7 @@ export function CreatorCenter({ launcher, clipboard = navigator.clipboard }: Cre
     setAdvisorRequested(true)
     setCopyError(null)
     launcher.clearError()
+    setCloseOnLaunch(true)
     launcher.launch(ADVISOR_PRESET_ID)
     setStatus('正在打开 AI 扩展顾问；进入对话后直接说你想解决的问题。')
   }

@@ -8,6 +8,7 @@ const PET_PACKAGE = '@linxin666/dsh-pet'
 const WHALE_SKIN_PACKAGE = '@linxin666/dsh-client-ui-skin-whale-song'
 export const BUNDLED_FEATURE_PACKAGES = [
   '@whale-desktop/dsh-whale-appearance',
+  '@whale-desktop/dsh-creator-center',
 ]
 
 export function resolveBundledPackage(packageName) {

@@ -24,8 +24,9 @@ function setup() {
   }
   const writes: string[] = []
   const clipboard = { writeText: vi.fn(async (text: string) => { writes.push(text) }) }
-  render(<CreatorCenter launcher={launcher} clipboard={clipboard} />)
-  return { launcher, launch, clipboard, writes, publish }
+  const close = vi.fn()
+  render(<CreatorCenter launcher={launcher} clipboard={clipboard} close={close} />)
+  return { launcher, launch, clipboard, close, writes, publish }
 }
 
 describe('Creator Center', () => {
@@ -81,6 +82,16 @@ describe('Creator Center', () => {
 
     expect(kit.launch).toHaveBeenCalledWith('whale-extension-advisor')
     expect(kit.clipboard.writeText).not.toHaveBeenCalled()
+  })
+
+  it('leaves Settings after the requested blank session is ready', async () => {
+    const kit = setup()
+
+    fireEvent.click(screen.getByRole('button', { name: '问 AI 扩展顾问' }))
+    expect(kit.close).not.toHaveBeenCalled()
+
+    kit.publish({ busy: false, error: null, launchedPreset: 'whale-extension-advisor' })
+    await vi.waitFor(() => expect(kit.close).toHaveBeenCalledOnce())
   })
 
   it('offers the official Creator Mode fallback when advisor selection fails', async () => {
