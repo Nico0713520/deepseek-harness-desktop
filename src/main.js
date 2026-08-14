@@ -1,4 +1,5 @@
 import { fileURLToPath } from 'node:url'
+import path from 'node:path'
 import {
   app,
   BrowserWindow,
@@ -11,6 +12,7 @@ import {
 } from 'electron'
 import { startDshService } from './dsh-service.js'
 import { applyMacTitleBarStyle } from './mac-titlebar.js'
+import { provisionBundledPet } from './plugin-provisioner.js'
 import { createWindowOptions } from './window-options.js'
 import { createTrayMenuTemplate, shouldHideWindowOnClose } from './window-lifecycle.js'
 
@@ -106,13 +108,23 @@ async function launch() {
     console.warn(`System tray is unavailable: ${error instanceof Error ? error.message : String(error)}`)
   }
 
+  const environment = {
+    ...process.env,
+    DSH_DESKTOP: '1',
+    DSH_HOME: path.join(app.getPath('userData'), 'dsh'),
+    NODE_OPTIONS: '',
+  }
+  const petProvision = await provisionBundledPet({
+    electronExecutable: process.execPath,
+    environment,
+  })
+  if (petProvision.status === 'failed') {
+    console.warn(`Whale pet is unavailable: ${petProvision.error}`)
+  }
+
   service = startDshService({
     electronExecutable: process.execPath,
-    environment: {
-      ...process.env,
-      NODE_OPTIONS: '',
-      DSH_DESKTOP: '1',
-    },
+    environment,
   })
 
   try {

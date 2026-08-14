@@ -14,5 +14,16 @@
       "assets/"
     ],
     "assets": "temporary-development-assets"
+  },
+  {
+    "id": "ningbainb/deepseek-harness-desktop:dsh-pet",
+    "repository": "https://github.com/ningbainb/deepseek-harness-desktop",
+    "commit": "fe04ea9bf181c7c40aec6a7cbfd7cc4bb75236dd",
+    "package": "@linxin666/dsh-pet@0.1.2",
+    "license": "BSD-3-Clause",
+    "paths": [
+      "packages/dsh-pet/"
+    ],
+    "assets": "BSD-3-Clause-package-assets"
   }
 ]

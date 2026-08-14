@@ -4,6 +4,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { startDshService } from '../src/dsh-service.js'
+import { provisionBundledPet } from '../src/plugin-provisioner.js'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const defaultAppPath = process.platform === 'win32'
@@ -28,19 +29,31 @@ if (temporaryRoot !== undefined) {
   cpSync(packagedResourcesRoot, resourcesRoot, { recursive: true })
 }
 
-const service = startDshService({
-  electronExecutable,
-  entry: path.join(resourcesRoot, 'node_modules', '@deepseek-ai', 'dsh', 'lib', 'bin.js'),
-  windowsLauncher: path.join(resourcesRoot, 'assets', 'windows-hidden-console.exe'),
-  environment: {
-    ...process.env,
-    DSH_HOME: runtimeHome,
-    NODE_OPTIONS: '',
-    NODE_PATH: '',
-  },
-})
+const entry = path.join(resourcesRoot, 'node_modules', '@deepseek-ai', 'dsh', 'lib', 'bin.js')
+const environment = {
+  ...process.env,
+  DSH_HOME: runtimeHome,
+  NODE_OPTIONS: '',
+  NODE_PATH: '',
+}
+let service
 
 try {
+  const petProvision = await provisionBundledPet({
+    electronExecutable,
+    entry,
+    environment,
+    packagePath: path.join(resourcesRoot, 'node_modules', '@linxin666', 'dsh-pet'),
+  })
+  if (petProvision.status === 'failed') {
+    throw new Error(`Packaged whale pet provisioning failed: ${petProvision.error}`)
+  }
+  service = startDshService({
+    electronExecutable,
+    entry,
+    windowsLauncher: path.join(resourcesRoot, 'assets', 'windows-hidden-console.exe'),
+    environment,
+  })
   const url = await service.ready
   const response = await fetch(url)
   if (!response.ok) {
@@ -50,13 +63,25 @@ try {
   if (!html.includes('__DSH_BOOT__')) {
     throw new Error('Packaged DeepSeek Harness did not return its Web UI')
   }
+  const petStateResponse = await fetch(new URL('/api/pet/state', url))
+  if (!petStateResponse.ok) {
+    throw new Error(`Packaged whale pet state returned HTTP ${petStateResponse.status}`)
+  }
+  const petManifestResponse = await fetch(new URL('/pet/whale/pet.json', url))
+  if (!petManifestResponse.ok) {
+    throw new Error(`Packaged whale pet manifest returned HTTP ${petManifestResponse.status}`)
+  }
+  const petManifest = await petManifestResponse.json()
+  if (petManifest.id !== 'whale-girl' || !Array.isArray(petManifest.frames)) {
+    throw new Error('Packaged whale pet did not return its expected asset manifest')
+  }
   if (process.platform === 'win32' && !html.includes('@deepseek-ai/dsh-client-ui-directory-picker-browse')) {
     throw new Error('Packaged Windows app did not mount the browse directory picker')
   }
   console.log(`packaged smoke: ${response.status} ${url}`)
 } finally {
-  service.stop()
-  if (service.child.exitCode === null) {
+  service?.stop()
+  if (service?.child.exitCode === null) {
     await once(service.child, 'exit')
   }
   if (temporaryRoot !== undefined) {
