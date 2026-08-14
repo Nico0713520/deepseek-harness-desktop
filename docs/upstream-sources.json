@@ -1,0 +1,18 @@
+[
+  {
+    "id": "steven-kid/deepseek-harness-desktop",
+    "repository": "https://github.com/steven-kid/deepseek-harness-desktop",
+    "commit": "4dead6e6a47b39d838e88d396cc2eba68dcc7014",
+    "license": "MIT",
+    "paths": [
+      "src/",
+      "test/",
+      "scripts/",
+      "native/",
+      "config/",
+      ".github/workflows/release.yml",
+      "assets/"
+    ],
+    "assets": "temporary-development-assets"
+  }
+]
