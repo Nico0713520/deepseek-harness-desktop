@@ -1,0 +1,1 @@
+{"version":3,"file":"AppearanceSettingsCard.d.ts","sourceRoot":"","sources":["../../../src/client/AppearanceSettingsCard.tsx"],"names":[],"mappings":"AAEA,OAAO,KAAK,EAAE,oBAAoB,EAAE,MAAM,4BAA4B,CAAA;AAGtE,MAAM,WAAW,2BAA2B;IAC1C,UAAU,EAAE,oBAAoB,CAAA;CACjC;AASD,wBAAgB,sBAAsB,CAAC,EAAE,UAAU,EAAE,EAAE,2BAA2B,2CAsFjF"}

@@ -1,0 +1,37 @@
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.pet {
+  position: absolute;
+  pointer-events: auto;
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+  transform-origin: 50% 85%;
+  filter: drop-shadow(0 12px 18px rgb(35 70 125 / 24%));
+}
+
+.pet:active { cursor: grabbing; }
+.pet img { width: 100%; height: 100%; object-fit: contain; border-radius: 24%; mix-blend-mode: multiply; -webkit-user-drag: none; }
+.idle { animation: pet-breathe 3.4s ease-in-out infinite; }
+.thinking { animation: pet-sway 1.15s ease-in-out infinite; }
+.tool { animation: pet-bob 0.72s ease-in-out infinite; }
+.waiting { animation: pet-pulse 1.8s ease-in-out infinite; }
+.completed { animation: pet-jump 0.8s ease-out 1; }
+.failed { animation: pet-tilt 0.8s ease-out 1; }
+
+@keyframes pet-breathe { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-3px) scale(1.012); } }
+@keyframes pet-sway { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+@keyframes pet-bob { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-7px); } }
+@keyframes pet-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
+@keyframes pet-jump { 0% { transform: translateY(0); } 42% { transform: translateY(-24px) scale(1.04); } 100% { transform: translateY(0); } }
+@keyframes pet-tilt { 0%, 100% { transform: rotate(0); } 35% { transform: rotate(-8deg); } 70% { transform: rotate(4deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .pet { animation: none; }
+}

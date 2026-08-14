@@ -1,0 +1,34 @@
+.card {
+  list-style: none;
+  border: 1px solid var(--dsw-alias-border-l2, #dfe3ea);
+  border-radius: 14px;
+  background: var(--dsw-alias-bg-base, #fff);
+  padding: 18px;
+  color: var(--dsw-alias-text-primary, #182230);
+}
+
+.header { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 16px; }
+.icon { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 12px; background: #e9f4ff; font-size: 20px; }
+.title { display: block; font-size: 15px; }
+.description { display: block; margin-top: 3px; color: var(--dsw-alias-text-secondary, #687385); font-size: 12px; }
+.section { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 13px 0; border-top: 1px solid var(--dsw-alias-border-l1, #edf0f4); }
+.section p { margin: 4px 0 0; color: var(--dsw-alias-text-secondary, #687385); font-size: 12px; }
+.switch { width: 46px; height: 26px; border: 0; border-radius: 999px; padding: 3px; background: #c7ced8; cursor: pointer; transition: background 140ms ease; }
+.switch span { display: block; width: 20px; height: 20px; border-radius: 50%; background: #fff; box-shadow: 0 1px 4px rgb(0 0 0 / 20%); transition: transform 140ms ease; }
+.switchOn { background: #4d79df; }
+.switchOn span { transform: translateX(20px); }
+.block { padding: 12px 0; border-top: 1px solid var(--dsw-alias-border-l1, #edf0f4); }
+.block > strong { display: block; margin-bottom: 9px; font-size: 13px; }
+.segmented { display: flex; gap: 8px; flex-wrap: wrap; }
+.segmented button, .footer button { border: 1px solid var(--dsw-alias-border-l2, #d8dde6); border-radius: 9px; background: var(--dsw-alias-bg-base, #fff); color: inherit; padding: 7px 11px; cursor: pointer; }
+.segmented button:hover, .footer button:hover { border-color: #7da4ee; }
+.segmented .selected { border-color: #4d79df; background: #edf4ff; color: #315eb8; }
+.footer { display: flex; justify-content: space-between; gap: 10px; padding-top: 13px; border-top: 1px solid var(--dsw-alias-border-l1, #edf0f4); }
+.footer .restore { color: #315eb8; border-color: #9bb8ed; }
+.error { margin: 10px 0 0; color: #c93636; font-size: 12px; }
+.card button:focus-visible { outline: 2px solid #4d79df; outline-offset: 2px; }
+.card button:disabled { opacity: 0.55; cursor: wait; }
+
+@media (prefers-reduced-motion: reduce) {
+  .switch, .switch span { transition: none; }
+}

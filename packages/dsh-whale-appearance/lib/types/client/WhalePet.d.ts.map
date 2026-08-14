@@ -1,0 +1,1 @@
+{"version":3,"file":"WhalePet.d.ts","sourceRoot":"","sources":["../../../src/client/WhalePet.tsx"],"names":[],"mappings":"AAEA,OAAO,KAAK,EAAE,WAAW,EAAE,MAAM,aAAa,CAAA;AAC9C,OAAO,KAAK,EAAE,oBAAoB,EAAE,MAAM,4BAA4B,CAAA;AAGtE,MAAM,WAAW,aAAa;IAC5B,UAAU,EAAE,oBAAoB,CAAA;CACjC;AAaD,wBAAgB,aAAa,CAAC,QAAQ,EAAE,WAAW,GAAG,WAAW,CAEhE;AAMD,wBAAgB,QAAQ,CAAC,EAAE,UAAU,EAAE,EAAE,aAAa,kDAmDrD"}
