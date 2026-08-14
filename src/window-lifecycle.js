@@ -6,6 +6,7 @@ export function createTrayMenuTemplate({
   locale = 'en',
   showWindow,
   hideWindow,
+  openExtensions,
   quit,
 }) {
   const isChinese = locale.toLowerCase().startsWith('zh')
@@ -18,6 +19,10 @@ export function createTrayMenuTemplate({
     {
       label: isChinese ? '隐藏窗口' : 'Hide Window',
       click: hideWindow,
+    },
+    {
+      label: isChinese ? '扩展与教程' : 'Extensions & Tutorials',
+      click: openExtensions,
     },
     { type: 'separator' },
     {

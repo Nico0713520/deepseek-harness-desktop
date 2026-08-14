@@ -21,10 +21,12 @@ import { createTrayMenuTemplate, shouldHideWindowOnClose } from './window-lifecy
 
 const APP_NAME = 'DeepSeek Harness Whale Desktop'
 const STARTUP_PAGE = fileURLToPath(new URL('./startup.html', import.meta.url))
+const EXTENSIONS_PAGE = fileURLToPath(new URL('./extensions.html', import.meta.url))
 const TRAY_ICON = fileURLToPath(new URL('../assets/tray.png', import.meta.url))
 const TRAY_TEMPLATE_ICON = fileURLToPath(new URL('../assets/trayTemplate.png', import.meta.url))
 
 let mainWindow
+let extensionsWindow
 let service
 let serviceUrl
 let tray
@@ -41,6 +43,35 @@ async function showMainWindow() {
   if (mainWindow.isMinimized()) mainWindow.restore()
   mainWindow.show()
   mainWindow.focus()
+}
+
+async function showExtensionAcademy() {
+  if (!extensionsWindow) {
+    extensionsWindow = new BrowserWindow({
+      width: 920,
+      height: 720,
+      minWidth: 680,
+      minHeight: 520,
+      show: false,
+      title: 'Whale Desktop — Extensions & Tutorials',
+      webPreferences: {
+        contextIsolation: true,
+        nodeIntegration: false,
+        sandbox: true,
+      },
+    })
+    extensionsWindow.webContents.setWindowOpenHandler(({ url }) => {
+      void shell.openExternal(url)
+      return { action: 'deny' }
+    })
+    extensionsWindow.webContents.on('will-navigate', (event) => event.preventDefault())
+    extensionsWindow.once('ready-to-show', () => extensionsWindow?.show())
+    extensionsWindow.on('closed', () => { extensionsWindow = undefined })
+    await extensionsWindow.loadFile(EXTENSIONS_PAGE)
+  } else {
+    extensionsWindow.show()
+    extensionsWindow.focus()
+  }
 }
 
 function createWindow() {
@@ -94,6 +125,7 @@ function createTray() {
     locale: app.getLocale(),
     showWindow: () => void showMainWindow(),
     hideWindow: () => mainWindow?.hide(),
+    openExtensions: () => void showExtensionAcademy(),
     quit: () => {
       isQuitting = true
       app.quit()

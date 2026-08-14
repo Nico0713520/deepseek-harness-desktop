@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:">
+  <title>扩展与教程</title>
+  <style>
+    :root{color-scheme:light dark;font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#081936;color:#eaf4ff}body{margin:0;background:radial-gradient(circle at 80% 0,#174f82 0,transparent 36%),#081936}.wrap{max-width:920px;margin:auto;padding:36px}.eyebrow{color:#73d8ff;letter-spacing:.12em;text-transform:uppercase}h1{font-size:34px;margin:.2em 0}p{color:#bcd0e7}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:24px}.card{padding:20px;border:1px solid #ffffff24;border-radius:18px;background:#ffffff0d;box-shadow:0 12px 40px #0003}.tag{display:inline-block;padding:2px 9px;border-radius:99px;background:#3daee922;color:#87dcff;font-size:12px}a{color:#8ee7ff}code{display:block;overflow:auto;padding:12px;border-radius:10px;background:#030b19;color:#b9f4ff;user-select:all}.note{margin-top:24px;padding:16px;border-left:3px solid #68d4ff;background:#68d4ff12}
+  </style>
+</head>
+<body><main class="wrap">
+  <div class="eyebrow">Whale Desktop Academy</div>
+  <h1>扩展与教程</h1>
+  <p>DeepSeek Harness 的亮点是标准插件机制。这里先收录经过本桌面版验证的入口；社区插件默认只提供仓库与命令，不静默安装。</p>
+  <section class="grid">
+    <article class="card"><span class="tag">官方 · 核心</span><h2>DeepSeek Harness</h2><p>查看官方源码、插件接口与版本更新。</p><a target="_blank" href="https://github.com/deepseek-ai/deepseek-harness">打开 GitHub 仓库</a></article>
+    <article class="card"><span class="tag">已内置 · BSD</span><h2>鲸鱼娘桌宠</h2><p>拖动、隐藏、命名、互动，以及 thinking/tool/waiting/done 状态动画。</p><a target="_blank" href="https://github.com/zhu1090093659/dsh-web-ui">查看插件源码</a></article>
+    <article class="card"><span class="tag">已内置 · 可恢复</span><h2>皮肤中心与鲸吟</h2><p>在 Harness 设置的插件配置中试穿、应用鲸吟，或一键恢复官方默认界面。</p><a target="_blank" href="https://github.com/zhu1090093659/dsh-web-ui">查看主题源码</a></article>
+    <article class="card"><span class="tag">教程</span><h2>安装社区插件</h2><p>确认仓库、许可证和 DSH 兼容版本后，在终端运行：</p><code>dsh plugin --profile web add &lt;package&gt;</code><p>安装后重启 Harness。卸载前先备份工作区和 profile 配置。</p></article>
+  </section>
+  <div class="note">安全原则：只对内置或明确验证过的扩展提供自动安装；来源不明的包只展示链接和教程。</div>
+</main></body>
+</html>
