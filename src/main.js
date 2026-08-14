@@ -11,6 +11,11 @@ import {
   Tray,
 } from 'electron'
 import { startDshService } from './dsh-service.js'
+import {
+  provisionAdvisorPreset,
+  resolveBundledAdvisorSkillDir,
+  resolveOfficialCordisPresetDir,
+} from './advisor-preset-provisioner.js'
 import { applyMacTitleBarStyle } from './mac-titlebar.js'
 import {
   provisionBundledFeatures,
@@ -158,6 +163,17 @@ async function launch() {
     if (result.status === 'failed') {
       console.warn(`${packageName} is unavailable: ${result.error}`)
     }
+  }
+
+  const advisorProvision = await provisionAdvisorPreset({
+    dshHome: environment.DSH_HOME,
+    sourcePresetDir: resolveOfficialCordisPresetDir(),
+    advisorSkillDir: resolveBundledAdvisorSkillDir(),
+  })
+  if (advisorProvision.status === 'conflict') {
+    console.warn('AI Extension Advisor preset id is already owned by the user; Creator Center will use its safe fallback.')
+  } else if (advisorProvision.status === 'failed') {
+    console.warn(`AI Extension Advisor is unavailable: ${advisorProvision.error}`)
   }
 
   service = startDshService({
