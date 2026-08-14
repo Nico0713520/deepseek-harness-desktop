@@ -14,6 +14,7 @@ An unofficial cross-platform desktop distribution for
 - Provisions the settings group and local Whale Appearance plugin into a dedicated DSH profile without replacing user-installed extensions.
 - Adds a reversible Whale Canvas layer only inside the conversation canvas; the official sidebar, header, composer, messages, and settings shell remain unchanged.
 - Adds settings controls for the official theme, whale theme, pet selection, pet scale, pet position reset, and one-click restoration of the official appearance.
+- Keeps those controls directly discoverable at `Settings → Appearance`, without adding a floating theme button to the chat canvas.
 - Supports draggable whale-maid and abstract-whale pets with lightweight Harness activity reactions through the standard DSH plugin interface.
 - Adds a secure local Extensions & Tutorials page from the system tray with curated GitHub links and the standard DSH plugin command.
 - Packages macOS ARM64 successfully and verifies the packaged Web UI with an isolated smoke test.

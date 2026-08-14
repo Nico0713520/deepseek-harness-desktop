@@ -7,7 +7,7 @@ import { WhalePet } from './WhalePet.tsx'
 
 declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface SlotMap {
-    'web-ui.plugin.item': { kind: 'list'; scope: 'root'; owner: Record<string, never> }
+    'settings.section': { kind: 'list'; scope: 'root'; owner: Record<string, never> }
     'shell.overlay': { kind: 'list'; scope: 'root'; owner: Record<string, never> }
   }
 }
@@ -54,10 +54,11 @@ export function apply(ctx: ClientContext): void {
     }
   }, 'whale-appearance: sync')
 
-  ctx.slots.inject('web-ui.plugin.item', () => ctx.slots.register({
-    name: 'web-ui.plugin.item',
-    id: 'whale-appearance-settings',
-    order: 105,
+  ctx.slots.inject('settings.section', () => ctx.slots.register({
+    name: 'settings.section',
+    id: 'appearance',
+    order: 18,
+    label: () => '外观',
     inject: () => ({ controller }),
   }, AppearanceSettingsCard))
 

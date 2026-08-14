@@ -28,7 +28,7 @@ export function AppearanceSettingsCard({ controller }: AppearanceSettingsCardPro
   }
 
   return (
-    <li className={styles.card} data-whale-settings-card>
+    <div className={styles.card} data-whale-settings-card>
       <header className={styles.header}>
         <span className={styles.icon} aria-hidden="true">🐋</span>
         <span>
@@ -98,6 +98,6 @@ export function AppearanceSettingsCard({ controller }: AppearanceSettingsCardPro
         >恢复官方外观</button>
       </footer>
       {error !== null && <p className={styles.error} role="alert">{error}</p>}
-    </li>
+    </div>
   )
 }

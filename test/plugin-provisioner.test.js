@@ -6,9 +6,8 @@ import {
   provisionBundledPlugin,
 } from '../src/plugin-provisioner.js'
 
-test('provisions the settings group before whale appearance', () => {
+test('provisions whale appearance directly into the official Settings surface', () => {
   assert.deepEqual(BUNDLED_FEATURE_PACKAGES, [
-    '@linxin666/dsh-client-ui-web-ui-settings',
     '@whale-desktop/dsh-whale-appearance',
   ])
 })

@@ -66,7 +66,7 @@ window.__ModuleLoader__.load({
 					setBusy(false);
 				});
 			};
-			return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("li", {
+			return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
 				className: settings_card_module_css_default.card,
 				"data-whale-settings-card": true,
 				children: [
@@ -418,10 +418,11 @@ window.__ModuleLoader__.load({
 					disposeTheme = void 0;
 				};
 			}, "whale-appearance: sync");
-			ctx.slots.inject("web-ui.plugin.item", () => ctx.slots.register({
-				name: "web-ui.plugin.item",
-				id: "whale-appearance-settings",
-				order: 105,
+			ctx.slots.inject("settings.section", () => ctx.slots.register({
+				name: "settings.section",
+				id: "appearance",
+				order: 18,
+				label: () => "外观",
 				inject: () => ({ controller })
 			}, AppearanceSettingsCard));
 			ctx.slots.inject("shell.overlay", () => ctx.slots.register({

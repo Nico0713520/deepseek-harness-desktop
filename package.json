@@ -31,6 +31,7 @@
     "@deepseek-ai/dsh-brand": "0.1.0-rc.6",
     "@deepseek-ai/dsh-code-runtime": "0.1.0-rc.6",
     "@deepseek-ai/dsh-compaction": "0.1.0-rc.6",
+    "@deepseek-ai/dsh-client-ui-settings": "0.1.0-rc.6",
     "@deepseek-ai/dsh-credentials": "0.1.0-rc.6",
     "@deepseek-ai/dsh-fs": "0.1.0-rc.6",
     "@deepseek-ai/dsh-host-directory-picker": "0.1.0-rc.6",
@@ -52,7 +53,6 @@
     "@deepseek-ai/dsh-workflow": "0.1.0-rc.6",
     "@linxin666/dsh-client-ui-skin-center": "0.1.12",
     "@linxin666/dsh-client-ui-skin-whale-song": "0.1.2",
-    "@linxin666/dsh-client-ui-web-ui-settings": "0.1.12",
     "@linxin666/dsh-pet": "0.1.2",
     "@whale-desktop/dsh-whale-appearance": "workspace:*",
     "fflate": "0.8.3"

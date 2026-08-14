@@ -46,10 +46,11 @@ export function apply(ctx) {
             disposeTheme = undefined;
         };
     }, 'whale-appearance: sync');
-    ctx.slots.inject('web-ui.plugin.item', () => ctx.slots.register({
-        name: 'web-ui.plugin.item',
-        id: 'whale-appearance-settings',
-        order: 105,
+    ctx.slots.inject('settings.section', () => ctx.slots.register({
+        name: 'settings.section',
+        id: 'appearance',
+        order: 18,
+        label: () => '外观',
         inject: () => ({ controller }),
     }, AppearanceSettingsCard));
     ctx.slots.inject('shell.overlay', () => ctx.slots.register({
