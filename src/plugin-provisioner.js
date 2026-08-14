@@ -7,9 +7,8 @@ import { resolveDshEntry, unpackedPath } from './dsh-service.js'
 const PET_PACKAGE = '@linxin666/dsh-pet'
 const WHALE_SKIN_PACKAGE = '@linxin666/dsh-client-ui-skin-whale-song'
 export const BUNDLED_FEATURE_PACKAGES = [
-  PET_PACKAGE,
-  '@linxin666/dsh-client-ui-skin-center',
-  WHALE_SKIN_PACKAGE,
+  '@linxin666/dsh-client-ui-web-ui-settings',
+  '@whale-desktop/dsh-whale-appearance',
 ]
 
 export function resolveBundledPackage(packageName) {

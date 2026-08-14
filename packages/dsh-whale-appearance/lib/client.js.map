@@ -1,0 +1,1 @@
+{"version":3,"file":"client.js","names":[],"sources":["../../../packages/dsh-whale-appearance/src/client/index.ts"],"sourcesContent":["import type { ClientContext } from '@deepseek-ai/dsh-client-runtime/client'\n\nexport const inject: string[] = []\n\nexport function apply(_ctx: ClientContext): void {}\n"],"mappings":";;;;;;;EAEA,MAAa,SAAmB,CAAC;EAEjC,SAAgB,MAAM,MAA2B,CAAC"}

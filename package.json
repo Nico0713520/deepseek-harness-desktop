@@ -51,12 +51,26 @@
     "@deepseek-ai/dsh-workflow": "0.1.0-rc.6",
     "@linxin666/dsh-client-ui-skin-center": "0.1.12",
     "@linxin666/dsh-client-ui-skin-whale-song": "0.1.2",
+    "@linxin666/dsh-client-ui-web-ui-settings": "0.1.12",
     "@linxin666/dsh-pet": "0.1.2",
+    "@whale-desktop/dsh-whale-appearance": "workspace:*",
     "fflate": "0.8.3"
   },
   "devDependencies": {
+    "@testing-library/react": "16.3.2",
+    "@types/node": "22.20.0",
+    "@types/react": "18.3.28",
+    "@types/react-dom": "18.3.7",
     "electron": "43.4.0",
-    "electron-builder": "26.0.12"
+    "electron-builder": "26.0.12",
+    "jsdom": "29.1.1",
+    "lightningcss": "1.32.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "tsdown": "0.22.2",
+    "typescript": "6.0.3",
+    "vite-tsconfig-paths": "6.1.1",
+    "vitest": "4.1.8"
   },
   "build": {
     "afterSign": "scripts/after-pack.cjs",

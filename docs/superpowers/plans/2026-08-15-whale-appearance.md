@@ -44,7 +44,7 @@
 ```js
 test('provisions the settings group before whale appearance', () => {
   assert.deepEqual(BUNDLED_FEATURE_PACKAGES, [
-    '@linxin666/dsh-web-ui-settings',
+    '@linxin666/dsh-client-ui-web-ui-settings',
     '@whale-desktop/dsh-whale-appearance',
   ])
 })
@@ -74,7 +74,7 @@ Use this order:
 
 ```js
 export const BUNDLED_FEATURE_PACKAGES = [
-  '@linxin666/dsh-web-ui-settings',
+  '@linxin666/dsh-client-ui-web-ui-settings',
   '@whale-desktop/dsh-whale-appearance',
 ]
 ```
@@ -319,7 +319,7 @@ Expected: tests/build PASS; release-assets intentionally FAIL while prototype ar
 
 - [ ] **Step 5: Provision into the real desktop profile and run packaged smoke**
 
-Run the provisioner against `/Users/zhengdeweishi/Library/Application Support/DeepSeek Harness Whale Desktop/dsh`, verify the profile lists `@linxin666/dsh-web-ui-settings` and `@whale-desktop/dsh-whale-appearance`, then run `pnpm smoke:packaged`.
+Run the provisioner against `/Users/zhengdeweishi/Library/Application Support/DeepSeek Harness Whale Desktop/dsh`, verify the profile lists `@linxin666/dsh-client-ui-web-ui-settings` and `@whale-desktop/dsh-whale-appearance`, then run `pnpm smoke:packaged`.
 
 - [ ] **Step 6: Manually verify the visible contract**
 
@@ -331,4 +331,3 @@ Open Settings and confirm the card is visible; switch Whale Canvas on/off; selec
 git add packages/dsh-whale-appearance/assets scripts/check-release-assets.mjs test/release-assets.test.js package.json README.md THIRD_PARTY_NOTICES.md
 git commit -m "feat: ship whale theme and dual pets"
 ```
-

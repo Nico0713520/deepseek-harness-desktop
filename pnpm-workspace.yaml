@@ -1,3 +1,6 @@
+packages:
+  - 'packages/*'
+
 blockExoticSubdeps: false
 verifyDepsBeforeRun: false
 allowBuilds:
@@ -7,3 +10,4 @@ allowBuilds:
   sharp: true
 minimumReleaseAgeExclude:
   - '@linxin666/dsh-client-ui-skin-center@0.1.12'
+  - '@linxin666/dsh-client-ui-web-ui-settings@0.1.12'

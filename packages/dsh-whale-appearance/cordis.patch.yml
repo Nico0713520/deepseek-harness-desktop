@@ -1,0 +1,3 @@
+- insert:
+    - id: whale-appearance
+      name: '@whale-desktop/dsh-whale-appearance'

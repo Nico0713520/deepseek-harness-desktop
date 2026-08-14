@@ -1,6 +1,17 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { provisionBundledPet, provisionBundledPlugin } from '../src/plugin-provisioner.js'
+import {
+  BUNDLED_FEATURE_PACKAGES,
+  provisionBundledPet,
+  provisionBundledPlugin,
+} from '../src/plugin-provisioner.js'
+
+test('provisions the settings group before whale appearance', () => {
+  assert.deepEqual(BUNDLED_FEATURE_PACKAGES, [
+    '@linxin666/dsh-client-ui-web-ui-settings',
+    '@whale-desktop/dsh-whale-appearance',
+  ])
+})
 
 test('bundled pet provisioning leaves the matching profile link unchanged', async () => {
   let installs = 0
