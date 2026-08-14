@@ -17,8 +17,9 @@ function harness(initial: SessionListState) {
   }
   const startSession = vi.fn()
   const selectPreset = vi.fn(async () => {})
-  const launcher = new SessionLauncher({ sessions, startSession, selectPreset })
-  return { launcher, publish, startSession, selectPreset }
+  const isPresetAvailable = vi.fn(async () => true)
+  const launcher = new SessionLauncher({ sessions, startSession, selectPreset, isPresetAvailable })
+  return { launcher, publish, startSession, selectPreset, isPresetAvailable }
 }
 
 async function settle(): Promise<void> {
@@ -27,6 +28,12 @@ async function settle(): Promise<void> {
 }
 
 describe('SessionLauncher', () => {
+  it('exposes host preset availability for launch controls', async () => {
+    const kit = harness({ current: undefined, byId: {} })
+    kit.isPresetAvailable.mockResolvedValue(false)
+    await expect(kit.launcher.isPresetAvailable('cordis')).resolves.toBe(false)
+  })
+
   it('stages a preset and applies it only after a blank session becomes current', async () => {
     const kit = harness({
       current: 'running',

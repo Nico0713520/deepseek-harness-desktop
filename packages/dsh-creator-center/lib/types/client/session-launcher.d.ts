@@ -14,6 +14,7 @@ export interface SessionStore {
 export interface SessionLaunchPort {
     readonly sessions: SessionStore;
     startSession(): void;
+    isPresetAvailable(presetId: string): Promise<boolean>;
     selectPreset(sessionId: string, presetId: string): Promise<void>;
 }
 export interface LaunchSnapshot {
@@ -35,6 +36,7 @@ export declare class SessionLauncher {
     subscribe: (listener: Listener) => (() => void);
     launch(presetId: string): void;
     clearError(): void;
+    isPresetAvailable(presetId: string): Promise<boolean>;
     dispose(): void;
     private publish;
     private reconcile;

@@ -5,7 +5,7 @@ import { CreatorCenter, type CreatorLauncher } from './CreatorCenter.tsx'
 
 afterEach(cleanup)
 
-function setup() {
+function setup(presetAvailable = true) {
   let snapshot: LaunchSnapshot = { busy: false, error: null, launchedPreset: null }
   const listeners = new Set<() => void>()
   const launch = vi.fn()
@@ -17,6 +17,7 @@ function setup() {
     },
     launch,
     clearError: vi.fn(),
+    isPresetAvailable: vi.fn(async () => presetAvailable),
   }
   const publish = (next: LaunchSnapshot): void => {
     snapshot = next
@@ -59,6 +60,14 @@ describe('Creator Center', () => {
     fireEvent.click(screen.getByRole('button', { name: '为我的需求生成创建说明' }))
 
     expect((screen.getByLabelText('你的安全创建说明') as HTMLTextAreaElement).value).toContain('每天整理客户反馈')
+  })
+
+  it('disables Creator launch when official Creator Mode is missing', async () => {
+    setup(false)
+
+    expect((await screen.findByRole('alert')).textContent).toContain('Agent 预设')
+    fireEvent.click(screen.getByRole('button', { name: '查看“网页调研整理”详情' }))
+    expect(screen.getByRole('button', { name: '复制提示词并开始创造' }).hasAttribute('disabled')).toBe(true)
   })
 
   it('copies before opening Creator Mode and never auto-sends', async () => {

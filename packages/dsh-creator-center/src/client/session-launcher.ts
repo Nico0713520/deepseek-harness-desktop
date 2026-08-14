@@ -17,6 +17,7 @@ export interface SessionStore {
 export interface SessionLaunchPort {
   readonly sessions: SessionStore
   startSession(): void
+  isPresetAvailable(presetId: string): Promise<boolean>
   selectPreset(sessionId: string, presetId: string): Promise<void>
 }
 
@@ -73,6 +74,10 @@ export class SessionLauncher {
   clearError(): void {
     if (this.snapshot.error === null) return
     this.publish({ ...this.snapshot, error: null })
+  }
+
+  async isPresetAvailable(presetId: string): Promise<boolean> {
+    return this.port.isPresetAvailable(presetId)
   }
 
   dispose(): void {

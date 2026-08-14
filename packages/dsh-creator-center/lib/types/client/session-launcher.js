@@ -42,6 +42,9 @@ export class SessionLauncher {
             return;
         this.publish({ ...this.snapshot, error: null });
     }
+    async isPresetAvailable(presetId) {
+        return this.port.isPresetAvailable(presetId);
+    }
     dispose() {
         if (this.disposed)
             return;

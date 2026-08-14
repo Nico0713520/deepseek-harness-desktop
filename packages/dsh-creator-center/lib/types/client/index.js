@@ -15,6 +15,12 @@ export function apply(ctx) {
     const launcher = new SessionLauncher({
         sessions: ctx.sessions.list,
         startSession: () => { ctx.workspaces.startSession(); },
+        isPresetAvailable: async (presetId) => {
+            const response = await api.agentPresets.list({});
+            if (!response.result.ok)
+                return false;
+            return response.result.value.presets.some((preset) => (preset.id === presetId && preset.broken === undefined));
+        },
         selectPreset: async (sessionId, presetId) => {
             const seat = agentPresetSeat(ctx);
             if (seat === undefined)

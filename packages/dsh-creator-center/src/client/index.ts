@@ -39,6 +39,13 @@ export function apply(ctx: ClientContext): void {
   const launcher = new SessionLauncher({
     sessions: ctx.sessions.list as unknown as SessionStore,
     startSession: () => { ctx.workspaces.startSession() },
+    isPresetAvailable: async (presetId) => {
+      const response = await api.agentPresets.list({})
+      if (!response.result.ok) return false
+      return response.result.value.presets.some((preset: { id: string; broken?: string }) => (
+        preset.id === presetId && preset.broken === undefined
+      ))
+    },
     selectPreset: async (sessionId, presetId) => {
       const seat = agentPresetSeat(ctx)
       if (seat === undefined) throw new Error('官方 Agent 预设选择器暂时不可用')

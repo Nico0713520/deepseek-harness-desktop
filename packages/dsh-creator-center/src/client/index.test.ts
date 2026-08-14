@@ -9,6 +9,9 @@ describe('Creator Center client registration', () => {
     const apiRead = vi.fn(async () => ({
       result: { ok: true, value: { content: '<!-- whale-extension-advisor -->' } },
     }))
+    const apiList = vi.fn(async () => ({
+      result: { ok: true, value: { presets: [{ id: 'cordis' }, { id: 'whale-extension-advisor' }] } },
+    }))
     let sessionState = {
       current: 'blank-session',
       byId: {
@@ -30,6 +33,7 @@ describe('Creator Center client registration', () => {
       get: () => ({
         api: {
           agentPresets: {
+            list: apiList,
             read: apiRead,
           },
         },

@@ -5,6 +5,7 @@ export interface CreatorLauncher {
     subscribe(listener: () => void): () => void;
     launch(presetId: string): void;
     clearError(): void;
+    isPresetAvailable(presetId: string): Promise<boolean>;
 }
 export interface ClipboardPort {
     writeText(text: string): Promise<void>;

@@ -367,10 +367,23 @@ ${input.template?.checks.map((item) => `- ${item}`).join("\n") ?? "- 用一个�
 			const [status, setStatus] = (0, react.useState)("");
 			const [advisorRequested, setAdvisorRequested] = (0, react.useState)(false);
 			const [closeOnLaunch, setCloseOnLaunch] = (0, react.useState)(false);
+			const [creatorAvailable, setCreatorAvailable] = (0, react.useState)(null);
 			const filters = browseMode === "use" ? USE_CATEGORIES : EXTENSION_TYPES;
 			const visibleTemplates = (0, react.useMemo)(() => templatesFor(browseMode, filter), [browseMode, filter]);
 			const selectedFilter = filters.find((item) => item.id === filter);
 			const busy = launch.busy;
+			const creatorDisabled = busy || creatorAvailable === false;
+			(0, react.useEffect)(() => {
+				let active = true;
+				launcher.isPresetAvailable("cordis").then((available) => {
+					if (active) setCreatorAvailable(available);
+				}, () => {
+					if (active) setCreatorAvailable(false);
+				});
+				return () => {
+					active = false;
+				};
+			}, [launcher]);
 			(0, react.useEffect)(() => {
 				if (closeOnLaunch && launch.launchedPreset !== null) close();
 			}, [
@@ -521,7 +534,7 @@ ${input.template?.checks.map((item) => `- ${item}`).join("\n") ?? "- 用一个�
 									}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
 										type: "button",
 										className: creator_center_module_css_default.primary,
-										disabled: busy,
+										disabled: creatorDisabled,
 										onClick: () => {
 											copyAndCreate(customPrompt);
 										},
@@ -530,6 +543,11 @@ ${input.template?.checks.map((item) => `- ${item}`).join("\n") ?? "- 用一个�
 								})]
 							})
 						]
+					}),
+					creatorAvailable === false && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
+						className: creator_center_module_css_default.fallback,
+						role: "alert",
+						children: /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "官方创造模式不可用" }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: "请到“设置 → Agent 预设”恢复或检查内置“创造模式（cordis）”。复制提示词仍可使用。" })] })
 					}),
 					/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("section", {
 						className: creator_center_module_css_default.catalog,
@@ -604,7 +622,7 @@ ${input.template?.checks.map((item) => `- ${item}`).join("\n") ?? "- 用一个�
 											})]
 										}), open && /* @__PURE__ */ (0, react_jsx_runtime.jsx)(TemplateDetails, {
 											template,
-											disabled: busy,
+											disabled: creatorDisabled,
 											onCopy: (prompt) => {
 												copyOnly(prompt);
 											},
@@ -623,12 +641,22 @@ ${input.template?.checks.map((item) => `- ${item}`).join("\n") ?? "- 用一个�
 							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "该做 Skill 还是插件？" }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: "说明书用 Skill；专用助手用 Agent 预设；固定步骤用工作流；必须写代码时才用插件。" })] }),
 							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "创造模式会怎么做？" }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: "先检查，再给计划；经你确认后写入用户目录，测试后报告启用和撤销方法。" })] }),
 							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "怎么判断创建成功？" }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: "用一个真实例子跑通；确认启用位置、验证命令和完整撤销方法都已交付。" })] }),
-							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "去哪里看源码和教程？" }), /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("p", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("a", {
-								href: "https://github.com/deepseek-ai/deepseek-harness",
-								target: "_blank",
-								rel: "noreferrer",
-								children: "官方 Harness GitHub"
-							}), " · 桌面托盘 → 扩展与教程"] })] }),
+							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "去哪里看源码和教程？" }), /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("p", { children: [
+								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("a", {
+									href: "https://github.com/deepseek-ai/deepseek-harness",
+									target: "_blank",
+									rel: "noreferrer",
+									children: "官方 Harness GitHub"
+								}),
+								" · ",
+								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("a", {
+									href: "https://github.com/zhu1090093659/dsh-web-ui",
+									target: "_blank",
+									rel: "noreferrer",
+									children: "社区 UI 示例"
+								}),
+								" · 桌面托盘 → 扩展与教程"
+							] })] }),
 							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "还是不知道选什么？" }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
 								type: "button",
 								className: creator_center_module_css_default.learnAction,
@@ -733,6 +761,9 @@ ${input.template?.checks.map((item) => `- ${item}`).join("\n") ?? "- 用一个�
 					error: null
 				});
 			}
+			async isPresetAvailable(presetId) {
+				return this.port.isPresetAvailable(presetId);
+			}
 			dispose() {
 				if (this.disposed) return;
 				this.disposed = true;
@@ -804,6 +835,11 @@ ${input.template?.checks.map((item) => `- ${item}`).join("\n") ?? "- 用一个�
 				sessions: ctx.sessions.list,
 				startSession: () => {
 					ctx.workspaces.startSession();
+				},
+				isPresetAvailable: async (presetId) => {
+					const response = await api.agentPresets.list({});
+					if (!response.result.ok) return false;
+					return response.result.value.presets.some((preset) => preset.id === presetId && preset.broken === void 0);
 				},
 				selectPreset: async (sessionId, presetId) => {
 					const seat = agentPresetSeat(ctx);

@@ -20,6 +20,7 @@ export interface CreatorLauncher {
   subscribe(listener: () => void): () => void
   launch(presetId: string): void
   clearError(): void
+  isPresetAvailable(presetId: string): Promise<boolean>
 }
 
 export interface ClipboardPort {
@@ -81,11 +82,22 @@ export function CreatorCenter({ launcher, close, clipboard = navigator.clipboard
   const [status, setStatus] = useState('')
   const [advisorRequested, setAdvisorRequested] = useState(false)
   const [closeOnLaunch, setCloseOnLaunch] = useState(false)
+  const [creatorAvailable, setCreatorAvailable] = useState<boolean | null>(null)
 
   const filters = browseMode === 'use' ? USE_CATEGORIES : EXTENSION_TYPES
   const visibleTemplates = useMemo(() => templatesFor(browseMode, filter), [browseMode, filter])
   const selectedFilter = filters.find(item => item.id === filter)
   const busy = launch.busy
+  const creatorDisabled = busy || creatorAvailable === false
+
+  useEffect(() => {
+    let active = true
+    void launcher.isPresetAvailable('cordis').then(
+      available => { if (active) setCreatorAvailable(available) },
+      () => { if (active) setCreatorAvailable(false) },
+    )
+    return () => { active = false }
+  }, [launcher])
 
   useEffect(() => {
     if (closeOnLaunch && launch.launchedPreset !== null) close()
@@ -187,13 +199,19 @@ export function CreatorCenter({ launcher, close, clipboard = navigator.clipboard
             </label>
             <div className={styles.actions}>
               <button type="button" onClick={() => { void copyOnly(customPrompt) }}>仅复制提示词</button>
-              <button type="button" className={styles.primary} disabled={busy} onClick={() => { void copyAndCreate(customPrompt) }}>
+              <button type="button" className={styles.primary} disabled={creatorDisabled} onClick={() => { void copyAndCreate(customPrompt) }}>
                 复制提示词并开始创造
               </button>
             </div>
           </div>
         )}
       </section>
+
+      {creatorAvailable === false && (
+        <div className={styles.fallback} role="alert">
+          <div><strong>官方创造模式不可用</strong><p>请到“设置 → Agent 预设”恢复或检查内置“创造模式（cordis）”。复制提示词仍可使用。</p></div>
+        </div>
+      )}
 
       <section className={styles.catalog}>
         <header className={styles.catalogHeader}>
@@ -247,7 +265,7 @@ export function CreatorCenter({ launcher, close, clipboard = navigator.clipboard
                 {open && (
                   <TemplateDetails
                     template={template}
-                    disabled={busy}
+                    disabled={creatorDisabled}
                     onCopy={(prompt) => { void copyOnly(prompt) }}
                     onCreate={(prompt) => { void copyAndCreate(prompt) }}
                   />
@@ -262,7 +280,7 @@ export function CreatorCenter({ launcher, close, clipboard = navigator.clipboard
         <div><strong>该做 Skill 还是插件？</strong><p>说明书用 Skill；专用助手用 Agent 预设；固定步骤用工作流；必须写代码时才用插件。</p></div>
         <div><strong>创造模式会怎么做？</strong><p>先检查，再给计划；经你确认后写入用户目录，测试后报告启用和撤销方法。</p></div>
         <div><strong>怎么判断创建成功？</strong><p>用一个真实例子跑通；确认启用位置、验证命令和完整撤销方法都已交付。</p></div>
-        <div><strong>去哪里看源码和教程？</strong><p><a href="https://github.com/deepseek-ai/deepseek-harness" target="_blank" rel="noreferrer">官方 Harness GitHub</a> · 桌面托盘 → 扩展与教程</p></div>
+        <div><strong>去哪里看源码和教程？</strong><p><a href="https://github.com/deepseek-ai/deepseek-harness" target="_blank" rel="noreferrer">官方 Harness GitHub</a> · <a href="https://github.com/zhu1090093659/dsh-web-ui" target="_blank" rel="noreferrer">社区 UI 示例</a> · 桌面托盘 → 扩展与教程</p></div>
         <div><strong>还是不知道选什么？</strong><p><button type="button" className={styles.learnAction} disabled={busy} onClick={askAdvisor}>让 AI 帮我选</button></p></div>
       </section>
 
