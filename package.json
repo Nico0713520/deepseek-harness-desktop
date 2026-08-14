@@ -10,15 +10,16 @@
   "scripts": {
     "start": "electron .",
     "test": "node --test test/*.test.js",
+    "check:release-assets": "node scripts/check-release-assets.mjs",
     "build:win-launcher": "powershell -NoLogo -NoProfile -ExecutionPolicy Bypass -File scripts/build-windows-launcher.ps1",
     "test:win-console": "node scripts/test-windows-hidden-console.mjs",
     "smoke:packaged": "node scripts/smoke-packaged.mjs",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder",
+    "dist": "pnpm run check:release-assets && electron-builder",
     "dist:mac": "pnpm run dist:mac:arm64",
-    "dist:mac:arm64": "electron-builder --mac dmg zip --arm64 --publish never",
-    "dist:mac:x64": "electron-builder --mac dmg zip --x64 --publish never",
-    "dist:win": "pnpm run build:win-launcher && electron-builder --win nsis zip --x64 --publish never"
+    "dist:mac:arm64": "pnpm run check:release-assets && electron-builder --mac dmg zip --arm64 --publish never",
+    "dist:mac:x64": "pnpm run check:release-assets && electron-builder --mac dmg zip --x64 --publish never",
+    "dist:win": "pnpm run check:release-assets && pnpm run build:win-launcher && electron-builder --win nsis zip --x64 --publish never"
   },
   "dependencies": {
     "@deepseek-ai/cordis-plugin-group": "1.0.1",

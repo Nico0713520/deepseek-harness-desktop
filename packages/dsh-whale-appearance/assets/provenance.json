@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "assets": [
+    {
+      "file": "assets/prototype/whale-maid.jpg",
+      "source": "codex-clipboard-f8176cc0-10cf-4a4d-9ff4-ddd9ca442384.jpg",
+      "sha256": "a149f202a89493e25c44a4265aade5cad692e7317f1c181b1963080ae143b540",
+      "providedBy": "user",
+      "capturedDate": "2026-08-15",
+      "redistribution": "prototype-only",
+      "publicRelease": false
+    },
+    {
+      "file": "assets/prototype/abstract-whale.jpg",
+      "source": "codex-clipboard-fcfd6913-79d8-49dc-8957-bfd02637793b.jpg",
+      "sha256": "427ca3fe1a9f4589b6a2be168b84373f066ce316e50c71012455a4f4b764cbad",
+      "providedBy": "user",
+      "capturedDate": "2026-08-15",
+      "redistribution": "prototype-only",
+      "publicRelease": false
+    },
+    {
+      "file": "assets/prototype/theme-reference.jpg",
+      "source": "codex-clipboard-cdd70be0-82ec-4820-82e5-f54de2c8ef9d.jpg",
+      "sha256": "6e44403806d60f1ef359c16745894386559acd9e38e1617c94618d95202ea012",
+      "providedBy": "user",
+      "capturedDate": "2026-08-15",
+      "redistribution": "prototype-only",
+      "publicRelease": false
+    }
+  ]
+}

@@ -49,3 +49,19 @@ The application bundles packages published under the `@deepseek-ai` npm
 scope. Their package versions and license files are retained inside the
 packaged dependency tree. This project is an unofficial community desktop
 distribution and is not endorsed by DeepSeek.
+
+## Local Whale Appearance prototype artwork
+
+The files under `packages/dsh-whale-appearance/assets/prototype/` were
+supplied by the user as visual references. Their authorship and public
+redistribution rights have not been established. They are therefore marked
+`prototype-only` in `packages/dsh-whale-appearance/assets/provenance.json`
+and are blocked from public release artifacts by the release-assets check.
+They are not relicensed by this repository's MIT License.
+
+## DeepSeek Harness client build helpers
+
+`shared/tsdown.client.ts` and `shared/web-platform.ts` are adapted from the
+official DeepSeek Harness client build setup so the local TypeScript/React
+plugin can use Harness's client module loader. The upstream package license
+files remain in the bundled `@deepseek-ai` dependency tree.
