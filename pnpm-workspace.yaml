@@ -1,0 +1,7 @@
+blockExoticSubdeps: false
+verifyDepsBeforeRun: false
+allowBuilds:
+  electron: true
+  electron-winstaller: true
+  node-pty: true
+  sharp: true
