@@ -70,47 +70,37 @@ try {
   if (!html.includes('__DSH_BOOT__')) {
     throw new Error('Packaged DeepSeek Harness did not return its Web UI')
   }
-  const petStateResponse = await fetch(new URL('/api/pet/state', url))
-  if (!petStateResponse.ok) {
-    throw new Error(`Packaged whale pet state returned HTTP ${petStateResponse.status}`)
+  const appearanceStateResponse = await fetch(new URL('/api/whale-appearance/state', url))
+  if (!appearanceStateResponse.ok) {
+    throw new Error(`Packaged Whale Appearance state returned HTTP ${appearanceStateResponse.status}`)
   }
-  const petManifestResponse = await fetch(new URL('/pet/whale/pet.json', url))
-  if (!petManifestResponse.ok) {
-    throw new Error(`Packaged whale pet manifest returned HTTP ${petManifestResponse.status}`)
+  const initialAppearance = await appearanceStateResponse.json()
+  if (initialAppearance.themeEnabled !== false || initialAppearance.pet !== 'off') {
+    throw new Error(`Packaged Whale Appearance did not start from official defaults: ${JSON.stringify(initialAppearance)}`)
   }
-  const petManifest = await petManifestResponse.json()
-  if (petManifest.id !== 'whale-girl' || !Array.isArray(petManifest.frames)) {
-    throw new Error('Packaged whale pet did not return its expected asset manifest')
+  for (const file of ['whale-maid.jpg', 'abstract-whale.jpg', 'theme-reference.jpg']) {
+    const assetResponse = await fetch(new URL(`/whale-appearance/assets/${file}`, url), { method: 'HEAD' })
+    if (!assetResponse.ok) {
+      throw new Error(`Packaged Whale Appearance asset ${file} returned HTTP ${assetResponse.status}`)
+    }
   }
-  const skinStateResponse = await fetch(new URL('/api/skin-center/state', url))
-  if (!skinStateResponse.ok) {
-    throw new Error(`Packaged skin center state returned HTTP ${skinStateResponse.status}`)
-  }
-  const skinState = await skinStateResponse.json()
-  if (skinState.ok !== true) {
-    throw new Error(`Packaged skin center returned invalid state: ${JSON.stringify(skinState)}`)
-  }
-  const skinBundleResponse = await fetch(new URL('/api/skin-center/bundle/whale-song', url))
-  if (!skinBundleResponse.ok) {
-    throw new Error(`Packaged Whale Song bundle returned HTTP ${skinBundleResponse.status}`)
-  }
-  const applySkinResponse = await fetch(new URL('/api/skin-center/apply', url), {
+  const applyAppearanceResponse = await fetch(new URL('/api/whale-appearance/config', url), {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ skin: 'whale-song' }),
+    body: JSON.stringify({ themeEnabled: true, pet: 'abstract-whale', petScale: 1.2 }),
   })
-  const appliedSkin = await applySkinResponse.json()
-  if (!applySkinResponse.ok || appliedSkin.active !== 'whale-song') {
-    throw new Error(`Packaged Whale Song apply failed: ${JSON.stringify(appliedSkin)}`)
+  const appliedAppearance = await applyAppearanceResponse.json()
+  if (!applyAppearanceResponse.ok || appliedAppearance.themeEnabled !== true || appliedAppearance.pet !== 'abstract-whale' || appliedAppearance.petScale !== 1.2) {
+    throw new Error(`Packaged Whale Appearance apply failed: ${JSON.stringify(appliedAppearance)}`)
   }
-  const resetSkinResponse = await fetch(new URL('/api/skin-center/apply', url), {
+  const resetAppearanceResponse = await fetch(new URL('/api/whale-appearance/config', url), {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ official: true }),
+    body: JSON.stringify({ themeEnabled: false, pet: 'off', petScale: 1, petPosition: { right: 24, bottom: 24 } }),
   })
-  const resetSkin = await resetSkinResponse.json()
-  if (!resetSkinResponse.ok || resetSkin.active !== 'none') {
-    throw new Error(`Packaged official skin reset failed: ${JSON.stringify(resetSkin)}`)
+  const resetAppearance = await resetAppearanceResponse.json()
+  if (!resetAppearanceResponse.ok || resetAppearance.themeEnabled !== false || resetAppearance.pet !== 'off') {
+    throw new Error(`Packaged official appearance reset failed: ${JSON.stringify(resetAppearance)}`)
   }
   if (process.platform === 'win32' && !html.includes('@deepseek-ai/dsh-client-ui-directory-picker-browse')) {
     throw new Error('Packaged Windows app did not mount the browse directory picker')

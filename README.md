@@ -74,7 +74,7 @@ The smoke test creates a temporary `DSH_HOME`, starts the packaged runtime, veri
 - Platform: macOS ARM64
 - App: `dist/mac-arm64/DeepSeek Harness Whale Desktop.app`
 - Source tests: 31 shell tests and 10 Whale Appearance tests passing
-- Packaged runtime smoke test: official Web UI, whale pet API/assets, Whale Song bundle/apply, and official-theme reset verified over HTTP 200
+- Packaged runtime smoke test: official Web UI, Whale Appearance state/assets, theme/pet apply, and official-appearance reset verified over HTTP 200
 - Signing: development ad-hoc signature only; not notarized for public distribution yet
 
 ## Project boundaries
