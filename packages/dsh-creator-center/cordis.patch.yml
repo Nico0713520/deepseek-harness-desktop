@@ -1,0 +1,3 @@
+- insert:
+    - id: whale-creator-center
+      name: '@whale-desktop/dsh-creator-center'

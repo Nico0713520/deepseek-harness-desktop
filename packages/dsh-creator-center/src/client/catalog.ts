@@ -1,0 +1,181 @@
+export type BrowseMode = 'use' | 'type'
+export type UseCategory = 'daily' | 'research' | 'github' | 'automation' | 'personalization'
+export type ExtensionType = 'agent-preset' | 'skill' | 'workflow' | 'plugin' | 'ui-extension'
+
+export interface CatalogFilter<T extends string> {
+  readonly id: T | 'all'
+  readonly label: string
+  readonly description?: string
+}
+
+export interface CreatorTemplate {
+  readonly id: string
+  readonly title: string
+  readonly benefit: string
+  readonly useCategory: UseCategory
+  readonly extensionTypes: readonly ExtensionType[]
+  readonly difficulty: '入门' | '进阶' | '高级'
+  readonly duration: string
+  readonly suitableFor: string
+  readonly result: string
+  readonly changes: string
+  readonly risk: string
+  readonly checks: readonly string[]
+  readonly goal: string
+}
+
+export const USE_CATEGORIES: readonly CatalogFilter<UseCategory>[] = [
+  { id: 'all', label: '全部' },
+  { id: 'daily', label: '日常效率' },
+  { id: 'research', label: '资料与研究' },
+  { id: 'github', label: '编程与 GitHub' },
+  { id: 'automation', label: '自动化' },
+  { id: 'personalization', label: '个性化' },
+]
+
+export const EXTENSION_TYPES: readonly CatalogFilter<ExtensionType>[] = [
+  { id: 'all', label: '全部' },
+  { id: 'agent-preset', label: 'Agent 预设', description: '把角色、工具和 Skill 组合成一个专用助手。' },
+  { id: 'skill', label: 'Skill', description: '把一套稳定做法写成 AI 可以反复调用的说明书。' },
+  { id: 'workflow', label: '工作流', description: '把多个固定步骤按顺序或条件自动执行。' },
+  { id: 'plugin', label: '插件', description: '用代码接入新工具、服务或底层能力。' },
+  { id: 'ui-extension', label: '界面扩展', description: '在不改官方聊天核心的前提下增加设置页或视觉功能。' },
+]
+
+export const EXTENSION_TYPE_LABELS: Readonly<Record<ExtensionType, string>> = {
+  'agent-preset': 'Agent 预设',
+  skill: 'Skill',
+  workflow: '工作流',
+  plugin: '插件',
+  'ui-extension': '界面扩展',
+}
+
+export const CREATOR_TEMPLATES: readonly CreatorTemplate[] = [
+  {
+    id: 'weekly-report',
+    title: '每周工作总结',
+    benefit: '把零散笔记或项目变更整理成结构清楚的周报。',
+    useCategory: 'daily',
+    extensionTypes: ['skill'],
+    difficulty: '入门',
+    duration: '约 5–10 分钟',
+    suitableFor: '你每周都在重复整理记录，但格式基本固定。',
+    result: '一个可重复调用的周报 Skill，包含固定结构和缺失信息提醒。',
+    changes: '新增用户自己的 Skill 文件，不修改官方代码。',
+    risk: '低；创建前要确认周报里是否包含敏感信息。',
+    checks: ['用一份真实笔记生成周报', '缺少数据时明确询问，不编造结果', '给出 Skill 的启用和撤销位置'],
+    goal: '创建一个“每周工作总结”能力：把我提供的零散笔记、项目变更和数据整理成固定格式的周报；信息不足时先询问，不得编造。',
+  },
+  {
+    id: 'company-sop',
+    title: '公司 SOP 助手',
+    benefit: '让 AI 按你提供的流程做事，并输出可检查的清单。',
+    useCategory: 'daily',
+    extensionTypes: ['agent-preset', 'skill'],
+    difficulty: '进阶',
+    duration: '约 10–20 分钟',
+    suitableFor: '你有稳定的操作规范，希望 AI 每次都按同一流程执行。',
+    result: '一个专用 Agent 预设和一份 SOP Skill，职责与步骤分开维护。',
+    changes: '新增用户 Agent 预设与 Skill 目录。',
+    risk: '中；必须标出需要人工批准的步骤和禁止自动执行的动作。',
+    checks: ['使用一份示例 SOP 跑完整流程', '高风险步骤停在人工确认处', '输出逐项完成状态和异常原因'],
+    goal: '根据我提供的公司 SOP 创建一个专用助手。它必须逐项执行、记录完成状态，在高风险或信息不全时停下来向我确认。',
+  },
+  {
+    id: 'web-research',
+    title: '网页调研整理',
+    benefit: '搜索、对比多个来源，并交付带链接的简明结论。',
+    useCategory: 'research',
+    extensionTypes: ['agent-preset'],
+    difficulty: '入门',
+    duration: '约 10–15 分钟',
+    suitableFor: '你经常调研产品、行业或技术，需要保留证据来源。',
+    result: '一个先检索、再交叉验证、最后总结的调研 Agent 预设。',
+    changes: '新增用户 Agent 预设，不改浏览器和官方搜索能力。',
+    risk: '低；必须区分来源事实、推断和未知信息。',
+    checks: ['至少比较两个独立来源', '每个关键结论附可访问链接', '明确标注推断、冲突与日期'],
+    goal: '创建一个网页调研助手：先搜索和比较多个可靠来源，再输出简明结论；关键事实必须带链接，并区分事实、推断和未知。',
+  },
+  {
+    id: 'file-data-analysis',
+    title: '文件与数据分析',
+    benefit: '把 CSV、Excel 或本地资料整理成可复用的分析报告。',
+    useCategory: 'research',
+    extensionTypes: ['skill'],
+    difficulty: '进阶',
+    duration: '约 10–20 分钟',
+    suitableFor: '你反复使用相同口径查看表格、文档或项目文件。',
+    result: '一份包含输入检查、分析口径和输出结构的数据分析 Skill。',
+    changes: '新增用户 Skill；测试只读取示例文件。',
+    risk: '中；需要先确认文件权限、隐私和指标口径。',
+    checks: ['先报告文件字段与缺失值', '计算口径可复查', '不覆盖原始文件并说明输出位置'],
+    goal: '创建一个文件与数据分析 Skill：读取我选择的 CSV、Excel 或资料文件，先检查字段和缺失值，再按确认过的口径生成可复查报告；不得覆盖原文件。',
+  },
+  {
+    id: 'github-review',
+    title: 'GitHub 代码审查',
+    benefit: '按严重程度检查代码变更，并给出证据和修复建议。',
+    useCategory: 'github',
+    extensionTypes: ['agent-preset', 'skill'],
+    difficulty: '进阶',
+    duration: '约 15–25 分钟',
+    suitableFor: '你希望每次提交或 PR 都按统一标准审查。',
+    result: '一个代码审查 Agent 预设和可复用的审查规则 Skill。',
+    changes: '新增用户 Agent 预设与 Skill，不自动提交或推送。',
+    risk: '中；未经确认不得修改代码、提交、推送或创建 PR。',
+    checks: ['问题按严重程度排序', '每条问题带文件位置和可验证证据', '没有问题时明确说明检查范围'],
+    goal: '创建一个 GitHub 代码审查助手：检查指定变更，按严重程度列出问题、证据和修复建议；默认只读，不得自动修改、提交、推送或创建 PR。',
+  },
+  {
+    id: 'project-scaffold',
+    title: '项目脚手架助手',
+    benefit: '根据固定技术栈创建项目，并自动验证最小运行路径。',
+    useCategory: 'github',
+    extensionTypes: ['agent-preset'],
+    difficulty: '进阶',
+    duration: '约 15–30 分钟',
+    suitableFor: '你经常创建同类项目，希望目录、依赖和检查保持一致。',
+    result: '一个知道你的技术栈、目录规范和验收命令的专用 Agent。',
+    changes: '新增用户 Agent 预设；仅在用户选定的新项目目录创建文件。',
+    risk: '中；外部依赖安装和覆盖现有文件必须单独确认。',
+    checks: ['在临时目录创建最小示例', '运行构建或启动检查', '列出依赖、生成文件和清理方法'],
+    goal: '创建一个项目脚手架助手：先询问技术栈和目标目录，给出文件计划，经确认后创建最小可运行项目并执行验证；不得覆盖现有文件。',
+  },
+  {
+    id: 'scheduled-check',
+    title: '定时检查与提醒',
+    benefit: '按固定时间检查一个条件，只有需要处理时才提醒。',
+    useCategory: 'automation',
+    extensionTypes: ['workflow'],
+    difficulty: '高级',
+    duration: '约 15–30 分钟',
+    suitableFor: '你有重复巡检、状态检查或定期汇总任务。',
+    result: '一个明确时间、输入、判断条件和通知内容的工作流。',
+    changes: '新增用户工作流或自动化配置。',
+    risk: '中；时间、时区、凭据和外部通知都要单独确认。',
+    checks: ['显示下一次运行时间和时区', '用一次手动运行验证条件', '提供暂停、恢复和删除方法'],
+    goal: '创建一个定时检查与提醒工作流：先向我确认检查对象、时间、时区、触发条件和提醒内容；支持手动试跑、暂停和删除。',
+  },
+  {
+    id: 'custom-ui-theme',
+    title: '自定义界面与主题',
+    benefit: '增加设置页或视觉主题，同时保留官方聊天核心。',
+    useCategory: 'personalization',
+    extensionTypes: ['plugin', 'ui-extension'],
+    difficulty: '高级',
+    duration: '约 20–40 分钟',
+    suitableFor: '你想增加主题、桌宠、快捷入口或独立设置功能。',
+    result: '一个可关闭、可卸载、失败时回退官方界面的 UI 扩展。',
+    changes: '新增用户 UI 插件和本地资源，不直接改官方前端源码。',
+    risk: '中；图片、字体和社区代码必须核对来源与许可证。',
+    checks: ['关闭扩展后恢复官方界面', '不遮挡官方输入框和侧栏', '记录资源来源、许可证和卸载方法'],
+    goal: '创建一个可逆的 DeepSeek Harness 界面扩展：只通过官方扩展接口增加设置或视觉功能，不改官方聊天控件；关闭或失败时恢复官方界面。',
+  },
+]
+
+export function templatesFor(mode: BrowseMode, filter: string): readonly CreatorTemplate[] {
+  if (filter === 'all') return CREATOR_TEMPLATES
+  return CREATOR_TEMPLATES.filter(item => mode === 'use'
+    ? item.useCategory === filter
+    : item.extensionTypes.includes(filter as ExtensionType))
+}
