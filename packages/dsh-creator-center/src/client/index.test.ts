@@ -6,26 +6,37 @@ describe('Creator Center client registration', () => {
     const registrations: Array<Record<string, unknown>> = []
     const sessionListeners = new Set<() => void>()
     const noteAgentPreset = vi.fn()
-    const apiSelect = vi.fn(async () => ({ result: { ok: true, value: { agentPreset: 'whale-extension-advisor' } } }))
+    const apiRead = vi.fn(async () => ({
+      result: { ok: true, value: { content: '<!-- whale-extension-advisor -->' } },
+    }))
+    let sessionState = {
+      current: 'blank-session',
+      byId: {
+        'blank-session': { id: 'blank-session', blank: true, agentPreset: 'standard' },
+      },
+    }
+    let seatState = { current: 'standard', error: null as string | null }
     const presetSelect = vi.fn(async (presetId: string) => {
+      seatState = { current: presetId, error: null }
+      sessionState = {
+        ...sessionState,
+        byId: {
+          'blank-session': { ...sessionState.byId['blank-session'], agentPreset: presetId },
+        },
+      }
       noteAgentPreset('blank-session', presetId)
     })
     const ctx = {
       get: () => ({
         api: {
           agentPresets: {
-            select: apiSelect,
+            read: apiRead,
           },
         },
       }),
       sessions: {
         list: {
-          getSnapshot: () => ({
-            current: 'blank-session',
-            byId: {
-              'blank-session': { id: 'blank-session', blank: true },
-            },
-          }),
+          getSnapshot: () => sessionState,
           subscribe(listener: () => void) {
             sessionListeners.add(listener)
             return () => { sessionListeners.delete(listener) }
@@ -38,7 +49,10 @@ describe('Creator Center client registration', () => {
       slots: {
         entriesOfSlot(name: string) {
           expect(name).toBe('conversation.hero.agentPreset')
-          return [{ inject: () => ({ select: presetSelect }) }]
+          return [{ inject: () => ({
+            hooks: { agentPresetSeat: { getSnapshot: () => seatState } },
+            select: presetSelect,
+          }) }]
         },
         inject(name: string, factory: () => unknown) {
           expect(name).toBe('settings.section')
@@ -53,7 +67,7 @@ describe('Creator Center client registration', () => {
 
     apply(ctx as never)
 
-    expect(inject).toEqual(['slots', 'sessions', 'workspaces'])
+    expect(inject).toEqual(['slots', 'connection', 'sessions', 'workspaces'])
     expect(registrations).toHaveLength(1)
     expect(registrations[0]).toMatchObject({
       name: 'settings.section',
@@ -69,6 +83,6 @@ describe('Creator Center client registration', () => {
       expect(noteAgentPreset).toHaveBeenCalledWith('blank-session', 'whale-extension-advisor')
     })
     expect(presetSelect).toHaveBeenCalledWith('whale-extension-advisor')
-    expect(apiSelect).not.toHaveBeenCalled()
+    expect(apiRead).toHaveBeenCalledWith({ agentPreset: 'whale-extension-advisor' })
   })
 })

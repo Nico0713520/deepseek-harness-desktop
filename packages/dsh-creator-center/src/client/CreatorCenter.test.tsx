@@ -104,4 +104,16 @@ describe('Creator Center', () => {
     await vi.waitFor(() => expect(kit.launch).toHaveBeenLastCalledWith('cordis'))
     expect(kit.clipboard.writeText).toHaveBeenCalledOnce()
   })
+
+  it('keeps Settings open and explains an ordinary Creator Mode launch failure', async () => {
+    const kit = setup()
+    fireEvent.click(screen.getByRole('button', { name: '查看“网页调研整理”详情' }))
+    fireEvent.click(screen.getByRole('button', { name: '复制提示词并开始创造' }))
+    await vi.waitFor(() => expect(kit.launch).toHaveBeenCalledWith('cordis'))
+
+    kit.publish({ busy: false, error: '创造模式不可用', launchedPreset: null })
+
+    expect((await screen.findByRole('alert')).textContent).toContain('提示词已复制，但创造会话未能启动')
+    expect(kit.close).not.toHaveBeenCalled()
+  })
 })

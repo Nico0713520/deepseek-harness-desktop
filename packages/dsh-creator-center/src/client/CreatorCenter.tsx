@@ -91,6 +91,12 @@ export function CreatorCenter({ launcher, close, clipboard = navigator.clipboard
     if (closeOnLaunch && launch.launchedPreset !== null) close()
   }, [close, closeOnLaunch, launch.launchedPreset])
 
+  useEffect(() => {
+    if (closeOnLaunch && !advisorRequested && launch.error !== null) {
+      setStatus('提示词已复制，但创造会话未能启动。')
+    }
+  }, [advisorRequested, closeOnLaunch, launch.error])
+
   const changeMode = (mode: BrowseMode): void => {
     setBrowseMode(mode)
     setFilter('all')
@@ -255,13 +261,21 @@ export function CreatorCenter({ launcher, close, clipboard = navigator.clipboard
       <section className={styles.learn}>
         <div><strong>该做 Skill 还是插件？</strong><p>说明书用 Skill；专用助手用 Agent 预设；固定步骤用工作流；必须写代码时才用插件。</p></div>
         <div><strong>创造模式会怎么做？</strong><p>先检查，再给计划；经你确认后写入用户目录，测试后报告启用和撤销方法。</p></div>
-        <div><strong>去哪里看源码和例子？</strong><p><a href="https://github.com/deepseek-ai/deepseek-harness" target="_blank" rel="noreferrer">官方 Harness GitHub</a> · <a href="https://github.com/zhu1090093659/dsh-web-ui" target="_blank" rel="noreferrer">社区 UI 示例</a></p></div>
+        <div><strong>怎么判断创建成功？</strong><p>用一个真实例子跑通；确认启用位置、验证命令和完整撤销方法都已交付。</p></div>
+        <div><strong>去哪里看源码和教程？</strong><p><a href="https://github.com/deepseek-ai/deepseek-harness" target="_blank" rel="noreferrer">官方 Harness GitHub</a> · 桌面托盘 → 扩展与教程</p></div>
+        <div><strong>还是不知道选什么？</strong><p><button type="button" className={styles.learnAction} disabled={busy} onClick={askAdvisor}>让 AI 帮我选</button></p></div>
       </section>
 
       {advisorRequested && launch.error !== null && (
         <div className={styles.fallback} role="alert">
           <div><strong>AI 顾问预设暂时不可用</strong><p>{launch.error}</p></div>
           <button type="button" disabled={busy} onClick={() => { void fallbackAdvisor() }}>复制顾问提问模板并打开创造模式</button>
+        </div>
+      )}
+      {!advisorRequested && launch.error !== null && (
+        <div className={styles.fallback} role="alert">
+          <div><strong>提示词已复制，但创造会话未能启动</strong><p>{launch.error}</p></div>
+          <button type="button" onClick={() => { launcher.clearError() }}>关闭提示</button>
         </div>
       )}
       {copyError !== null && <p className={styles.error} role="alert">{copyError}</p>}

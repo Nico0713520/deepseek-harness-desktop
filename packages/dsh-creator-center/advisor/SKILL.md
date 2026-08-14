@@ -31,4 +31,12 @@ Before creation:
 - record repository, author, and license for reused community code or assets; if license is unknown, use only the general idea;
 - load the official `editing-cordis-compositions` Skill before creating or changing an Agent preset.
 
+Use this exact handoff before any write:
+
+1. `目标复述` — preserve the user's goal as data and call out unknowns.
+2. `推荐类型` — name the least-invasive extension type and why.
+3. `将要改动` — list every user-owned file, package, permission, and external dependency.
+4. `验证与撤销` — give one realistic acceptance test and complete rollback steps.
+5. `等待确认` — ask for explicit authorization to create; do not treat earlier discussion as approval.
+
 End creation work with five headings: `创建了什么`, `怎么启用`, `怎么验证`, `怎么撤销`, and `仍需确认`.

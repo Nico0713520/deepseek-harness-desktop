@@ -5,8 +5,16 @@ import { CreatorCenter } from './CreatorCenter.tsx'
 import { SessionLauncher, type SessionListState, type SessionStore } from './session-launcher.ts'
 
 interface AgentPresetSeatFace {
+  hooks: {
+    agentPresetSeat: {
+      getSnapshot(): { current: string; error: string | null }
+    }
+  }
   select(presetId: string): Promise<void>
 }
+
+const ADVISOR_PRESET_ID = 'whale-extension-advisor'
+const ADVISOR_MARKER = '<!-- whale-extension-advisor -->'
 
 function agentPresetSeat(ctx: ClientContext): AgentPresetSeatFace | undefined {
   const slots = ctx.slots as unknown as {
@@ -24,16 +32,30 @@ declare module '@deepseek-ai/dsh-client-ui-slots' {
   }
 }
 
-export const inject = ['slots', 'sessions', 'workspaces']
+export const inject = ['slots', 'connection', 'sessions', 'workspaces']
 
 export function apply(ctx: ClientContext): void {
+  const { api } = ctx.get('connection')
   const launcher = new SessionLauncher({
     sessions: ctx.sessions.list as unknown as SessionStore,
     startSession: () => { ctx.workspaces.startSession() },
-    selectPreset: async (_sessionId, presetId) => {
+    selectPreset: async (sessionId, presetId) => {
       const seat = agentPresetSeat(ctx)
       if (seat === undefined) throw new Error('官方 Agent 预设选择器暂时不可用')
+      if (presetId === ADVISOR_PRESET_ID) {
+        const response = await api.agentPresets.read({ agentPreset: presetId })
+        if (!response.result.ok || !response.result.value.content.includes(ADVISOR_MARKER)) {
+          throw new Error('内置 AI 扩展顾问不可用，请改用官方创造模式')
+        }
+      }
       await seat.select(presetId)
+      const seatState = seat.hooks.agentPresetSeat.getSnapshot()
+      if (seatState.error !== null) throw new Error(seatState.error)
+      const sessions = ctx.sessions.list.getSnapshot()
+      const current = sessions.current === undefined ? undefined : sessions.byId[sessions.current]
+      if (current?.id !== sessionId || current.agentPreset !== presetId || seatState.current !== presetId) {
+        throw new Error('预设未能应用到新的空白会话')
+      }
     },
   })
 

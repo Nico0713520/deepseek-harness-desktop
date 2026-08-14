@@ -1,4 +1,4 @@
-import { cpSync, mkdtempSync, rmSync } from 'node:fs'
+import { cpSync, mkdtempSync, readFileSync, rmSync } from 'node:fs'
 import { once } from 'node:events'
 import os from 'node:os'
 import path from 'node:path'
@@ -8,6 +8,7 @@ import {
   BUNDLED_FEATURE_PACKAGES,
   provisionBundledPlugin,
 } from '../src/plugin-provisioner.js'
+import { ADVISOR_PRESET_ID, provisionAdvisorPreset } from '../src/advisor-preset-provisioner.js'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const defaultAppPath = process.platform === 'win32'
@@ -54,6 +55,21 @@ try {
     if (provision.status === 'failed') {
       throw new Error(`Packaged feature provisioning failed for ${packageName}: ${provision.error}`)
     }
+  }
+  const advisorProvision = await provisionAdvisorPreset({
+    dshHome: runtimeHome,
+    sourcePresetDir: path.join(resourcesRoot, 'node_modules', '@deepseek-ai', 'dsh', 'config', 'agent-presets', 'cordis'),
+    advisorSkillDir: path.join(resourcesRoot, 'node_modules', '@whale-desktop', 'dsh-creator-center', 'advisor'),
+  })
+  if (advisorProvision.status !== 'installed') {
+    throw new Error(`Packaged AI Extension Advisor provisioning failed: ${JSON.stringify(advisorProvision)}`)
+  }
+  const advisorComposition = readFileSync(
+    path.join(runtimeHome, '.agent-presets', ADVISOR_PRESET_ID, 'agent.cordis.yml'),
+    'utf8',
+  )
+  if (!advisorComposition.includes('<!-- whale-extension-advisor -->')) {
+    throw new Error('Packaged AI Extension Advisor marker is missing')
   }
   service = startDshService({
     electronExecutable,

@@ -75,10 +75,11 @@
 .promptLabel textarea { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11px; font-weight: 400; }
 .actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 10px; }
 
-.learn { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.learn { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; }
 .learn strong { font-size: 13px; }
 .learn p { margin: 5px 0 0; color: var(--dsw-alias-text-secondary, #687385); font-size: 11px; line-height: 1.5; }
 .learn a { color: #315eb8; }
+.learnAction { border: 0; background: transparent; color: #315eb8; cursor: pointer; padding: 0; font-weight: 700; }
 .fallback { display: flex; justify-content: space-between; gap: 14px; align-items: center; border: 1px solid #e7bd75; border-radius: 12px; background: #fff9ed; padding: 12px 14px; }
 .fallback p { margin: 3px 0 0; color: #795d2f; font-size: 11px; }
 .error { margin: 8px 0 0; color: #c93636; font-size: 12px; }

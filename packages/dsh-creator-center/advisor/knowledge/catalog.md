@@ -17,7 +17,15 @@ This seed catalog is deliberately local and small. Future repositories and tutor
 
 ## Source labels
 
-- Official Harness repository: https://github.com/deepseek-ai/deepseek-harness — prefer its current preset, Skill, workflow, and plugin documentation.
-- Community UI example: https://github.com/zhu1090093659/dsh-web-ui — community-maintained; verify the current license and compatibility before reuse.
+- Official Harness repository: https://github.com/deepseek-ai/deepseek-harness — official source; MIT license in the repository root; prefer its current preset, Skill, workflow, and plugin documentation.
+- Community UI example: https://github.com/zhu1090093659/dsh-web-ui — community-maintained; license not yet confirmed in this catalog, so use only general ideas until it is reviewed.
 
 Never claim that a community item is official, safe, compatible, or installable until its repository, version, permissions, and license have been checked.
+
+## Beginner troubleshooting
+
+- **The preset did not open:** keep Settings open, copy the visible prompt manually, and select official `创造模式` from the new-session preset menu.
+- **Creation asks to edit official source:** stop and request a user-owned Skill, preset, workflow, plugin, or project directory instead.
+- **The result cannot be verified:** ask for one real input and a deterministic command or checklist before enabling it.
+- **A repository has no clear license:** do not copy code or assets; summarize the general pattern and wait for a reviewed alternative.
+- **An install asks for credentials or a remote script:** explain why it is needed and obtain separate explicit approval.
