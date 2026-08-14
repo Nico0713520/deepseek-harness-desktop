@@ -5,3 +5,5 @@ allowBuilds:
   electron-winstaller: true
   node-pty: true
   sharp: true
+minimumReleaseAgeExclude:
+  - '@linxin666/dsh-client-ui-skin-center@0.1.12'

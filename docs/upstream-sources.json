@@ -25,5 +25,21 @@
       "packages/dsh-pet/"
     ],
     "assets": "BSD-3-Clause-package-assets"
+  },
+  {
+    "id": "zhu1090093659/dsh-web-ui:skin-center",
+    "repository": "https://github.com/zhu1090093659/dsh-web-ui",
+    "package": "@linxin666/dsh-client-ui-skin-center@0.1.12",
+    "license": "Apache-2.0 metadata; BSD-3-Clause bundled LICENSE",
+    "paths": ["packages/skins/skin-center/"],
+    "assets": "none"
+  },
+  {
+    "id": "zhu1090093659/dsh-web-ui:whale-song",
+    "repository": "https://github.com/zhu1090093659/dsh-web-ui",
+    "package": "@linxin666/dsh-client-ui-skin-whale-song@0.1.2",
+    "license": "BSD-3-Clause",
+    "paths": ["packages/skins/whale-song/"],
+    "assets": "BSD-3-Clause-package-assets"
   }
 ]

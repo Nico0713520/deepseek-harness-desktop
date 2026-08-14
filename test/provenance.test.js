@@ -30,3 +30,16 @@ test('bundled whale pet records its BSD source and asset provenance', async () =
     'utf8',
   )
 })
+
+test('bundled skin center and Whale Song record exact packages and licenses', async () => {
+  const sources = JSON.parse(await readFile(new URL('../docs/upstream-sources.json', import.meta.url)))
+  const center = sources.find((source) => source.id === 'zhu1090093659/dsh-web-ui:skin-center')
+  const whaleSong = sources.find((source) => source.id === 'zhu1090093659/dsh-web-ui:whale-song')
+
+  assert.equal(center.package, '@linxin666/dsh-client-ui-skin-center@0.1.12')
+  assert.equal(center.license, 'Apache-2.0 metadata; BSD-3-Clause bundled LICENSE')
+  assert.equal(whaleSong.package, '@linxin666/dsh-client-ui-skin-whale-song@0.1.2')
+  assert.equal(whaleSong.license, 'BSD-3-Clause')
+  await readFile(new URL('../third-party-licenses/linxin666-skin-center-LICENSE', import.meta.url), 'utf8')
+  await readFile(new URL('../third-party-licenses/linxin666-whale-song-LICENSE', import.meta.url), 'utf8')
+})

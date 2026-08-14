@@ -30,6 +30,19 @@ manifest shipped by version 0.1.2 are treated as BSD-3-Clause package assets.
 They may be replaced by separately licensed Whale Maid artwork in a later
 theme pack without changing the plugin boundary.
 
+## zhu1090093659/dsh-web-ui — skin center and Whale Song
+
+- Source: https://github.com/zhu1090093659/dsh-web-ui
+- Bundled packages: `@linxin666/dsh-client-ui-skin-center@0.1.12` and `@linxin666/dsh-client-ui-skin-whale-song@0.1.2`
+- Reused areas: DSH skin discovery, live try-on, apply/reset flow, failure rollback, settings card, Whale Song client bundle, previews, and theme artwork.
+
+Whale Song 0.1.2 declares BSD-3-Clause and includes that license. Skin Center
+0.1.12 declares Apache-2.0 in package metadata while its bundled `LICENSE`
+file contains BSD-3-Clause. This discrepancy is recorded rather than hidden;
+the bundled license text is retained at
+`third-party-licenses/linxin666-skin-center-LICENSE`. Whale Song's license is
+retained at `third-party-licenses/linxin666-whale-song-LICENSE`.
+
 ## DeepSeek Harness packages
 
 The application bundles packages published under the `@deepseek-ai` npm

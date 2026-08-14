@@ -4,7 +4,10 @@ import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { startDshService } from '../src/dsh-service.js'
-import { provisionBundledPet } from '../src/plugin-provisioner.js'
+import {
+  BUNDLED_FEATURE_PACKAGES,
+  provisionBundledPlugin,
+} from '../src/plugin-provisioner.js'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const defaultAppPath = process.platform === 'win32'
@@ -33,20 +36,24 @@ const entry = path.join(resourcesRoot, 'node_modules', '@deepseek-ai', 'dsh', 'l
 const environment = {
   ...process.env,
   DSH_HOME: runtimeHome,
+  DSH_SKINS_DIR: path.join(resourcesRoot, 'node_modules', '@linxin666'),
   NODE_OPTIONS: '',
   NODE_PATH: '',
 }
 let service
 
 try {
-  const petProvision = await provisionBundledPet({
-    electronExecutable,
-    entry,
-    environment,
-    packagePath: path.join(resourcesRoot, 'node_modules', '@linxin666', 'dsh-pet'),
-  })
-  if (petProvision.status === 'failed') {
-    throw new Error(`Packaged whale pet provisioning failed: ${petProvision.error}`)
+  for (const packageName of BUNDLED_FEATURE_PACKAGES) {
+    const provision = await provisionBundledPlugin({
+      packageName,
+      electronExecutable,
+      entry,
+      environment,
+      packagePath: path.join(resourcesRoot, 'node_modules', ...packageName.split('/')),
+    })
+    if (provision.status === 'failed') {
+      throw new Error(`Packaged feature provisioning failed for ${packageName}: ${provision.error}`)
+    }
   }
   service = startDshService({
     electronExecutable,
@@ -74,6 +81,36 @@ try {
   const petManifest = await petManifestResponse.json()
   if (petManifest.id !== 'whale-girl' || !Array.isArray(petManifest.frames)) {
     throw new Error('Packaged whale pet did not return its expected asset manifest')
+  }
+  const skinStateResponse = await fetch(new URL('/api/skin-center/state', url))
+  if (!skinStateResponse.ok) {
+    throw new Error(`Packaged skin center state returned HTTP ${skinStateResponse.status}`)
+  }
+  const skinState = await skinStateResponse.json()
+  if (skinState.ok !== true) {
+    throw new Error(`Packaged skin center returned invalid state: ${JSON.stringify(skinState)}`)
+  }
+  const skinBundleResponse = await fetch(new URL('/api/skin-center/bundle/whale-song', url))
+  if (!skinBundleResponse.ok) {
+    throw new Error(`Packaged Whale Song bundle returned HTTP ${skinBundleResponse.status}`)
+  }
+  const applySkinResponse = await fetch(new URL('/api/skin-center/apply', url), {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ skin: 'whale-song' }),
+  })
+  const appliedSkin = await applySkinResponse.json()
+  if (!applySkinResponse.ok || appliedSkin.active !== 'whale-song') {
+    throw new Error(`Packaged Whale Song apply failed: ${JSON.stringify(appliedSkin)}`)
+  }
+  const resetSkinResponse = await fetch(new URL('/api/skin-center/apply', url), {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ official: true }),
+  })
+  const resetSkin = await resetSkinResponse.json()
+  if (!resetSkinResponse.ok || resetSkin.active !== 'none') {
+    throw new Error(`Packaged official skin reset failed: ${JSON.stringify(resetSkin)}`)
   }
   if (process.platform === 'win32' && !html.includes('@deepseek-ai/dsh-client-ui-directory-picker-browse')) {
     throw new Error('Packaged Windows app did not mount the browse directory picker')

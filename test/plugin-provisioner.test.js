@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
-import { provisionBundledPet } from '../src/plugin-provisioner.js'
+import { provisionBundledPet, provisionBundledPlugin } from '../src/plugin-provisioner.js'
 
 test('bundled pet provisioning leaves the matching profile link unchanged', async () => {
   let installs = 0
@@ -36,4 +36,18 @@ test('bundled pet provisioning reports failure without throwing', async () => {
 
   assert.equal(result.status, 'failed')
   assert.match(result.error, /profile is read-only/)
+})
+
+test('bundled plugin provisioning links the requested skin package', async () => {
+  const result = await provisionBundledPlugin({
+    packageName: '@linxin666/dsh-client-ui-skin-whale-song',
+    packagePath: '/app/node_modules/@linxin666/dsh-client-ui-skin-whale-song',
+    inspect: async () => ({ spec: undefined, linked: false }),
+    install: async (spec) => assert.equal(
+      spec,
+      'link:/app/node_modules/@linxin666/dsh-client-ui-skin-whale-song',
+    ),
+  })
+
+  assert.deepEqual(result, { status: 'installed' })
 })

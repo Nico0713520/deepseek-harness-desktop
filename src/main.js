@@ -12,7 +12,10 @@ import {
 } from 'electron'
 import { startDshService } from './dsh-service.js'
 import { applyMacTitleBarStyle } from './mac-titlebar.js'
-import { provisionBundledPet } from './plugin-provisioner.js'
+import {
+  provisionBundledFeatures,
+  resolveBundledSkinsDirectory,
+} from './plugin-provisioner.js'
 import { createWindowOptions } from './window-options.js'
 import { createTrayMenuTemplate, shouldHideWindowOnClose } from './window-lifecycle.js'
 
@@ -112,14 +115,17 @@ async function launch() {
     ...process.env,
     DSH_DESKTOP: '1',
     DSH_HOME: path.join(app.getPath('userData'), 'dsh'),
+    DSH_SKINS_DIR: resolveBundledSkinsDirectory(),
     NODE_OPTIONS: '',
   }
-  const petProvision = await provisionBundledPet({
+  const featureProvisions = await provisionBundledFeatures({
     electronExecutable: process.execPath,
     environment,
   })
-  if (petProvision.status === 'failed') {
-    console.warn(`Whale pet is unavailable: ${petProvision.error}`)
+  for (const [packageName, result] of Object.entries(featureProvisions)) {
+    if (result.status === 'failed') {
+      console.warn(`${packageName} is unavailable: ${result.error}`)
+    }
   }
 
   service = startDshService({

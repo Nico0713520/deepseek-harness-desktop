@@ -5,24 +5,38 @@ import { fileURLToPath } from 'node:url'
 import { resolveDshEntry, unpackedPath } from './dsh-service.js'
 
 const PET_PACKAGE = '@linxin666/dsh-pet'
+const WHALE_SKIN_PACKAGE = '@linxin666/dsh-client-ui-skin-whale-song'
+export const BUNDLED_FEATURE_PACKAGES = [
+  PET_PACKAGE,
+  '@linxin666/dsh-client-ui-skin-center',
+  WHALE_SKIN_PACKAGE,
+]
 
-export function resolveBundledPetPackage() {
-  return path.dirname(unpackedPath(fileURLToPath(import.meta.resolve(`${PET_PACKAGE}/package.json`))))
+export function resolveBundledPackage(packageName) {
+  return path.dirname(unpackedPath(fileURLToPath(import.meta.resolve(`${packageName}/package.json`))))
 }
 
-async function inspectProfileLink({ dshHome, packagePath }) {
+export function resolveBundledPetPackage() {
+  return resolveBundledPackage(PET_PACKAGE)
+}
+
+export function resolveBundledSkinsDirectory() {
+  return path.dirname(resolveBundledPackage(WHALE_SKIN_PACKAGE))
+}
+
+async function inspectProfileLink({ dshHome, packageName, packagePath }) {
   const profileDir = path.join(dshHome, 'profiles', 'web')
   let spec
   try {
     const profile = JSON.parse(await readFile(path.join(profileDir, 'package.json'), 'utf8'))
-    spec = profile.dependencies?.[PET_PACKAGE]
+    spec = profile.dependencies?.[packageName]
   } catch {
     spec = undefined
   }
 
   let linked = false
   try {
-    await access(path.join(profileDir, 'node_modules', '@linxin666', 'dsh-pet'))
+    await access(path.join(profileDir, 'node_modules', ...packageName.split('/')))
     linked = true
   } catch {
     linked = false
@@ -63,24 +77,29 @@ function installProfileLink({ electronExecutable, entry, environment, spec }) {
       if (code === 0) {
         resolve()
       } else {
-        reject(new Error(`pet profile link failed (code ${String(code)}, signal ${String(signal)}).\n${output}`))
+        reject(new Error(`plugin profile link failed (code ${String(code)}, signal ${String(signal)}).\n${output}`))
       }
     })
   })
 }
 
-export async function provisionBundledPet({
+export async function provisionBundledPlugin({
+  packageName,
   electronExecutable,
   entry = resolveDshEntry(),
   environment = process.env,
-  packagePath = resolveBundledPetPackage(),
+  packagePath = resolveBundledPackage(packageName),
   inspect,
   install,
 } = {}) {
   const spec = `link:${packagePath}`
   const inspectLink = inspect ?? (() => {
     if (!environment.DSH_HOME) throw new Error('DSH_HOME is required for bundled plugin provisioning')
-    return inspectProfileLink({ dshHome: environment.DSH_HOME, packagePath })
+    return inspectProfileLink({
+      dshHome: environment.DSH_HOME,
+      packageName,
+      packagePath,
+    })
   })
   const installLink = install ?? ((requestedSpec) => installProfileLink({
     electronExecutable,
@@ -100,4 +119,22 @@ export async function provisionBundledPet({
       error: error instanceof Error ? error.message : String(error),
     }
   }
+}
+
+export function provisionBundledPet(options = {}) {
+  return provisionBundledPlugin({ ...options, packageName: PET_PACKAGE })
+}
+
+export async function provisionBundledFeatures({
+  packages = BUNDLED_FEATURE_PACKAGES,
+  ...options
+} = {}) {
+  const results = {}
+  for (const packageName of packages) {
+    results[packageName] = await provisionBundledPlugin({
+      ...options,
+      packageName,
+    })
+  }
+  return results
 }

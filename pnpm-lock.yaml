@@ -92,6 +92,12 @@ importers:
       '@deepseek-ai/dsh-workflow':
         specifier: 0.1.0-rc.6
         version: 0.1.0-rc.6(e4b85be78b99e33196048eadd46cc140)
+      '@linxin666/dsh-client-ui-skin-center':
+        specifier: 0.1.12
+        version: 0.1.12(react@18.3.1)
+      '@linxin666/dsh-client-ui-skin-whale-song':
+        specifier: 0.1.2
+        version: 0.1.2
       '@linxin666/dsh-pet':
         specifier: 0.1.2
         version: 0.1.2(22fb4e287f51f3e0091624bb5f0d0698)
@@ -2533,6 +2539,14 @@ packages:
     resolution: {integrity: sha512-BPeQXc1bRd0QBOklvsP+AjoRnUzKbPNE6rfx7VNxrebhh09MKld2ibstgKWn6ejQLEcfKEoUJ+WAWIhX4AOsIg==}
     cpu: [x64]
     os: [win32]
+
+  '@linxin666/dsh-client-ui-skin-center@0.1.12':
+    resolution: {integrity: sha512-NFp/riRwSQiaWqAf9EEw7CTaU006H+u7XvYHL6GT8HEPLDTeija1rQxqwmwLFR8Bi18qgODsJqj5HLUCKltmog==}
+    peerDependencies:
+      react: ^18.2.0
+
+  '@linxin666/dsh-client-ui-skin-whale-song@0.1.2':
+    resolution: {integrity: sha512-UoGMGND498vSgJ97zuLg5z+ckNZgLBE3KFhnd4OhSaRz07SaE9DCEdNhyDcbeNLdlj+JMUd51qq05VQyBFGXsQ==}
 
   '@linxin666/dsh-pet@0.1.2':
     resolution: {integrity: sha512-DhQBwvruNaJBoBBTBMQTkX8L2GRjz8W3mR0h2hPIfSEz4LZUjXIl41WYWKBWwydnS8zFjrBIlfSm1C92Bf54BQ==}
@@ -7814,6 +7828,13 @@ snapshots:
 
   '@koromix/koffi-win32-x64@3.1.4':
     optional: true
+
+  '@linxin666/dsh-client-ui-skin-center@0.1.12(react@18.3.1)':
+    dependencies:
+      react: 18.3.1
+      schemastery: 3.18.0
+
+  '@linxin666/dsh-client-ui-skin-whale-song@0.1.2': {}
 
   '@linxin666/dsh-pet@0.1.2(22fb4e287f51f3e0091624bb5f0d0698)':
     dependencies:

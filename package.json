@@ -49,6 +49,8 @@
     "@deepseek-ai/dsh-subprocess": "0.1.0-rc.6",
     "@deepseek-ai/dsh-timeout": "0.1.0-rc.6",
     "@deepseek-ai/dsh-workflow": "0.1.0-rc.6",
+    "@linxin666/dsh-client-ui-skin-center": "0.1.12",
+    "@linxin666/dsh-client-ui-skin-whale-song": "0.1.2",
     "@linxin666/dsh-pet": "0.1.2",
     "fflate": "0.8.3"
   },
