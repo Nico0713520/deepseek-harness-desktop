@@ -19,6 +19,10 @@ const MARKER_FILE = '.whale-managed.json'
 const MARKER_OWNER = 'deepseek-harness-whale-desktop'
 const MARKER_SCHEMA = 1
 
+export function isManagedAdvisorProvision(result) {
+  return result?.status === 'installed' || result?.status === 'unchanged' || result?.status === 'updated'
+}
+
 function packageRoot(specifier) {
   return path.dirname(unpackedPath(fileURLToPath(import.meta.resolve(specifier))))
 }

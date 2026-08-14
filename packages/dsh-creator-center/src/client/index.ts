@@ -1,6 +1,7 @@
 import type { ClientContext } from '@deepseek-ai/dsh-client-runtime/client'
 import type { SettingsSectionOwnerProps } from '@deepseek-ai/dsh-client-ui-settings/client'
 import type {} from '@deepseek-ai/dsh-client-ui-slots'
+import { isManagedAdvisorHost } from './advisor-status.ts'
 import { CreatorCenter } from './CreatorCenter.tsx'
 import { SessionLauncher, type SessionListState, type SessionStore } from './session-launcher.ts'
 
@@ -50,6 +51,9 @@ export function apply(ctx: ClientContext): void {
       const seat = agentPresetSeat(ctx)
       if (seat === undefined) throw new Error('官方 Agent 预设选择器暂时不可用')
       if (presetId === ADVISOR_PRESET_ID) {
+        if (!await isManagedAdvisorHost()) {
+          throw new Error('内置 AI 扩展顾问不可用，请改用官方创造模式')
+        }
         const response = await api.agentPresets.read({ agentPreset: presetId })
         if (!response.result.ok || !response.result.value.content.includes(ADVISOR_MARKER)) {
           throw new Error('内置 AI 扩展顾问不可用，请改用官方创造模式')

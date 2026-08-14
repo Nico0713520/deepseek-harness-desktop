@@ -6,6 +6,18 @@ window.__ModuleLoader__.load({
 		Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
 		let react = require("react");
 		let react_jsx_runtime = require("react/jsx-runtime");
+		//#region src/client/advisor-status.ts
+		async function isManagedAdvisorHost(fetcher = globalThis.fetch) {
+			try {
+				const response = await fetcher("/api/whale-creator-center/advisor-status", { cache: "no-store" });
+				if (!response.ok) return false;
+				const body = await response.json();
+				return typeof body === "object" && body !== null && body.managed === true;
+			} catch {
+				return false;
+			}
+		}
+		//#endregion
 		//#region src/client/catalog.ts
 		const USE_CATEGORIES = [
 			{
@@ -442,6 +454,13 @@ ${input.template?.checks.map((item) => `- ${item}`).join("\n") ?? "- 用一个�
 				setAdvisorRequested(false);
 				await copyAndCreate(ADVISOR_FALLBACK_PROMPT);
 			};
+			const retryCreator = () => {
+				setAdvisorRequested(false);
+				launcher.clearError();
+				setCloseOnLaunch(true);
+				launcher.launch("cordis");
+				setStatus("正在重新打开创造模式…");
+			};
 			return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("main", {
 				className: creator_center_module_css_default.page,
 				children: [
@@ -681,12 +700,11 @@ ${input.template?.checks.map((item) => `- ${item}`).join("\n") ?? "- 用一个�
 					!advisorRequested && launch.error !== null && /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
 						className: creator_center_module_css_default.fallback,
 						role: "alert",
-						children: [/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "提示词已复制，但创造会话未能启动" }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: launch.error })] }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
+						children: [/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "提示词已复制，但创造会话未能启动" }), /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("p", { children: [launch.error, "。你可以重试；若仍失败，请到“设置 → Agent 预设”检查内置“创造模式（cordis）”。"] })] }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
 							type: "button",
-							onClick: () => {
-								launcher.clearError();
-							},
-							children: "关闭提示"
+							disabled: busy,
+							onClick: retryCreator,
+							children: "重试打开创造模式"
 						})]
 					}),
 					copyError !== null && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
@@ -845,6 +863,7 @@ ${input.template?.checks.map((item) => `- ${item}`).join("\n") ?? "- 用一个�
 					const seat = agentPresetSeat(ctx);
 					if (seat === void 0) throw new Error("官方 Agent 预设选择器暂时不可用");
 					if (presetId === ADVISOR_PRESET_ID) {
+						if (!await isManagedAdvisorHost()) throw new Error("内置 AI 扩展顾问不可用，请改用官方创造模式");
 						const response = await api.agentPresets.read({ agentPreset: presetId });
 						if (!response.result.ok || !response.result.value.content.includes(ADVISOR_MARKER)) throw new Error("内置 AI 扩展顾问不可用，请改用官方创造模式");
 					}

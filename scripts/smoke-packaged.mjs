@@ -8,7 +8,11 @@ import {
   BUNDLED_FEATURE_PACKAGES,
   provisionBundledPlugin,
 } from '../src/plugin-provisioner.js'
-import { ADVISOR_PRESET_ID, provisionAdvisorPreset } from '../src/advisor-preset-provisioner.js'
+import {
+  ADVISOR_PRESET_ID,
+  isManagedAdvisorProvision,
+  provisionAdvisorPreset,
+} from '../src/advisor-preset-provisioner.js'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const defaultAppPath = process.platform === 'win32'
@@ -64,6 +68,7 @@ try {
   if (advisorProvision.status !== 'installed') {
     throw new Error(`Packaged AI Extension Advisor provisioning failed: ${JSON.stringify(advisorProvision)}`)
   }
+  environment.WHALE_ADVISOR_MANAGED = isManagedAdvisorProvision(advisorProvision) ? '1' : '0'
   const advisorComposition = readFileSync(
     path.join(runtimeHome, '.agent-presets', ADVISOR_PRESET_ID, 'agent.cordis.yml'),
     'utf8',
@@ -93,6 +98,11 @@ try {
   const initialAppearance = await appearanceStateResponse.json()
   if (initialAppearance.themeEnabled !== false || initialAppearance.pet !== 'off') {
     throw new Error(`Packaged Whale Appearance did not start from official defaults: ${JSON.stringify(initialAppearance)}`)
+  }
+  const advisorStatusResponse = await fetch(new URL('/api/whale-creator-center/advisor-status', url))
+  const advisorStatus = await advisorStatusResponse.json()
+  if (!advisorStatusResponse.ok || advisorStatus.managed !== true) {
+    throw new Error(`Packaged AI Extension Advisor status failed: ${JSON.stringify(advisorStatus)}`)
   }
   for (const file of ['whale-maid.jpg', 'abstract-whale.jpg', 'theme-reference.jpg']) {
     const assetResponse = await fetch(new URL(`/whale-appearance/assets/${file}`, url), { method: 'HEAD' })

@@ -1,3 +1,4 @@
+import { isManagedAdvisorHost } from "./advisor-status.js";
 import { CreatorCenter } from "./CreatorCenter.js";
 import { SessionLauncher } from "./session-launcher.js";
 const ADVISOR_PRESET_ID = 'whale-extension-advisor';
@@ -26,6 +27,9 @@ export function apply(ctx) {
             if (seat === undefined)
                 throw new Error('官方 Agent 预设选择器暂时不可用');
             if (presetId === ADVISOR_PRESET_ID) {
+                if (!await isManagedAdvisorHost()) {
+                    throw new Error('内置 AI 扩展顾问不可用，请改用官方创造模式');
+                }
                 const response = await api.agentPresets.read({ agentPreset: presetId });
                 if (!response.result.ok || !response.result.value.content.includes(ADVISOR_MARKER)) {
                     throw new Error('内置 AI 扩展顾问不可用，请改用官方创造模式');

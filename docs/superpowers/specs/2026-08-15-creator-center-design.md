@@ -226,7 +226,7 @@ The package has:
 - a small Session adapter over the official connection, sessions, workspaces, and Agent Preset services;
 - a React Settings section;
 - an advisor knowledge Skill and a versioned Creator-Mode-derived preset template;
-- no host routes and no writable custom database in version one.
+- one read-only same-origin host status route that reports whether this desktop launch successfully provisioned the managed advisor; no writable custom database in version one.
 
 The desktop provisioner installs the advisor preset into the Harness user preset root with a Whale-managed marker and content version. It follows four rules:
 
@@ -234,6 +234,8 @@ The desktop provisioner installs the advisor preset into the Harness user preset
 2. Creates or updates only the marked Whale-managed advisor id.
 3. Never overwrites an unmarked preset with the same id; the UI uses the fallback flow and reports the conflict.
 4. Ships the advisor template against the exact pinned Harness version and updates both together, so upstream composition changes are reviewed at desktop release time.
+
+The desktop launcher passes only the authoritative provisioning outcome to the DSH host. The client must confirm that read-only status before selecting the advisor preset; it never trusts a marker that ordinary preset content can imitate. Conflict, failure, or an unavailable status route always uses the documented official Creator Mode fallback.
 
 The catalog is bundled and versioned with the desktop application. Remote catalogs, ratings, accounts, and arbitrary package installation are out of scope.
 

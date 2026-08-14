@@ -1,8 +1,12 @@
-import { describe, expect, it, vi } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { apply, inject } from './index.ts'
+
+afterEach(() => { vi.unstubAllGlobals() })
 
 describe('Creator Center client registration', () => {
   it('registers a top-level Settings section and mirrors a selected preset into session state', async () => {
+    const advisorStatus = vi.fn(async () => ({ ok: true, json: async () => ({ managed: true }) }))
+    vi.stubGlobal('fetch', advisorStatus)
     const registrations: Array<Record<string, unknown>> = []
     const sessionListeners = new Set<() => void>()
     const noteAgentPreset = vi.fn()
@@ -87,6 +91,7 @@ describe('Creator Center client registration', () => {
       expect(noteAgentPreset).toHaveBeenCalledWith('blank-session', 'whale-extension-advisor')
     })
     expect(presetSelect).toHaveBeenCalledWith('whale-extension-advisor')
+    expect(advisorStatus).toHaveBeenCalledOnce()
     expect(apiRead).toHaveBeenCalledWith({ agentPreset: 'whale-extension-advisor' })
   })
 })

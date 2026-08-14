@@ -4,7 +4,7 @@
 
 **Goal:** Add a beginner-friendly Creator Center to Settings with dual catalog classification, guarded creation prompts, one-click official Creator Mode launch, and a knowledgeable AI Extension Advisor conversation.
 
-**Architecture:** Add one independent DSH client bundle, `@whale-desktop/dsh-creator-center`, containing the local catalog, pure prompt builder, session launcher, and Settings UI. Before DSH starts, the Electron launcher derives a Whale-managed advisor preset from the pinned official `cordis` preset, changes only its persona/metadata, and adds a bundled knowledge Skill under the Harness user preset root. Official source, official presets, and official chat controls remain untouched.
+**Architecture:** Add one independent DSH bundle, `@whale-desktop/dsh-creator-center`, containing the local catalog, pure prompt builder, session launcher, Settings UI, and a read-only provisioning-status route. Before DSH starts, the Electron launcher derives a Whale-managed advisor preset from the pinned official `cordis` preset, changes only its persona/metadata, and adds a bundled knowledge Skill under the Harness user preset root. The client selects it only when the desktop host confirms that this launch provisioned the managed preset. Official source, official presets, and official chat controls remain untouched.
 
 **Tech Stack:** TypeScript 6, React 18, CSS Modules, Vitest/Testing Library, Node.js 26 test runner, Electron 43, pnpm 11, DeepSeek Harness `0.1.0-rc.6` DSH client services.
 
@@ -195,7 +195,7 @@ Expected: PASS, including official-source immutability and conflict cases.
 
 - [ ] **Step 6: Provision the advisor before starting DSH**
 
-In `src/main.js`, after bundled plugin links and before `startDshService`, resolve the official Cordis directory and bundled advisor directory, call `provisionAdvisorPreset`, and log non-fatal `conflict`/`failed` states. Add `@whale-desktop/dsh-creator-center` to root dependencies so its advisor files enter packaged `node_modules`.
+In `src/main.js`, after bundled plugin links and before `startDshService`, resolve the official Cordis directory and bundled advisor directory, call `provisionAdvisorPreset`, pass its authoritative managed/unavailable outcome to the host environment, and log non-fatal `conflict`/`failed` states. The Creator Center exposes that outcome through one read-only same-origin route and fails closed before selecting the advisor. Add `@whale-desktop/dsh-creator-center` to root dependencies so its advisor files enter packaged `node_modules`.
 
 - [ ] **Step 7: Run root tests and commit the slice**
 
@@ -396,4 +396,3 @@ Run: `pnpm pack && pnpm smoke:packaged`
 Expected: PASS; generated app contains both Whale workspace packages and advisor knowledge files.
 
 Commit: `feat: ship Creator Center in Whale Desktop`
-

@@ -5,6 +5,7 @@ import path from 'node:path'
 import test from 'node:test'
 import {
   ADVISOR_PRESET_ID,
+  isManagedAdvisorProvision,
   provisionAdvisorPreset,
 } from '../src/advisor-preset-provisioner.js'
 
@@ -89,4 +90,13 @@ test('reports a malformed official preset without leaving a partial target', asy
 
   assert.equal(result.status, 'failed')
   assert.match(result.error, /persona boundary/)
+})
+
+test('only successful desktop provisioning states authorize the advisor client', () => {
+  for (const status of ['installed', 'unchanged', 'updated']) {
+    assert.equal(isManagedAdvisorProvision({ status }), true)
+  }
+  for (const status of ['conflict', 'failed']) {
+    assert.equal(isManagedAdvisorProvision({ status }), false)
+  }
 })

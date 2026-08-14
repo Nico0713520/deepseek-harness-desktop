@@ -12,6 +12,7 @@ import {
 } from 'electron'
 import { startDshService } from './dsh-service.js'
 import {
+  isManagedAdvisorProvision,
   provisionAdvisorPreset,
   resolveBundledAdvisorSkillDir,
   resolveOfficialCordisPresetDir,
@@ -170,6 +171,7 @@ async function launch() {
     sourcePresetDir: resolveOfficialCordisPresetDir(),
     advisorSkillDir: resolveBundledAdvisorSkillDir(),
   })
+  environment.WHALE_ADVISOR_MANAGED = isManagedAdvisorProvision(advisorProvision) ? '1' : '0'
   if (advisorProvision.status === 'conflict') {
     console.warn('AI Extension Advisor preset id is already owned by the user; Creator Center will use its safe fallback.')
   } else if (advisorProvision.status === 'failed') {

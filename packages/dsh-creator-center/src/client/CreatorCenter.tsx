@@ -159,6 +159,14 @@ export function CreatorCenter({ launcher, close, clipboard = navigator.clipboard
     await copyAndCreate(ADVISOR_FALLBACK_PROMPT)
   }
 
+  const retryCreator = (): void => {
+    setAdvisorRequested(false)
+    launcher.clearError()
+    setCloseOnLaunch(true)
+    launcher.launch('cordis')
+    setStatus('正在重新打开创造模式…')
+  }
+
   return (
     <main className={styles.page}>
       <section className={styles.hero}>
@@ -292,8 +300,11 @@ export function CreatorCenter({ launcher, close, clipboard = navigator.clipboard
       )}
       {!advisorRequested && launch.error !== null && (
         <div className={styles.fallback} role="alert">
-          <div><strong>提示词已复制，但创造会话未能启动</strong><p>{launch.error}</p></div>
-          <button type="button" onClick={() => { launcher.clearError() }}>关闭提示</button>
+          <div>
+            <strong>提示词已复制，但创造会话未能启动</strong>
+            <p>{launch.error}。你可以重试；若仍失败，请到“设置 → Agent 预设”检查内置“创造模式（cordis）”。</p>
+          </div>
+          <button type="button" disabled={busy} onClick={retryCreator}>重试打开创造模式</button>
         </div>
       )}
       {copyError !== null && <p className={styles.error} role="alert">{copyError}</p>}

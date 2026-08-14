@@ -123,6 +123,13 @@ describe('Creator Center', () => {
     kit.publish({ busy: false, error: '创造模式不可用', launchedPreset: null })
 
     expect((await screen.findByRole('alert')).textContent).toContain('提示词已复制，但创造会话未能启动')
+    expect(screen.getByRole('alert').textContent).toContain('设置 → Agent 预设')
     expect(kit.close).not.toHaveBeenCalled()
+
+    fireEvent.click(screen.getByRole('button', { name: '重试打开创造模式' }))
+
+    expect(kit.launcher.clearError).toHaveBeenCalled()
+    expect(kit.launch).toHaveBeenCalledTimes(2)
+    expect(kit.launch).toHaveBeenLastCalledWith('cordis')
   })
 })
