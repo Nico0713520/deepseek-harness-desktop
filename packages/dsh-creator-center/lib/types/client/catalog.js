@@ -1,3 +1,6 @@
+import { ADDITIONAL_ABILITIES } from "./additional-catalog.js";
+import { DEVELOPER_DIRECTIONS, DEVELOPER_DIRECTION_LABELS, DEVELOPER_DIRECTIONS_BY_ABILITY_ID, } from "./developer-directions.js";
+export { DEVELOPER_DIRECTIONS, DEVELOPER_DIRECTION_LABELS, DEVELOPER_DIRECTIONS_BY_ABILITY_ID, };
 export const INDUSTRIES = [
     { id: 'all', label: '全部行业' },
     { id: 'programmer', label: '程序员' },
@@ -20,8 +23,54 @@ export const INDUSTRY_LABELS = Object.fromEntries(INDUSTRIES.filter((item) => it
     .map(item => [item.id, item.label]));
 export const ABILITY_KIND_LABELS = Object.fromEntries(ABILITY_KINDS.filter((item) => item.id !== 'all')
     .map(item => [item.id, item.label]));
+export const TRUST_TIER_LABELS = {
+    'dsh-official': 'Harness 官方',
+    'vendor-official': '厂商官方',
+    maintainer: '维护者推荐',
+    'community-reviewed': '社区已核验',
+    experimental: '实验参考',
+};
+export const COMPATIBILITY_LABELS = {
+    native: '可按 DSH 机制添加',
+    mcp: 'MCP 连接',
+    'skill-copy': '复制为 Skill',
+    'creator-recipe': '创造模式配方',
+    'manual-adapter': '需要适配',
+    'project-tool': '项目级工具',
+};
+export const ECOSYSTEM_LABELS = {
+    'deepseek-harness': 'DeepSeek Harness',
+    pi: 'Pi 生态参考',
+    vendor: '厂商 / 开源项目',
+    community: '社区项目',
+};
+export function githubStarLabel(popularity) {
+    const match = popularity?.match(/GitHub\s+(?:约\s*)?([\d,.]+(?:[KMB])?)\s*星/i);
+    const stars = match?.[1];
+    return stars === undefined ? '★ 未同步' : `★ ${stars}`;
+}
+const CURATED_GITHUB_STARS = {
+    'obra-superpowers': '272.7K',
+    'mattpocock-skills': '218.9K',
+    'panniantong-agent-reach': '72.2K',
+    'firecrawl-mcp-server': '7.2K',
+    'mvanhorn-last30days-skill': '58.4K',
+    'lenml-ponytail': '0',
+    'ilm-alan-frontend-design': '104',
+    'microsoft-playwright': '94.6K',
+};
 function ability(seed) {
-    return seed;
+    const { developerDirectionIds, ...rest } = seed;
+    return {
+        ecosystem: 'community',
+        trust: 'community-reviewed',
+        compatibility: seed.implementation.extensionTypes.includes('skill') ? 'skill-copy' : 'manual-adapter',
+        popularity: CURATED_GITHUB_STARS[seed.id] === undefined
+            ? 'GitHub Star 未同步'
+            : `GitHub 约 ${CURATED_GITHUB_STARS[seed.id]} 星；2026-08-16 快照`,
+        ...rest,
+        developerDirectionIds: developerDirectionIds ?? DEVELOPER_DIRECTIONS_BY_ABILITY_ID[seed.id] ?? [],
+    };
 }
 const DEV_CHECKS = ['先阅读仓库说明并确认当前 Harness 版本', '只在用户同意后创建用户自己的 Skill 或插件', '完成后说明启用、验证和撤销方法'];
 export const ABILITIES = [
@@ -233,6 +282,7 @@ export const ABILITIES = [
             repositoryUrl: 'https://github.com/microsoft/playwright',
         },
     }),
+    ...ADDITIONAL_ABILITIES,
 ];
 export const FEATURED_SCENES = [
     { id: 'workflow', title: '建立开发工作流', description: '规划、实现、调试、验证', abilityIds: ['obra-superpowers', 'mattpocock-skills', 'lenml-ponytail'] },
@@ -265,6 +315,7 @@ export function abilitiesFor(filters) {
     const query = normalize(filters.query);
     return ABILITIES.filter(item => ((filters.industry === 'all' || item.industryIds.includes(filters.industry))
         && (filters.kind === 'all' || item.kindIds.includes(filters.kind))
+        && (filters.developerDirection === 'all' || item.developerDirectionIds.includes(filters.developerDirection))
         && (query.length === 0 || searchableText(item).includes(query))));
 }
 export function collectionAbilities(collectionId) {

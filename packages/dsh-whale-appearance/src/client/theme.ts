@@ -2,10 +2,10 @@ import styles from './whale-theme.module.css'
 
 const ROOT_SELECTOR = '[data-conversation-scroll]'
 
-function layer(doc: Document, role: 'atmosphere' | 'left' | 'right' | 'veil'): HTMLElement {
+function layer(doc: Document): HTMLElement {
   const element = doc.createElement('div')
-  element.dataset.whaleCanvas = role
-  element.className = `${styles.layer} ${styles[role]}`
+  element.dataset.whaleCanvas = 'wallpaper'
+  element.className = `${styles.layer} ${styles.wallpaper}`
   element.setAttribute('aria-hidden', 'true')
   return element
 }
@@ -23,16 +23,11 @@ export function applyWhaleCanvas(doc: Document = document): () => void {
   const mount = (): void => {
     if (disposed) return
     const root = doc.querySelector<HTMLElement>(ROOT_SELECTOR)
-    if (root === mountedRoot && root?.querySelectorAll('[data-whale-canvas]').length === 4) return
+    if (root === mountedRoot && root?.querySelectorAll('[data-whale-canvas]').length === 1) return
     clear()
     if (root === null) return
     root.dataset.whaleCanvasRoot = ''
-    root.prepend(
-      layer(doc, 'atmosphere'),
-      layer(doc, 'left'),
-      layer(doc, 'right'),
-      layer(doc, 'veil'),
-    )
+    root.prepend(layer(doc))
     mountedRoot = root
   }
 

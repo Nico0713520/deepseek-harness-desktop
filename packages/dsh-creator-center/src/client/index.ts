@@ -5,6 +5,7 @@ import type {} from '@deepseek-ai/dsh-client-ui-slots'
 import { isManagedAdvisorHost } from './advisor-status.ts'
 import { CreatorCenterSidebarAction } from './CreatorCenterSidebarAction.tsx'
 import { CreatorCenterSurface } from './CreatorCenterSurface.tsx'
+import { MyExtensionsSidebarAction } from './MyExtensionsSidebarAction.tsx'
 import { CreatorNavigationController } from './creator-navigation.ts'
 import { SessionLauncher, type SessionListState, type SessionStore } from './session-launcher.ts'
 
@@ -98,6 +99,12 @@ export function apply(ctx: ClientContext): void {
     order: 10,
     inject: () => ({ navigation }),
   }, CreatorCenterSidebarAction))
+  ctx.slots.inject('sidebar.primary.action', () => ctx.slots.register({
+    name: 'sidebar.primary.action',
+    id: 'my-extensions',
+    order: 20,
+    inject: () => ({ navigation }),
+  }, MyExtensionsSidebarAction))
   ctx.slots.inject('shell.overlay', () => ctx.slots.register({
     name: 'shell.overlay',
     id: 'creator-center',

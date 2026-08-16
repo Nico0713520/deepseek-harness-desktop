@@ -1,7 +1,13 @@
+import { DEVELOPER_DIRECTIONS, DEVELOPER_DIRECTION_LABELS, DEVELOPER_DIRECTIONS_BY_ABILITY_ID, type DeveloperDirectionId } from './developer-directions.ts';
+export { DEVELOPER_DIRECTIONS, DEVELOPER_DIRECTION_LABELS, DEVELOPER_DIRECTIONS_BY_ABILITY_ID, };
+export type { DeveloperDirectionId } from './developer-directions.ts';
 export type IndustryId = 'programmer' | 'financial-services' | 'healthcare' | 'life-sciences' | 'retail' | 'government' | 'education';
 export type AbilityKindId = 'coding' | 'content-creation' | 'research' | 'agents' | 'data-analysis';
 export type CollectionId = 'vibe-coding';
 export type ExtensionType = 'agent-preset' | 'skill' | 'workflow' | 'plugin' | 'ui-extension';
+export type EcosystemId = 'deepseek-harness' | 'pi' | 'vendor' | 'community';
+export type TrustTier = 'dsh-official' | 'vendor-official' | 'maintainer' | 'community-reviewed' | 'experimental';
+export type CompatibilityPath = 'native' | 'mcp' | 'skill-copy' | 'creator-recipe' | 'manual-adapter' | 'project-tool';
 export interface TaxonomyItem<T extends string> {
     readonly id: T | 'all';
     readonly label: string;
@@ -14,6 +20,7 @@ export interface AbilityDefinition {
     readonly summary: string;
     readonly industryIds: readonly IndustryId[];
     readonly kindIds: readonly AbilityKindId[];
+    readonly developerDirectionIds: readonly DeveloperDirectionId[];
     readonly collectionIds: readonly CollectionId[];
     readonly aliases: readonly string[];
     readonly examples: readonly string[];
@@ -23,6 +30,11 @@ export interface AbilityDefinition {
     readonly readsOrChanges: string;
     readonly rollback: string;
     readonly estimatedTime: string;
+    readonly ecosystem?: EcosystemId;
+    readonly trust?: TrustTier;
+    readonly compatibility?: CompatibilityPath;
+    readonly popularity?: string;
+    readonly iconUrl?: string;
     readonly implementation: {
         readonly extensionTypes: readonly ExtensionType[];
         readonly goal: string;
@@ -36,6 +48,7 @@ export interface AbilityDefinition {
 export interface AbilityFilters {
     readonly industry: IndustryId | 'all';
     readonly kind: AbilityKindId | 'all';
+    readonly developerDirection: DeveloperDirectionId | 'all';
     readonly query: string;
 }
 export interface VibeCodingGroup {
@@ -53,6 +66,10 @@ export declare const INDUSTRIES: readonly TaxonomyItem<IndustryId>[];
 export declare const ABILITY_KINDS: readonly TaxonomyItem<AbilityKindId>[];
 export declare const INDUSTRY_LABELS: Readonly<Record<IndustryId, string>>;
 export declare const ABILITY_KIND_LABELS: Readonly<Record<AbilityKindId, string>>;
+export declare const TRUST_TIER_LABELS: Readonly<Record<TrustTier, string>>;
+export declare const COMPATIBILITY_LABELS: Readonly<Record<CompatibilityPath, string>>;
+export declare const ECOSYSTEM_LABELS: Readonly<Record<EcosystemId, string>>;
+export declare function githubStarLabel(popularity?: string): string;
 export declare const ABILITIES: readonly AbilityDefinition[];
 export declare const FEATURED_SCENES: readonly [{
     readonly id: "workflow";

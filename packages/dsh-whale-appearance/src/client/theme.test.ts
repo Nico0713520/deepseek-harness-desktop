@@ -18,7 +18,11 @@ describe('Whale Canvas', () => {
 
     const dispose = applyWhaleCanvas(document)
 
-    expect(document.querySelectorAll('[data-whale-canvas]').length).toBe(4)
+    expect(document.querySelectorAll('[data-whale-canvas]').length).toBe(1)
+    expect(document.querySelector('[data-whale-canvas="wallpaper"]')).not.toBeNull()
+    expect(document.querySelector('[data-whale-canvas="left"]')).toBeNull()
+    expect(document.querySelector('[data-whale-canvas="right"]')).toBeNull()
+    expect(document.querySelector('[data-whale-canvas="veil"]')).toBeNull()
     expect(document.querySelector('[data-conversation-scroll]')?.hasAttribute('data-whale-canvas-root')).toBe(true)
     expect(sidebar.outerHTML).toBe(sidebarBefore)
     expect(composer.outerHTML).toBe(composerBefore)

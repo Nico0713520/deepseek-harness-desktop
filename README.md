@@ -71,11 +71,9 @@ Run the packaged-app check after a directory build:
 pnpm run smoke:packaged
 ```
 
-The three current reference images are explicitly marked `prototype-only` in
-`packages/dsh-whale-appearance/assets/provenance.json`. Public `dist:*`
-commands reject them by default. A local visual prototype can be built with
-`WHALE_ALLOW_PROTOTYPE_ASSETS=1`, but those images must be replaced by
-redistributable artwork before a GitHub Release.
+The included whale artwork was created for this project and is released with
+the repository under the MIT License. Asset provenance is recorded in
+`packages/dsh-whale-appearance/assets/provenance.json`.
 
 The smoke test creates a temporary `DSH_HOME`, starts the packaged runtime, verifies the official Web UI over loopback HTTP, then removes its temporary files and process.
 
@@ -96,10 +94,9 @@ The smoke test creates a temporary `DSH_HOME`, starts the packaged runtime, veri
 
 ## Roadmap
 
-1. Replace the three prototype-only reference images with original or explicitly licensed Whale Maid artwork.
-2. Expand the curated academy after checking more community extensions and licenses.
-3. Signed DMG/ZIP and Windows NSIS installers with automatic release builds.
-4. Safe updater with rollback to the previous working runtime.
+1. Expand the curated academy after checking more community extensions and licenses.
+2. Signed and notarized DMG/ZIP and Windows NSIS installers.
+3. Safe updater with rollback to the previous working runtime.
 
 ## License
 

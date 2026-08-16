@@ -1,6 +1,7 @@
 import { isManagedAdvisorHost } from "./advisor-status.js";
 import { CreatorCenterSidebarAction } from "./CreatorCenterSidebarAction.js";
 import { CreatorCenterSurface } from "./CreatorCenterSurface.js";
+import { MyExtensionsSidebarAction } from "./MyExtensionsSidebarAction.js";
 import { CreatorNavigationController } from "./creator-navigation.js";
 import { SessionLauncher } from "./session-launcher.js";
 const ADVISOR_PRESET_ID = 'whale-extension-advisor';
@@ -74,6 +75,12 @@ export function apply(ctx) {
         order: 10,
         inject: () => ({ navigation }),
     }, CreatorCenterSidebarAction));
+    ctx.slots.inject('sidebar.primary.action', () => ctx.slots.register({
+        name: 'sidebar.primary.action',
+        id: 'my-extensions',
+        order: 20,
+        inject: () => ({ navigation }),
+    }, MyExtensionsSidebarAction));
     ctx.slots.inject('shell.overlay', () => ctx.slots.register({
         name: 'shell.overlay',
         id: 'creator-center',

@@ -1,6 +1,7 @@
 import { useEffect, useState, useSyncExternalStore } from 'react'
 import type { CreatorLauncher } from './CreatorCenter.tsx'
 import { CreatorCenter } from './CreatorCenter.tsx'
+import { MyExtensions } from './MyExtensions.tsx'
 import type { CreatorNavigationController } from './creator-navigation.ts'
 import styles from './creator-center.module.css'
 
@@ -44,7 +45,7 @@ function useShellLeft(): number {
 export function CreatorCenterSurface({ navigation, launcher }: CreatorCenterSurfaceProps) {
   const route = useSyncExternalStore(navigation.subscribe, navigation.getSnapshot)
   const left = useShellLeft()
-  if (route !== 'creator-center') return null
+  if (route !== 'creator-center' && route !== 'my-extensions') return null
 
   return (
     <div
@@ -53,7 +54,11 @@ export function CreatorCenterSurface({ navigation, launcher }: CreatorCenterSurf
       data-creator-center-surface
       data-testid="creator-center-surface"
     >
-      <CreatorCenter launcher={launcher} onClose={() => { navigation.close() }} />
+      {route === 'creator-center' ? (
+        <CreatorCenter launcher={launcher} onClose={() => { navigation.close() }} />
+      ) : (
+        <MyExtensions onClose={() => { navigation.close() }} />
+      )}
     </div>
   )
 }

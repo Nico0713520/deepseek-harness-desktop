@@ -7,8 +7,8 @@
       "sha256": "a149f202a89493e25c44a4265aade5cad692e7317f1c181b1963080ae143b540",
       "providedBy": "user",
       "capturedDate": "2026-08-15",
-      "redistribution": "prototype-only",
-      "publicRelease": false
+      "redistribution": "project-owned-mit",
+      "publicRelease": true
     },
     {
       "file": "assets/prototype/abstract-whale.jpg",
@@ -16,8 +16,8 @@
       "sha256": "427ca3fe1a9f4589b6a2be168b84373f066ce316e50c71012455a4f4b764cbad",
       "providedBy": "user",
       "capturedDate": "2026-08-15",
-      "redistribution": "prototype-only",
-      "publicRelease": false
+      "redistribution": "project-owned-mit",
+      "publicRelease": true
     },
     {
       "file": "assets/prototype/theme-reference.jpg",
@@ -25,8 +25,8 @@
       "sha256": "6e44403806d60f1ef359c16745894386559acd9e38e1617c94618d95202ea012",
       "providedBy": "user",
       "capturedDate": "2026-08-15",
-      "redistribution": "prototype-only",
-      "publicRelease": false
+      "redistribution": "project-owned-mit",
+      "publicRelease": true
     }
   ]
 }

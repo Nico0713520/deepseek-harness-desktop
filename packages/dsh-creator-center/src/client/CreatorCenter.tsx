@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState, useSyncExternalStore } from 'react'
 import {
   abilitiesFor,
+  ABILITIES,
   type AbilityKindId,
+  type DeveloperDirectionId,
   type IndustryId,
 } from './catalog.ts'
 import { AbilityLibrary } from './AbilityLibrary.tsx'
@@ -33,6 +35,7 @@ export function CreatorCenter({ launcher, onClose, clipboard = navigator.clipboa
   const launch = useSyncExternalStore(launcher.subscribe, launcher.getSnapshot)
   const [industry, setIndustry] = useState<IndustryId | 'all'>('all')
   const [kind, setKind] = useState<AbilityKindId | 'all'>('all')
+  const [developerDirection, setDeveloperDirection] = useState<DeveloperDirectionId | 'all'>('all')
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [copyError, setCopyError] = useState<string | null>(null)
   const [status, setStatus] = useState('')
@@ -43,8 +46,8 @@ export function CreatorCenter({ launcher, onClose, clipboard = navigator.clipboa
   const busy = launch.busy
   const creatorDisabled = busy || creatorAvailable === false
   const visibleAbilities = useMemo(
-    () => abilitiesFor({ industry, kind, query: '' }),
-    [industry, kind],
+    () => abilitiesFor({ industry, kind, developerDirection, query: '' }),
+    [industry, kind, developerDirection],
   )
 
   useEffect(() => {
@@ -69,16 +72,24 @@ export function CreatorCenter({ launcher, onClose, clipboard = navigator.clipboa
   const resetDiscovery = (): void => {
     setIndustry('all')
     setKind('all')
+    setDeveloperDirection('all')
     setSelectedId(null)
   }
 
   const updateIndustry = (next: IndustryId | 'all'): void => {
     setIndustry(next)
     setSelectedId(null)
+    if (next === 'programmer') setKind('all')
+    else setDeveloperDirection('all')
   }
 
   const updateKind = (next: AbilityKindId | 'all'): void => {
     setKind(next)
+    setSelectedId(null)
+  }
+
+  const updateDeveloperDirection = (next: DeveloperDirectionId | 'all'): void => {
+    setDeveloperDirection(next)
     setSelectedId(null)
   }
 
@@ -135,12 +146,15 @@ export function CreatorCenter({ launcher, onClose, clipboard = navigator.clipboa
 
       <AbilityLibrary
         abilities={visibleAbilities}
+        allAbilities={ABILITIES}
         industry={industry}
         kind={kind}
+        developerDirection={developerDirection}
         selectedId={selectedId}
         creatorDisabled={creatorDisabled}
         onIndustryChange={updateIndustry}
         onKindChange={updateKind}
+        onDeveloperDirectionChange={updateDeveloperDirection}
         onSelect={setSelectedId}
         onClear={resetDiscovery}
         onCreate={(prompt) => { void copyAndCreate(prompt) }}

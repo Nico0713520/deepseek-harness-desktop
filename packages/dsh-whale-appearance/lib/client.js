@@ -216,7 +216,7 @@ window.__ModuleLoader__.load({
 		};
 		//#endregion
 		//#region \0dsh-css:/Users/zhengdeweishi/Documents/Codex/2026-08-13/za/packages/dsh-whale-appearance/src/client/whale-theme.module.css.mjs
-		const css$1 = "[data-conversation-scroll][data-whale-canvas-root]{isolation:isolate;background:linear-gradient(135deg,#eef8ff 0%,#f7fbff 48%,#e8f3ff 100%);position:relative}[data-conversation-scroll][data-whale-canvas-root]>:not([data-whale-canvas]){z-index:2;position:relative}.rPFIda_layer{z-index:0;pointer-events:none;position:absolute;inset:0}.rPFIda_atmosphere{background:radial-gradient(circle at 18% 18%,#ffffffdb 0 15%,#0000 42%),radial-gradient(circle at 82% 12%,#7bbeff3d 0 8%,#0000 34%),linear-gradient(#def2ff7a,#f4f9ffbd)}.rPFIda_left{filter:saturate(.94)drop-shadow(0 18px 24px #345b962e);opacity:.82;background:url(/whale-appearance/assets/whale-maid.jpg) 0 100%/contain no-repeat;width:min(34vw,520px);height:88%;inset:auto auto 0 0;mask-image:linear-gradient(90deg,#000 0 65%,#0000 100%)}.rPFIda_right{filter:saturate(.9)drop-shadow(0 12px 18px #2f5faa29);opacity:.32;mix-blend-mode:multiply;background:url(/whale-appearance/assets/abstract-whale.jpg) 50%/contain no-repeat;border-radius:40%;width:min(18vw,260px);height:34%;inset:5% 2% auto auto}.rPFIda_veil{backdrop-filter:blur(3px);background:#ffffff8a;border:1px solid #ffffffa3;border-radius:24px;inset:3% max(14%,150px) 4% max(19%,210px);box-shadow:0 24px 64px #39609c1a}[data-ds-dark-theme] [data-conversation-scroll][data-whale-canvas-root]{background:linear-gradient(145deg,#07142b 0%,#0d2240 50%,#101c35 100%)}[data-ds-dark-theme] .rPFIda_atmosphere{background:radial-gradient(circle at 18% 18%,#509fe238 0 15%,#0000 42%),radial-gradient(circle at 82% 12%,#4586de2e 0 8%,#0000 34%),linear-gradient(#0511272e,#05102485)}[data-ds-dark-theme] .rPFIda_left{opacity:.54;filter:saturate(.82)brightness(.72)drop-shadow(0 18px 30px #00000059)}[data-ds-dark-theme] .rPFIda_veil{background:#07142a75;border-color:#82b7ed29;box-shadow:0 24px 64px #0000003d}@media (width<=900px){.rPFIda_left{opacity:.3;width:48vw}.rPFIda_right{display:none}.rPFIda_veil{inset:2% 3%}}@media (prefers-reduced-motion:reduce){.rPFIda_layer{transition:none}}";
+		const css$1 = "[data-conversation-scroll][data-whale-canvas-root]{isolation:isolate;background:#f7fbff;position:relative}[data-conversation-scroll][data-whale-canvas-root]>:not([data-whale-canvas]){z-index:2;position:relative}.rPFIda_layer{z-index:0;pointer-events:none;position:absolute;inset:0}.rPFIda_wallpaper{filter:saturate(1.04)drop-shadow(0 20px 34px #2f5faa29);opacity:.34;background:url(/whale-appearance/assets/abstract-whale.jpg) bottom/contain no-repeat;width:clamp(300px,34vw,520px);height:min(68vh,620px);inset:auto clamp(28px,5vw,84px) clamp(88px,13vh,144px) auto}[data-ds-dark-theme] [data-conversation-scroll][data-whale-canvas-root]{background:#0b1729}[data-ds-dark-theme] .rPFIda_wallpaper{opacity:.25;filter:saturate(.92)brightness(.72)drop-shadow(0 20px 34px #0000004d)}@media (width<=900px){.rPFIda_wallpaper{opacity:.22;width:min(72vw,360px);height:56vh;bottom:92px;right:-3vw}}@media (prefers-reduced-motion:reduce){.rPFIda_layer{transition:none}}";
 		const tagId$1 = "@whale-desktop/dsh-whale-appearance/whale-theme.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId$1) + "]") === null) {
 			const tag = document.createElement("style");
@@ -226,19 +226,16 @@ window.__ModuleLoader__.load({
 			document.head.appendChild(tag);
 		}
 		var whale_theme_module_css_default = {
-			"atmosphere": "rPFIda_atmosphere",
 			"layer": "rPFIda_layer",
-			"left": "rPFIda_left",
-			"right": "rPFIda_right",
-			"veil": "rPFIda_veil"
+			"wallpaper": "rPFIda_wallpaper"
 		};
 		//#endregion
 		//#region src/client/theme.ts
 		const ROOT_SELECTOR = "[data-conversation-scroll]";
-		function layer(doc, role) {
+		function layer(doc) {
 			const element = doc.createElement("div");
-			element.dataset.whaleCanvas = role;
-			element.className = `${whale_theme_module_css_default.layer} ${whale_theme_module_css_default[role]}`;
+			element.dataset.whaleCanvas = "wallpaper";
+			element.className = `${whale_theme_module_css_default.layer} ${whale_theme_module_css_default.wallpaper}`;
 			element.setAttribute("aria-hidden", "true");
 			return element;
 		}
@@ -253,11 +250,11 @@ window.__ModuleLoader__.load({
 			const mount = () => {
 				if (disposed) return;
 				const root = doc.querySelector(ROOT_SELECTOR);
-				if (root === mountedRoot && root?.querySelectorAll("[data-whale-canvas]").length === 4) return;
+				if (root === mountedRoot && root?.querySelectorAll("[data-whale-canvas]").length === 1) return;
 				clear();
 				if (root === null) return;
 				root.dataset.whaleCanvasRoot = "";
-				root.prepend(layer(doc, "atmosphere"), layer(doc, "left"), layer(doc, "right"), layer(doc, "veil"));
+				root.prepend(layer(doc));
 				mountedRoot = root;
 			};
 			mount();

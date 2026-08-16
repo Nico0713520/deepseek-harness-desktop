@@ -78,14 +78,15 @@ describe('Creator Center client registration', () => {
     apply(ctx as never)
 
     expect(inject).toEqual(['slots', 'connection', 'sessions', 'workspaces', 'layout'])
-    expect(injectedSlots).toEqual(['sidebar.primary.action', 'shell.overlay'])
+    expect(injectedSlots).toEqual(['sidebar.primary.action', 'sidebar.primary.action', 'shell.overlay'])
     expect(registrations.map(item => [item.name, item.id, item.order])).toEqual([
       ['sidebar.primary.action', 'creator-center', 10],
+      ['sidebar.primary.action', 'my-extensions', 20],
       ['shell.overlay', 'creator-center', 60],
     ])
-    expect(registrations[1].inject).toEqual(expect.any(Function))
+    expect(registrations[2].inject).toEqual(expect.any(Function))
 
-    const injected = (registrations[1].inject as () => { launcher: { launch(presetId: string): void } })()
+    const injected = (registrations[2].inject as () => { launcher: { launch(presetId: string): void } })()
     injected.launcher.launch('whale-extension-advisor')
     await vi.waitFor(() => {
       expect(noteAgentPreset).toHaveBeenCalledWith('blank-session', 'whale-extension-advisor')

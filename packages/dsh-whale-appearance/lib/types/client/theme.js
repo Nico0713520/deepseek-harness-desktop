@@ -1,9 +1,9 @@
 import styles from './whale-theme.module.css';
 const ROOT_SELECTOR = '[data-conversation-scroll]';
-function layer(doc, role) {
+function layer(doc) {
     const element = doc.createElement('div');
-    element.dataset.whaleCanvas = role;
-    element.className = `${styles.layer} ${styles[role]}`;
+    element.dataset.whaleCanvas = 'wallpaper';
+    element.className = `${styles.layer} ${styles.wallpaper}`;
     element.setAttribute('aria-hidden', 'true');
     return element;
 }
@@ -21,13 +21,13 @@ export function applyWhaleCanvas(doc = document) {
         if (disposed)
             return;
         const root = doc.querySelector(ROOT_SELECTOR);
-        if (root === mountedRoot && root?.querySelectorAll('[data-whale-canvas]').length === 4)
+        if (root === mountedRoot && root?.querySelectorAll('[data-whale-canvas]').length === 1)
             return;
         clear();
         if (root === null)
             return;
         root.dataset.whaleCanvasRoot = '';
-        root.prepend(layer(doc, 'atmosphere'), layer(doc, 'left'), layer(doc, 'right'), layer(doc, 'veil'));
+        root.prepend(layer(doc));
         mountedRoot = root;
     };
     mount();

@@ -6,14 +6,17 @@ import { CreatorNavigationController } from './creator-navigation.ts'
 afterEach(cleanup)
 
 describe('CreatorCenterSidebarAction', () => {
-  it('opens the ability center from the wide sidebar', () => {
+  it('opens the extension center from the wide sidebar', () => {
     const navigation = new CreatorNavigationController()
-    render(<CreatorCenterSidebarAction wide expandSidebar={() => {}} navigation={navigation} />)
+    const { container } = render(<CreatorCenterSidebarAction wide expandSidebar={() => {}} navigation={navigation} />)
 
-    fireEvent.click(screen.getByRole('button', { name: '能力中心' }))
+    fireEvent.click(screen.getByRole('button', { name: '扩展中心' }))
 
     expect(navigation.getSnapshot()).toBe('creator-center')
-    expect(screen.getByText('能力中心')).toBeTruthy()
+    expect(screen.getByText('扩展中心')).toBeTruthy()
+    expect(screen.queryByRole('button', { name: '能力中心' })).toBeNull()
+    expect(container.querySelectorAll('svg[aria-hidden="true"]')).toHaveLength(1)
+    expect(screen.getByRole('button', { name: '扩展中心' }).textContent).not.toContain('✦')
   })
 
   it('expands the rail before opening the ability center', () => {
@@ -21,7 +24,7 @@ describe('CreatorCenterSidebarAction', () => {
     const calls: string[] = []
     render(<CreatorCenterSidebarAction wide={false} expandSidebar={() => { calls.push('expand') }} navigation={navigation} />)
 
-    fireEvent.click(screen.getByRole('button', { name: '能力中心' }))
+    fireEvent.click(screen.getByRole('button', { name: '扩展中心' }))
 
     expect(calls).toEqual(['expand'])
     expect(navigation.getSnapshot()).toBe('creator-center')

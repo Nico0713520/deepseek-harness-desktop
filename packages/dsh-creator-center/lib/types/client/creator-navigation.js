@@ -9,6 +9,9 @@ export class CreatorNavigationController {
     open() {
         this.setRoute('creator-center');
     }
+    openMyExtensions() {
+        this.setRoute('my-extensions');
+    }
     close() {
         this.setRoute('chat');
     }

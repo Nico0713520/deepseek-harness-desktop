@@ -23,4 +23,11 @@ describe('CreatorNavigationController', () => {
 
     expect(listener).not.toHaveBeenCalled()
   })
+
+  it('publishes the user extension route', () => {
+    const navigation = new CreatorNavigationController()
+    navigation.openMyExtensions()
+
+    expect(navigation.getSnapshot()).toBe('my-extensions')
+  })
 })

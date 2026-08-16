@@ -1,4 +1,4 @@
-export type CreatorRoute = 'chat' | 'creator-center'
+export type CreatorRoute = 'chat' | 'creator-center' | 'my-extensions'
 
 type Listener = () => void
 
@@ -15,6 +15,10 @@ export class CreatorNavigationController {
 
   open(): void {
     this.setRoute('creator-center')
+  }
+
+  openMyExtensions(): void {
+    this.setRoute('my-extensions')
   }
 
   close(): void {

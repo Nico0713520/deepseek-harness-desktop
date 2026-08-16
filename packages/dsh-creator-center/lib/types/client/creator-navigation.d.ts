@@ -1,4 +1,4 @@
-export type CreatorRoute = 'chat' | 'creator-center';
+export type CreatorRoute = 'chat' | 'creator-center' | 'my-extensions';
 type Listener = () => void;
 export declare class CreatorNavigationController {
     private route;
@@ -6,6 +6,7 @@ export declare class CreatorNavigationController {
     getSnapshot: () => CreatorRoute;
     subscribe: (listener: Listener) => (() => void);
     open(): void;
+    openMyExtensions(): void;
     close(): void;
     dispose(): void;
     private setRoute;

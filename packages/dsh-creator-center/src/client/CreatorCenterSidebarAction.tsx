@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from 'react'
 import type { CreatorNavigationController } from './creator-navigation.ts'
+import { ExtensionCenterIcon } from './SidebarEntryIcons.tsx'
 import styles from './creator-center.module.css'
 
 export interface CreatorCenterSidebarActionProps {
@@ -16,7 +17,7 @@ export function CreatorCenterSidebarAction({ wide, expandSidebar, navigation }: 
     <button
       type="button"
       className={`${styles.sidebarEntry} ${active ? styles.sidebarEntryActive : ''}`}
-      aria-label="能力中心"
+      aria-label="扩展中心"
       aria-current={active ? 'page' : undefined}
       data-creator-center-entry
       onClick={() => {
@@ -24,8 +25,8 @@ export function CreatorCenterSidebarAction({ wide, expandSidebar, navigation }: 
         navigation.open()
       }}
     >
-      <span className={styles.sidebarEntryIcon} aria-hidden="true">✦</span>
-      {wide && <span className={styles.sidebarEntryLabel}>能力中心</span>}
+      <span className={styles.sidebarEntryIcon} aria-hidden="true"><ExtensionCenterIcon /></span>
+      {wide && <span className={styles.sidebarEntryLabel}>扩展中心</span>}
     </button>
   )
 }

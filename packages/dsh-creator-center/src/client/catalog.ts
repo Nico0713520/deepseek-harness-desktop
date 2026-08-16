@@ -1,7 +1,25 @@
+import { ADDITIONAL_ABILITIES } from './additional-catalog.ts'
+import {
+  DEVELOPER_DIRECTIONS,
+  DEVELOPER_DIRECTION_LABELS,
+  DEVELOPER_DIRECTIONS_BY_ABILITY_ID,
+  type DeveloperDirectionId,
+} from './developer-directions.ts'
+
+export {
+  DEVELOPER_DIRECTIONS,
+  DEVELOPER_DIRECTION_LABELS,
+  DEVELOPER_DIRECTIONS_BY_ABILITY_ID,
+}
+export type { DeveloperDirectionId } from './developer-directions.ts'
+
 export type IndustryId = 'programmer' | 'financial-services' | 'healthcare' | 'life-sciences' | 'retail' | 'government' | 'education'
 export type AbilityKindId = 'coding' | 'content-creation' | 'research' | 'agents' | 'data-analysis'
 export type CollectionId = 'vibe-coding'
 export type ExtensionType = 'agent-preset' | 'skill' | 'workflow' | 'plugin' | 'ui-extension'
+export type EcosystemId = 'deepseek-harness' | 'pi' | 'vendor' | 'community'
+export type TrustTier = 'dsh-official' | 'vendor-official' | 'maintainer' | 'community-reviewed' | 'experimental'
+export type CompatibilityPath = 'native' | 'mcp' | 'skill-copy' | 'creator-recipe' | 'manual-adapter' | 'project-tool'
 
 export interface TaxonomyItem<T extends string> {
   readonly id: T | 'all'
@@ -16,6 +34,7 @@ export interface AbilityDefinition {
   readonly summary: string
   readonly industryIds: readonly IndustryId[]
   readonly kindIds: readonly AbilityKindId[]
+  readonly developerDirectionIds: readonly DeveloperDirectionId[]
   readonly collectionIds: readonly CollectionId[]
   readonly aliases: readonly string[]
   readonly examples: readonly string[]
@@ -25,6 +44,11 @@ export interface AbilityDefinition {
   readonly readsOrChanges: string
   readonly rollback: string
   readonly estimatedTime: string
+  readonly ecosystem?: EcosystemId
+  readonly trust?: TrustTier
+  readonly compatibility?: CompatibilityPath
+  readonly popularity?: string
+  readonly iconUrl?: string
   readonly implementation: {
     readonly extensionTypes: readonly ExtensionType[]
     readonly goal: string
@@ -39,6 +63,7 @@ export interface AbilityDefinition {
 export interface AbilityFilters {
   readonly industry: IndustryId | 'all'
   readonly kind: AbilityKindId | 'all'
+  readonly developerDirection: DeveloperDirectionId | 'all'
   readonly query: string
 }
 
@@ -84,8 +109,63 @@ export const ABILITY_KIND_LABELS: Readonly<Record<AbilityKindId, string>> = Obje
     .map(item => [item.id, item.label]),
 ) as Readonly<Record<AbilityKindId, string>>
 
-function ability(seed: AbilityDefinition): AbilityDefinition {
-  return seed
+export const TRUST_TIER_LABELS: Readonly<Record<TrustTier, string>> = {
+  'dsh-official': 'Harness 官方',
+  'vendor-official': '厂商官方',
+  maintainer: '维护者推荐',
+  'community-reviewed': '社区已核验',
+  experimental: '实验参考',
+}
+
+export const COMPATIBILITY_LABELS: Readonly<Record<CompatibilityPath, string>> = {
+  native: '可按 DSH 机制添加',
+  mcp: 'MCP 连接',
+  'skill-copy': '复制为 Skill',
+  'creator-recipe': '创造模式配方',
+  'manual-adapter': '需要适配',
+  'project-tool': '项目级工具',
+}
+
+export const ECOSYSTEM_LABELS: Readonly<Record<EcosystemId, string>> = {
+  'deepseek-harness': 'DeepSeek Harness',
+  pi: 'Pi 生态参考',
+  vendor: '厂商 / 开源项目',
+  community: '社区项目',
+}
+
+export function githubStarLabel(popularity?: string): string {
+  const match = popularity?.match(/GitHub\s+(?:约\s*)?([\d,.]+(?:[KMB])?)\s*星/i)
+  const stars = match?.[1]
+  return stars === undefined ? '★ 未同步' : `★ ${stars}`
+}
+
+type AbilitySeed = Omit<AbilityDefinition, 'developerDirectionIds'> & {
+  readonly developerDirectionIds?: readonly DeveloperDirectionId[]
+}
+
+const CURATED_GITHUB_STARS: Readonly<Record<string, string>> = {
+  'obra-superpowers': '272.7K',
+  'mattpocock-skills': '218.9K',
+  'panniantong-agent-reach': '72.2K',
+  'firecrawl-mcp-server': '7.2K',
+  'mvanhorn-last30days-skill': '58.4K',
+  'lenml-ponytail': '0',
+  'ilm-alan-frontend-design': '104',
+  'microsoft-playwright': '94.6K',
+}
+
+function ability(seed: AbilitySeed): AbilityDefinition {
+  const { developerDirectionIds, ...rest } = seed
+  return {
+    ecosystem: 'community',
+    trust: 'community-reviewed',
+    compatibility: seed.implementation.extensionTypes.includes('skill') ? 'skill-copy' : 'manual-adapter',
+    popularity: CURATED_GITHUB_STARS[seed.id] === undefined
+      ? 'GitHub Star 未同步'
+      : `GitHub 约 ${CURATED_GITHUB_STARS[seed.id]} 星；2026-08-16 快照`,
+    ...rest,
+    developerDirectionIds: developerDirectionIds ?? DEVELOPER_DIRECTIONS_BY_ABILITY_ID[seed.id] ?? [],
+  }
 }
 
 const DEV_CHECKS = ['先阅读仓库说明并确认当前 Harness 版本', '只在用户同意后创建用户自己的 Skill 或插件', '完成后说明启用、验证和撤销方法']
@@ -299,6 +379,7 @@ export const ABILITIES: readonly AbilityDefinition[] = [
       repositoryUrl: 'https://github.com/microsoft/playwright',
     },
   }),
+  ...ADDITIONAL_ABILITIES,
 ]
 
 export const FEATURED_SCENES = [
@@ -337,6 +418,7 @@ export function abilitiesFor(filters: AbilityFilters): readonly AbilityDefinitio
   return ABILITIES.filter(item => (
     (filters.industry === 'all' || item.industryIds.includes(filters.industry))
     && (filters.kind === 'all' || item.kindIds.includes(filters.kind))
+    && (filters.developerDirection === 'all' || item.developerDirectionIds.includes(filters.developerDirection))
     && (query.length === 0 || searchableText(item).includes(query))
   ))
 }
