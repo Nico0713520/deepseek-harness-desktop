@@ -1,0 +1,1 @@
+{"version":3,"file":"CreatorGuide.d.ts","sourceRoot":"","sources":["../../../src/client/CreatorGuide.tsx"],"names":[],"mappings":"AAEA,MAAM,WAAW,iBAAiB;IAChC,QAAQ,CAAC,IAAI,EAAE,OAAO,GAAG,YAAY,CAAA;IACrC,QAAQ,CAAC,UAAU,EAAE,MAAM,IAAI,CAAA;IAC/B,QAAQ,CAAC,YAAY,EAAE,MAAM,IAAI,CAAA;CAClC;AAED,wBAAgB,YAAY,CAAC,EAAE,IAAI,EAAE,UAAU,EAAE,YAAY,EAAE,EAAE,iBAAiB,2CA6CjF"}

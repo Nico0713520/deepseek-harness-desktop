@@ -32,26 +32,6 @@ export interface AbilityDefinition {
     readonly source: string
     readonly license: string
   }
-  /** @deprecated Compatibility fields removed after the new UI migration. */
-  readonly benefit: string
-  /** @deprecated Compatibility fields removed after the new UI migration. */
-  readonly useCategory: UseCategory
-  /** @deprecated Compatibility fields removed after the new UI migration. */
-  readonly extensionTypes: readonly ExtensionType[]
-  /** @deprecated Compatibility fields removed after the new UI migration. */
-  readonly difficulty: '入门' | '进阶' | '高级'
-  /** @deprecated Compatibility fields removed after the new UI migration. */
-  readonly duration: string
-  /** @deprecated Compatibility fields removed after the new UI migration. */
-  readonly result: string
-  /** @deprecated Compatibility fields removed after the new UI migration. */
-  readonly changes: string
-  /** @deprecated Compatibility fields removed after the new UI migration. */
-  readonly risk: string
-  /** @deprecated Compatibility fields removed after the new UI migration. */
-  readonly checks: readonly string[]
-  /** @deprecated Compatibility fields removed after the new UI migration. */
-  readonly goal: string
 }
 
 export interface AbilityFilters {
@@ -101,21 +81,8 @@ export const ABILITY_KIND_LABELS: Readonly<Record<AbilityKindId, string>> = Obje
     .map(item => [item.id, item.label]),
 ) as Readonly<Record<AbilityKindId, string>>
 
-interface AbilitySeed extends Omit<AbilityDefinition,
-  'benefit' | 'extensionTypes' | 'duration' | 'result' | 'changes' | 'checks' | 'goal'> {
-}
-
-function ability(seed: AbilitySeed): AbilityDefinition {
-  return {
-    ...seed,
-    benefit: seed.outcome,
-    extensionTypes: seed.implementation.extensionTypes,
-    duration: seed.estimatedTime,
-    result: seed.userReceives,
-    changes: seed.readsOrChanges,
-    checks: seed.implementation.checks,
-    goal: seed.implementation.goal,
-  }
+function ability(seed: AbilityDefinition): AbilityDefinition {
+  return seed
 }
 
 export const ABILITIES: readonly AbilityDefinition[] = [
@@ -142,9 +109,6 @@ export const ABILITIES: readonly AbilityDefinition[] = [
       source: 'Whale Desktop 内置示例',
       license: 'MIT',
     },
-    useCategory: 'daily',
-    difficulty: '入门',
-    risk: '低；创建前要确认周报里是否包含敏感信息。',
   }),
   ability({
     id: 'company-sop',
@@ -169,9 +133,6 @@ export const ABILITIES: readonly AbilityDefinition[] = [
       source: 'Whale Desktop 内置示例',
       license: 'MIT',
     },
-    useCategory: 'daily',
-    difficulty: '进阶',
-    risk: '中；必须标出需要人工批准的步骤和禁止自动执行的动作。',
   }),
   ability({
     id: 'web-research',
@@ -196,9 +157,6 @@ export const ABILITIES: readonly AbilityDefinition[] = [
       source: 'Whale Desktop 内置示例',
       license: 'MIT',
     },
-    useCategory: 'research',
-    difficulty: '入门',
-    risk: '低；必须区分来源事实、推断和未知信息。',
   }),
   ability({
     id: 'file-data-analysis',
@@ -223,9 +181,6 @@ export const ABILITIES: readonly AbilityDefinition[] = [
       source: 'Whale Desktop 内置示例',
       license: 'MIT',
     },
-    useCategory: 'research',
-    difficulty: '进阶',
-    risk: '中；需要先确认文件权限、隐私和指标口径。',
   }),
   ability({
     id: 'github-review',
@@ -250,9 +205,6 @@ export const ABILITIES: readonly AbilityDefinition[] = [
       source: 'Whale Desktop 内置示例',
       license: 'MIT',
     },
-    useCategory: 'github',
-    difficulty: '进阶',
-    risk: '中；未经确认不得修改代码、提交、推送或创建 PR。',
   }),
   ability({
     id: 'project-scaffold',
@@ -277,9 +229,6 @@ export const ABILITIES: readonly AbilityDefinition[] = [
       source: 'Whale Desktop 内置示例',
       license: 'MIT',
     },
-    useCategory: 'github',
-    difficulty: '进阶',
-    risk: '中；外部依赖安装和覆盖现有文件必须单独确认。',
   }),
   ability({
     id: 'scheduled-check',
@@ -304,9 +253,6 @@ export const ABILITIES: readonly AbilityDefinition[] = [
       source: 'Whale Desktop 内置示例',
       license: 'MIT',
     },
-    useCategory: 'automation',
-    difficulty: '高级',
-    risk: '中；时间、时区、凭据和外部通知都要单独确认。',
   }),
   ability({
     id: 'custom-ui-theme',
@@ -331,9 +277,6 @@ export const ABILITIES: readonly AbilityDefinition[] = [
       source: 'Whale Desktop 内置示例',
       license: 'MIT',
     },
-    useCategory: 'personalization',
-    difficulty: '高级',
-    risk: '中；图片、字体和社区代码必须核对来源与许可证。',
   }),
 ]
 
@@ -400,43 +343,10 @@ export function recommendAbilities(problem: string): readonly AbilityDefinition[
     .map(result => result.item)
 }
 
-// Legacy exports keep the old UI running while the new components migrate in the next task.
-export type BrowseMode = 'use' | 'type'
-export type UseCategory = 'daily' | 'research' | 'github' | 'automation' | 'personalization'
-export type CreatorTemplate = AbilityDefinition
-export interface CatalogFilter<T extends string> { readonly id: T | 'all'; readonly label: string; readonly description?: string }
-
-export const USE_CATEGORIES: readonly CatalogFilter<UseCategory>[] = [
-  { id: 'all', label: '全部' },
-  { id: 'daily', label: '日常效率' },
-  { id: 'research', label: '资料与研究' },
-  { id: 'github', label: '编程与 GitHub' },
-  { id: 'automation', label: '自动化' },
-  { id: 'personalization', label: '个性化' },
-]
-
-export const EXTENSION_TYPES: readonly CatalogFilter<ExtensionType>[] = [
-  { id: 'all', label: '全部' },
-  { id: 'agent-preset', label: 'Agent 预设', description: '把角色、工具和能力组合成一个专用助手。' },
-  { id: 'skill', label: 'Skill', description: '把一套稳定做法写成 AI 可以反复调用的说明书。' },
-  { id: 'workflow', label: '工作流', description: '把多个固定步骤按顺序或条件自动执行。' },
-  { id: 'plugin', label: '插件', description: '用代码接入新工具、服务或底层能力。' },
-  { id: 'ui-extension', label: '界面扩展', description: '在不改官方聊天核心的前提下增加设置页或视觉功能。' },
-]
-
 export const EXTENSION_TYPE_LABELS: Readonly<Record<ExtensionType, string>> = {
   'agent-preset': 'Agent 预设',
   skill: 'Skill',
   workflow: '工作流',
   plugin: '插件',
   'ui-extension': '界面扩展',
-}
-
-export const CREATOR_TEMPLATES = ABILITIES
-
-export function templatesFor(mode: BrowseMode, filter: string): readonly CreatorTemplate[] {
-  if (filter === 'all') return ABILITIES
-  return ABILITIES.filter(item => mode === 'use'
-    ? item.useCategory === filter
-    : item.extensionTypes.includes(filter as ExtensionType))
 }

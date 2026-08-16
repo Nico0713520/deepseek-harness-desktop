@@ -1,19 +1,22 @@
-import { useEffect, useMemo, useState, useSyncExternalStore } from 'react'
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 import type { SettingsSectionOwnerProps } from '@deepseek-ai/dsh-client-ui-settings/client'
 import {
-  CREATOR_TEMPLATES,
-  EXTENSION_TYPE_LABELS,
-  EXTENSION_TYPES,
-  USE_CATEGORIES,
-  templatesFor,
-  type BrowseMode,
-  type CreatorTemplate,
+  ABILITIES,
+  FEATURED_SCENES,
+  abilitiesFor,
+  recommendAbilities,
+  type AbilityKindId,
+  type IndustryId,
 } from './catalog.ts'
-import { ADVISOR_FALLBACK_PROMPT, buildCreationPrompt } from './prompt.ts'
+import { AbilityLibrary } from './AbilityLibrary.tsx'
+import { CreatorGuide } from './CreatorGuide.tsx'
+import { VibeCodingColumn } from './VibeCodingColumn.tsx'
+import { ADVISOR_FALLBACK_PROMPT } from './prompt.ts'
 import type { LaunchSnapshot } from './session-launcher.ts'
 import styles from './creator-center.module.css'
 
 const ADVISOR_PRESET_ID = 'whale-extension-advisor'
+type CreatorView = 'discover' | 'vibe' | 'guide' | 'principles'
 
 export interface CreatorLauncher {
   getSnapshot(): LaunchSnapshot
@@ -32,51 +35,24 @@ export interface CreatorCenterProps extends SettingsSectionOwnerProps {
   readonly clipboard?: ClipboardPort
 }
 
-function TemplateDetails({
-  template,
-  disabled,
-  onCopy,
-  onCreate,
-}: {
-  readonly template: CreatorTemplate
-  readonly disabled: boolean
-  readonly onCopy: (prompt: string) => void
-  readonly onCreate: (prompt: string) => void
-}) {
-  const prompt = buildCreationPrompt({ goal: template.goal, template })
-  return (
-    <div className={styles.details}>
-      <dl className={styles.detailGrid}>
-        <div><dt>适合你的情况</dt><dd>{template.suitableFor}</dd></div>
-        <div><dt>创建后会得到</dt><dd>{template.result}</dd></div>
-        <div><dt>可能修改的位置</dt><dd>{template.changes}</dd></div>
-        <div><dt>风险与权限</dt><dd>{template.risk}</dd></div>
-      </dl>
-      <div className={styles.checks}>
-        <strong>完成后的检查清单</strong>
-        <ul>{template.checks.map(item => <li key={item}>{item}</li>)}</ul>
-      </div>
-      <label className={styles.promptLabel}>
-        创建说明
-        <textarea readOnly value={prompt} rows={8} />
-      </label>
-      <div className={styles.actions}>
-        <button type="button" disabled={disabled} onClick={() => { onCopy(prompt) }}>仅复制提示词</button>
-        <button type="button" className={styles.primary} disabled={disabled} onClick={() => { onCreate(prompt) }}>
-          复制提示词并开始创造
-        </button>
-      </div>
-    </div>
-  )
-}
+const NAV_ITEMS: readonly { id: CreatorView; label: string }[] = [
+  { id: 'discover', label: '找能力' },
+  { id: 'vibe', label: 'Vibe Coding' },
+  { id: 'guide', label: '创建指南' },
+  { id: 'principles', label: '扩展原理' },
+]
 
 export function CreatorCenter({ launcher, close, clipboard = navigator.clipboard }: CreatorCenterProps) {
+  const pageRef = useRef<HTMLElement>(null)
   const launch = useSyncExternalStore(launcher.subscribe, launcher.getSnapshot)
-  const [browseMode, setBrowseMode] = useState<BrowseMode>('use')
-  const [filter, setFilter] = useState('all')
-  const [expanded, setExpanded] = useState<string | null>(null)
-  const [customGoal, setCustomGoal] = useState('')
-  const [customPrompt, setCustomPrompt] = useState<string | null>(null)
+  const [view, setView] = useState<CreatorView>('discover')
+  const [industry, setIndustry] = useState<IndustryId | 'all'>('all')
+  const [kind, setKind] = useState<AbilityKindId | 'all'>('all')
+  const [query, setQuery] = useState('')
+  const [problem, setProblem] = useState('')
+  const [recommendationIds, setRecommendationIds] = useState<readonly string[] | null>(null)
+  const [recommendationLabel, setRecommendationLabel] = useState<string | null>(null)
+  const [selectedId, setSelectedId] = useState<string | null>(null)
   const [validationError, setValidationError] = useState<string | null>(null)
   const [copyError, setCopyError] = useState<string | null>(null)
   const [status, setStatus] = useState('')
@@ -84,11 +60,16 @@ export function CreatorCenter({ launcher, close, clipboard = navigator.clipboard
   const [closeOnLaunch, setCloseOnLaunch] = useState(false)
   const [creatorAvailable, setCreatorAvailable] = useState<boolean | null>(null)
 
-  const filters = browseMode === 'use' ? USE_CATEGORIES : EXTENSION_TYPES
-  const visibleTemplates = useMemo(() => templatesFor(browseMode, filter), [browseMode, filter])
-  const selectedFilter = filters.find(item => item.id === filter)
   const busy = launch.busy
   const creatorDisabled = busy || creatorAvailable === false
+  const visibleAbilities = useMemo(() => {
+    if (recommendationIds !== null) {
+      return recommendationIds
+        .map(id => ABILITIES.find(item => item.id === id))
+        .filter((item): item is (typeof ABILITIES)[number] => item !== undefined)
+    }
+    return abilitiesFor({ industry, kind, query })
+  }, [industry, kind, query, recommendationIds])
 
   useEffect(() => {
     let active = true
@@ -105,23 +86,86 @@ export function CreatorCenter({ launcher, close, clipboard = navigator.clipboard
 
   useEffect(() => {
     if (closeOnLaunch && !advisorRequested && launch.error !== null) {
-      setStatus('提示词已复制，但创造会话未能启动。')
+      setStatus('创建说明已准备好，但创造会话未能启动。')
     }
   }, [advisorRequested, closeOnLaunch, launch.error])
 
-  const changeMode = (mode: BrowseMode): void => {
-    setBrowseMode(mode)
-    setFilter('all')
+  useEffect(() => {
+    const page = pageRef.current
+    if (page !== null && typeof page.scrollIntoView === 'function') {
+      page.scrollIntoView({ block: 'start' })
+    }
+  }, [view])
+
+  const switchView = (next: CreatorView): void => {
+    setView(next)
+    setValidationError(null)
+  }
+
+  const resetDiscovery = (): void => {
+    setIndustry('all')
+    setKind('all')
+    setQuery('')
+    setRecommendationIds(null)
+    setRecommendationLabel(null)
+    setSelectedId(null)
+  }
+
+  const updateIndustry = (next: IndustryId | 'all'): void => {
+    setIndustry(next)
+    setRecommendationIds(null)
+    setRecommendationLabel(null)
+    setSelectedId(null)
+  }
+
+  const updateKind = (next: AbilityKindId | 'all'): void => {
+    setKind(next)
+    setRecommendationIds(null)
+    setRecommendationLabel(null)
+    setSelectedId(null)
+  }
+
+  const updateQuery = (value: string): void => {
+    setQuery(value)
+    setRecommendationIds(null)
+    setRecommendationLabel(null)
+    setSelectedId(null)
+    setView('discover')
+  }
+
+  const findForProblem = (): void => {
+    if (problem.trim().length === 0) {
+      setValidationError('先简单说说你想解决的问题。')
+      return
+    }
+    const matches = recommendAbilities(problem)
+    setValidationError(null)
+    setIndustry('all')
+    setKind('all')
+    setQuery('')
+    setRecommendationIds(matches.map(item => item.id))
+    setRecommendationLabel(`为你推荐 ${matches.length} 个接近的能力`)
+    setSelectedId(null)
+    setStatus('推荐来自本地能力库；你可以先查看方案，再决定是否创建。')
+  }
+
+  const showScene = (scene: (typeof FEATURED_SCENES)[number]): void => {
+    setIndustry('all')
+    setKind('all')
+    setQuery('')
+    setRecommendationIds(scene.abilityIds)
+    setRecommendationLabel(`精选场景 · ${scene.title}`)
+    setSelectedId(null)
   }
 
   const copyOnly = async (prompt: string): Promise<boolean> => {
     setCopyError(null)
     try {
       await clipboard.writeText(prompt)
-      setStatus('创建说明已复制。')
+      setStatus('创建说明已准备好。')
       return true
     } catch {
-      setCopyError('复制失败。创建说明仍显示在页面中，请手动选择复制。')
+      setCopyError('复制失败。创建说明仍在高级信息中，请手动选择复制。')
       return false
     }
   }
@@ -129,20 +173,10 @@ export function CreatorCenter({ launcher, close, clipboard = navigator.clipboard
   const copyAndCreate = async (prompt: string, presetId = 'cordis'): Promise<void> => {
     if (!await copyOnly(prompt)) return
     launcher.clearError()
+    setAdvisorRequested(false)
     setCloseOnLaunch(true)
     launcher.launch(presetId)
-    setStatus('创建说明已复制；请粘贴并发送。')
-  }
-
-  const generateCustomPrompt = (): void => {
-    try {
-      const prompt = buildCreationPrompt({ goal: customGoal })
-      setValidationError(null)
-      setCustomPrompt(prompt)
-    } catch (error) {
-      setCustomPrompt(null)
-      setValidationError(error instanceof Error ? error.message : String(error))
-    }
+    setStatus('创建说明已准备好；进入创造会话后请粘贴并发送。')
   }
 
   const askAdvisor = (): void => {
@@ -151,7 +185,7 @@ export function CreatorCenter({ launcher, close, clipboard = navigator.clipboard
     launcher.clearError()
     setCloseOnLaunch(true)
     launcher.launch(ADVISOR_PRESET_ID)
-    setStatus('正在打开 AI 扩展顾问；进入对话后直接说你想解决的问题。')
+    setStatus('正在打开 AI 顾问；进入对话后直接说你想解决的问题。')
   }
 
   const fallbackAdvisor = async (): Promise<void> => {
@@ -167,142 +201,133 @@ export function CreatorCenter({ launcher, close, clipboard = navigator.clipboard
     setStatus('正在重新打开创造模式…')
   }
 
+  const startVibe = (abilityId: string | undefined, starter: string): void => {
+    setView('discover')
+    resetDiscovery()
+    if (abilityId === undefined) {
+      setProblem(starter)
+      return
+    }
+    setSelectedId(abilityId)
+  }
+
   return (
-    <main className={styles.page}>
-      <section className={styles.hero}>
-        <div className={styles.heroCopy}>
-          <span className={styles.eyebrow}>创造中心 · 新手向导</span>
-          <h2>告诉 DeepSeek 你想多会一件什么事</h2>
-          <p>不用先学插件。选一个目标，我们会准备好创建说明，并用官方创造模式开始。</p>
-          <ol className={styles.steps} aria-label="创造步骤">
-            <li><b>1</b>选目标</li><li><b>2</b>看改动</li><li><b>3</b>先出计划</li><li><b>4</b>验证再用</li>
-          </ol>
-        </div>
-        <aside className={styles.advisorCard}>
-          <span className={styles.aiBadge}>AI</span>
-          <strong>不知道选什么？</strong>
-          <p>用普通话说需求。AI 最多问 3 个关键问题，再给你 1–3 个建议。</p>
-          <button type="button" className={styles.primary} disabled={busy} onClick={askAdvisor}>问 AI 扩展顾问</button>
-        </aside>
-      </section>
-
-      <section className={styles.custom}>
-        <label htmlFor="creator-custom-goal">没有合适模板？描述你想解决的问题</label>
-        <div className={styles.customRow}>
-          <textarea
-            id="creator-custom-goal"
-            value={customGoal}
-            rows={2}
-            placeholder="例如：每天把客户反馈分成产品、物流和售后三类"
-            onChange={(event) => { setCustomGoal(event.currentTarget.value) }}
-          />
-          <button type="button" onClick={generateCustomPrompt}>为我的需求生成创建说明</button>
-        </div>
-        {validationError !== null && <p className={styles.error} role="alert">{validationError}</p>}
-        {customPrompt !== null && (
-          <div className={styles.customPreview}>
-            <label className={styles.promptLabel}>
-              你的安全创建说明
-              <textarea readOnly value={customPrompt} rows={7} />
-            </label>
-            <div className={styles.actions}>
-              <button type="button" onClick={() => { void copyOnly(customPrompt) }}>仅复制提示词</button>
-              <button type="button" className={styles.primary} disabled={creatorDisabled} onClick={() => { void copyAndCreate(customPrompt) }}>
-                复制提示词并开始创造
-              </button>
-            </div>
-          </div>
-        )}
-      </section>
-
-      {creatorAvailable === false && (
-        <div className={styles.fallback} role="alert">
-          <div><strong>官方创造模式不可用</strong><p>请到“设置 → Agent 预设”恢复或检查内置“创造模式（cordis）”。复制提示词仍可使用。</p></div>
-        </div>
-      )}
-
-      <section className={styles.catalog}>
-        <header className={styles.catalogHeader}>
-          <div>
-            <h3>从一个实用能力开始</h3>
-            <p>默认按用途找最简单；想学原理时再按扩展类型看。</p>
-          </div>
-          <div className={styles.modeSwitch} aria-label="目录浏览方式">
-            <button type="button" aria-pressed={browseMode === 'use'} onClick={() => { changeMode('use') }}>按用途</button>
-            <button type="button" aria-pressed={browseMode === 'type'} onClick={() => { changeMode('type') }}>按扩展类型</button>
-          </div>
-        </header>
-
-        <div className={styles.filters} aria-label={browseMode === 'use' ? '用途分类' : '扩展类型分类'}>
-          {filters.map(item => (
+    <main className={styles.page} ref={pageRef}>
+      <header className={styles.topbar}>
+        <nav className={styles.nav} aria-label="创造中心导航">
+          {NAV_ITEMS.map(item => (
             <button
               type="button"
               key={item.id}
-              aria-pressed={filter === item.id}
-              onClick={() => { setFilter(item.id) }}
+              aria-current={view === item.id ? 'page' : undefined}
+              onClick={() => { switchView(item.id) }}
             >{item.label}</button>
           ))}
-        </div>
-        {browseMode === 'type' && selectedFilter?.description !== undefined && (
-          <p className={styles.filterHelp}>{selectedFilter.description}</p>
-        )}
+        </nav>
+        <label className={styles.search}>
+          <span aria-hidden="true">⌕</span>
+          <span className={styles.srOnly}>搜索能力</span>
+          <input
+            type="search"
+            value={query}
+            placeholder="搜索你想增加的能力"
+            aria-label="搜索能力"
+            onChange={(event) => { updateQuery(event.currentTarget.value) }}
+          />
+        </label>
+      </header>
 
-        <div className={styles.grid}>
-          {visibleTemplates.map(template => {
-            const open = expanded === template.id
-            return (
-              <article className={`${styles.template} ${open ? styles.templateOpen : ''}`} data-testid="creator-template" key={template.id}>
-                <div className={styles.templateHead}>
-                  <div>
-                    <div className={styles.badges}>
-                      <span>{template.difficulty}</span>
-                      <span>{template.duration}</span>
-                      {template.extensionTypes.map(type => <span key={type}>{EXTENSION_TYPE_LABELS[type]}</span>)}
-                    </div>
-                    <h4>{template.title}</h4>
-                    <p>{template.benefit}</p>
-                  </div>
-                  <button
-                    type="button"
-                    className={styles.detailButton}
-                    aria-expanded={open}
-                    aria-label={`${open ? '收起' : '查看'}“${template.title}”详情`}
-                    onClick={() => { setExpanded(open ? null : template.id) }}
-                  >{open ? '收起' : '查看详情'}</button>
-                </div>
-                {open && (
-                  <TemplateDetails
-                    template={template}
-                    disabled={creatorDisabled}
-                    onCopy={(prompt) => { void copyOnly(prompt) }}
-                    onCreate={(prompt) => { void copyAndCreate(prompt) }}
-                  />
-                )}
-              </article>
-            )
-          })}
-        </div>
-      </section>
+      {view === 'discover' && (
+        <>
+          <section className={styles.discoveryHero}>
+            <div className={styles.problemCard}>
+              <span className={styles.sectionKicker}>从你的问题开始</span>
+              <h2>你希望 DeepSeek 帮你解决什么问题？</h2>
+              <p>不用知道实现方式，像平时聊天一样描述就可以。</p>
+              <label className={styles.problemInput}>
+                <span className={styles.srOnly}>描述你想解决的问题</span>
+                <textarea
+                  value={problem}
+                  rows={4}
+                  aria-label="描述你想解决的问题"
+                  placeholder="例如：每天把客户反馈分成产品、物流和售后三类"
+                  onChange={(event) => { setProblem(event.currentTarget.value) }}
+                />
+              </label>
+              <div className={styles.exampleRow} aria-label="问题示例">
+                {['整理每周工作', '分析一份表格', '做一个小工具'].map(example => (
+                  <button type="button" key={example} onClick={() => { setProblem(example) }}>{example}</button>
+                ))}
+              </div>
+              <div className={styles.problemActions}>
+                <button type="button" className={styles.primaryButton} onClick={findForProblem}>帮我找适合的能力</button>
+                <button type="button" className={styles.textButton} disabled={busy} onClick={askAdvisor}>让 AI 帮我定制</button>
+              </div>
+              {validationError !== null && <p className={styles.error} role="alert">{validationError}</p>}
+              <ol className={styles.capabilityRail} aria-label="创建能力流程">
+                <li><i />说问题</li><li><i />看方案</li><li><i />开始创建</li>
+              </ol>
+            </div>
 
-      <section className={styles.learn}>
-        <div><strong>该做 Skill 还是插件？</strong><p>说明书用 Skill；专用助手用 Agent 预设；固定步骤用工作流；必须写代码时才用插件。</p></div>
-        <div><strong>创造模式会怎么做？</strong><p>先检查，再给计划；经你确认后写入用户目录，测试后报告启用和撤销方法。</p></div>
-        <div><strong>怎么判断创建成功？</strong><p>用一个真实例子跑通；确认启用位置、验证命令和完整撤销方法都已交付。</p></div>
-        <div><strong>去哪里看源码和教程？</strong><p><a href="https://github.com/deepseek-ai/deepseek-harness" target="_blank" rel="noreferrer">官方 Harness GitHub</a> · <a href="https://github.com/zhu1090093659/dsh-web-ui" target="_blank" rel="noreferrer">社区 UI 示例</a> · 桌面托盘 → 扩展与教程</p></div>
-        <div><strong>还是不知道选什么？</strong><p><button type="button" className={styles.learnAction} disabled={busy} onClick={askAdvisor}>让 AI 帮我选</button></p></div>
-      </section>
+            <div className={styles.featured}>
+              <header><div><span className={styles.sectionKicker}>不用从空白开始</span><h2>精选场景</h2></div><span>选择一个接近的方向</span></header>
+              <div className={styles.sceneStrip}>
+                {FEATURED_SCENES.map((scene, index) => (
+                  <article className={styles.sceneCard} data-scene={index + 1} data-testid="featured-scene" key={scene.id}>
+                    <div className={styles.sceneGraphic} aria-hidden="true"><i /><i /><i /></div>
+                    <span>场景 {String(index + 1).padStart(2, '0')}</span>
+                    <h3>{scene.title}</h3>
+                    <p>{scene.description}</p>
+                    <button type="button" aria-label={`查看“${scene.title}”场景`} onClick={() => { showScene(scene) }}>查看这个方向 <span aria-hidden="true">→</span></button>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {creatorAvailable === false && (
+            <div className={styles.notice} role="alert">
+              <div><strong>创造功能暂时不可用</strong><p>浏览和查看方案不受影响。请到“设置 → Agent 预设”恢复内置创造模式。</p></div>
+            </div>
+          )}
+
+          <AbilityLibrary
+            abilities={visibleAbilities}
+            industry={industry}
+            kind={kind}
+            selectedId={selectedId}
+            recommendationLabel={recommendationLabel}
+            creatorDisabled={creatorDisabled}
+            onIndustryChange={updateIndustry}
+            onKindChange={updateKind}
+            onSelect={setSelectedId}
+            onClear={resetDiscovery}
+            onCreate={(prompt) => { void copyAndCreate(prompt) }}
+            onAskAdvisor={askAdvisor}
+          />
+        </>
+      )}
+
+      {view === 'vibe' && <VibeCodingColumn onStart={startVibe} />}
+      {(view === 'guide' || view === 'principles') && (
+        <CreatorGuide
+          view={view}
+          onDiscover={() => { switchView('discover') }}
+          onAskAdvisor={askAdvisor}
+        />
+      )}
 
       {advisorRequested && launch.error !== null && (
-        <div className={styles.fallback} role="alert">
-          <div><strong>AI 顾问预设暂时不可用</strong><p>{launch.error}</p></div>
+        <div className={styles.notice} role="alert">
+          <div><strong>AI 顾问暂时不可用</strong><p>{launch.error}</p></div>
           <button type="button" disabled={busy} onClick={() => { void fallbackAdvisor() }}>复制顾问提问模板并打开创造模式</button>
         </div>
       )}
       {!advisorRequested && launch.error !== null && (
-        <div className={styles.fallback} role="alert">
+        <div className={styles.notice} role="alert">
           <div>
-            <strong>提示词已复制，但创造会话未能启动</strong>
-            <p>{launch.error}。你可以重试；若仍失败，请到“设置 → Agent 预设”检查内置“创造模式（cordis）”。</p>
+            <strong>创建说明已准备好，但创造会话未能启动</strong>
+            <p>{launch.error}。你可以重试；若仍失败，请到“设置 → Agent 预设”检查内置创造模式。</p>
           </div>
           <button type="button" disabled={busy} onClick={retryCreator}>重试打开创造模式</button>
         </div>

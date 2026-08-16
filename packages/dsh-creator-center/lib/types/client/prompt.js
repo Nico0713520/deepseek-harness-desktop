@@ -2,7 +2,7 @@ export function buildCreationPrompt(input) {
     if (input.goal.trim().length === 0)
         throw new Error('请先描述你想解决的问题');
     const goalData = JSON.stringify(input.goal);
-    const checks = input.template?.checks.map(item => `- ${item}`).join('\n')
+    const checks = input.template?.implementation.checks.map(item => `- ${item}`).join('\n')
         ?? '- 用一个真实示例验证结果\n- 报告修改位置和可重复的验证命令\n- 提供完整撤销方法';
     return `请先作为 DeepSeek Harness 创造模式规划者工作。
 

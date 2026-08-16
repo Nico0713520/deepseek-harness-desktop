@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { CREATOR_TEMPLATES } from './catalog.ts'
+import { ABILITIES } from './catalog.ts'
 import { buildCreationPrompt } from './prompt.ts'
 
 describe('Creator Center prompt builder', () => {
@@ -14,10 +14,10 @@ describe('Creator Center prompt builder', () => {
   })
 
   it('adds template-specific acceptance checks', () => {
-    const template = CREATOR_TEMPLATES.find(item => item.id === 'web-research')
+    const template = ABILITIES.find(item => item.id === 'web-research')
     expect(template).toBeDefined()
-    const prompt = buildCreationPrompt({ goal: template!.goal, template })
-    for (const check of template!.checks) expect(prompt).toContain(`- ${check}`)
+    const prompt = buildCreationPrompt({ goal: template!.implementation.goal, template })
+    for (const check of template!.implementation.checks) expect(prompt).toContain(`- ${check}`)
   })
 
   it('rejects an empty custom goal', () => {

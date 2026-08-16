@@ -1,8 +1,8 @@
-import type { CreatorTemplate } from './catalog.ts'
+import type { AbilityDefinition } from './catalog.ts'
 
 export interface CreationPromptInput {
   readonly goal: string
-  readonly template?: CreatorTemplate
+  readonly template?: AbilityDefinition
 }
 
 export function buildCreationPrompt(input: CreationPromptInput): string {
