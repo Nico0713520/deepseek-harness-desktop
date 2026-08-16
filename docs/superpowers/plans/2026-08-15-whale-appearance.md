@@ -319,7 +319,7 @@ Expected: tests/build PASS; release-assets intentionally FAIL while prototype ar
 
 - [ ] **Step 5: Provision into the real desktop profile and run packaged smoke**
 
-Run the provisioner against `/Users/zhengdeweishi/Library/Application Support/DeepSeek Harness Whale Desktop/dsh`, verify the profile lists `@linxin666/dsh-client-ui-web-ui-settings` and `@whale-desktop/dsh-whale-appearance`, then run `pnpm smoke:packaged`.
+Run the provisioner against the current user's DeepSeek Harness Desktop application-support directory, verify the profile lists `@linxin666/dsh-client-ui-web-ui-settings` and `@whale-desktop/dsh-whale-appearance`, then run `pnpm smoke:packaged`.
 
 - [ ] **Step 6: Manually verify the visible contract**
 
