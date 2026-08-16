@@ -1,4 +1,4 @@
-export type IndustryId = 'financial-services' | 'healthcare' | 'life-sciences' | 'retail' | 'government' | 'education'
+export type IndustryId = 'programmer' | 'financial-services' | 'healthcare' | 'life-sciences' | 'retail' | 'government' | 'education'
 export type AbilityKindId = 'coding' | 'content-creation' | 'research' | 'agents' | 'data-analysis'
 export type CollectionId = 'vibe-coding'
 export type ExtensionType = 'agent-preset' | 'skill' | 'workflow' | 'plugin' | 'ui-extension'
@@ -54,6 +54,7 @@ export interface VibeCodingGroup {
 
 export const INDUSTRIES: readonly TaxonomyItem<IndustryId>[] = [
   { id: 'all', label: '全部行业' },
+  { id: 'programmer', label: '程序员' },
   { id: 'financial-services', label: '金融服务' },
   { id: 'healthcare', label: '医疗健康' },
   { id: 'life-sciences', label: '生命科学' },
@@ -187,7 +188,7 @@ export const ABILITIES: readonly AbilityDefinition[] = [
     title: '代码变更检查',
     outcome: '按严重程度检查代码变更，并给出位置、证据和建议。',
     summary: '默认只读，不会自动修改、提交、推送或创建合并请求。',
-    industryIds: [],
+    industryIds: ['programmer'],
     kindIds: ['coding'],
     collectionIds: ['vibe-coding'],
     aliases: ['GitHub', '代码审查', 'review', '检查代码', '找 bug'],
@@ -211,7 +212,7 @@ export const ABILITIES: readonly AbilityDefinition[] = [
     title: '做出第一个可运行版本',
     outcome: '把一个明确想法变成可以启动、可以验证的最小版本。',
     summary: '先说清楚谁要用和完成后是什么样，再决定最简单的实现方式。',
-    industryIds: [],
+    industryIds: ['programmer'],
     kindIds: ['coding'],
     collectionIds: ['vibe-coding'],
     aliases: ['Vibe Coding', '做网站', '做工具', '做软件', '第一版', '脚手架'],
@@ -259,7 +260,7 @@ export const ABILITIES: readonly AbilityDefinition[] = [
     title: '自定义界面与主题',
     outcome: '给 Harness 增加可关闭的主题、桌宠或快捷入口。',
     summary: '保留官方聊天核心，视觉功能失败时自动回到官方界面。',
-    industryIds: [],
+    industryIds: ['programmer'],
     kindIds: ['coding'],
     collectionIds: ['vibe-coding'],
     aliases: ['主题', '桌宠', '界面', '皮肤', '壁纸', 'UI'],

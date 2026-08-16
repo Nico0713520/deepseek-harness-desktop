@@ -19,7 +19,7 @@ window.__ModuleLoader__.load({
 		}
 		//#endregion
 		//#region \0dsh-css:/Users/zhengdeweishi/Documents/Codex/2026-08-13/za/packages/dsh-creator-center/src/client/creator-center.module.css.mjs
-		const css = ".PwVb5G_page{--creator-ink:#172033;--creator-muted:#657084;--creator-canvas:#f7f9fc;--creator-paper:#fff;--creator-blue:#315fa8;--creator-blue-dark:#244d8a;--creator-mist:#eaf1fa;--creator-warm:#d89b5b;--creator-line:#dfe5ee;--creator-soft-line:#edf1f6;color:var(--dsw-alias-text-primary,var(--creator-ink));gap:24px;padding-bottom:10px;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,SF Pro Text,PingFang SC,Microsoft YaHei,sans-serif;display:grid;container-type:inline-size}.PwVb5G_page *,.PwVb5G_page :before,.PwVb5G_page :after{box-sizing:border-box}.PwVb5G_page h2,.PwVb5G_page h3,.PwVb5G_page p,.PwVb5G_page dl,.PwVb5G_page ol,.PwVb5G_page ul{margin-top:0}.PwVb5G_page button,.PwVb5G_page textarea,.PwVb5G_page input{font:inherit}.PwVb5G_page button{color:inherit}.PwVb5G_page button:focus-visible,.PwVb5G_page textarea:focus-visible,.PwVb5G_page input:focus-visible,.PwVb5G_page a:focus-visible,.PwVb5G_page summary:focus-visible{outline:2px solid var(--creator-blue);outline-offset:3px}.PwVb5G_page button:disabled{cursor:not-allowed;opacity:.48}.PwVb5G_sidebarEntry{width:100%;min-height:36px;color:var(--dsw-alias-label-secondary,var(--creator-muted));cursor:pointer;text-align:left;background:0 0;border:0;border-radius:9px;align-items:center;gap:9px;padding:7px 10px;font-size:13px;font-weight:500;display:flex}.PwVb5G_sidebarEntry:hover{background:var(--dsw-alias-interactive-bg-hover,var(--creator-canvas));color:var(--creator-ink)}.PwVb5G_sidebarEntryActive{background:var(--creator-mist);color:var(--creator-blue);font-weight:700}.PwVb5G_sidebarEntryIcon{color:currentColor;flex:none;place-items:center;width:18px;height:18px;font-size:17px;line-height:1;display:grid}.PwVb5G_sidebarEntryLabel{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.PwVb5G_srOnly{clip:rect(0, 0, 0, 0);white-space:nowrap;border:0;width:1px;height:1px;margin:-1px;padding:0;position:absolute;overflow:hidden}.PwVb5G_topbar{z-index:5;border-bottom:1px solid var(--dsw-alias-border-l1,var(--creator-line));background:color-mix(in srgb, var(--dsw-alias-bg-base,#fff) 94%, transparent);backdrop-filter:blur(12px);justify-content:space-between;align-items:center;gap:16px;min-height:54px;display:flex;position:sticky;top:-1px}.PwVb5G_surface{z-index:30;background:var(--dsw-alias-bg-base,#f7f9fc);pointer-events:auto;position:absolute;top:0;bottom:0;right:0;overflow:auto}.PwVb5G_surface>.PwVb5G_page{min-height:100%;padding:0 clamp(20px,4vw,56px) 40px}.PwVb5G_topbarStart{align-items:center;gap:8px;min-width:0;display:flex}.PwVb5G_backButton{background:var(--creator-mist);color:var(--creator-blue);cursor:pointer;white-space:nowrap;border:0;border-radius:8px;padding:7px 9px;font-size:11px;font-weight:700}.PwVb5G_backButton:hover{background:#dfeaf8}.PwVb5G_nav{align-items:stretch;gap:4px;min-width:0;display:flex}.PwVb5G_nav button{min-height:42px;color:var(--creator-muted);cursor:pointer;white-space:nowrap;background:0 0;border:0;padding:0 11px;font-size:13px;font-weight:600;position:relative}.PwVb5G_nav button:hover,.PwVb5G_nav button[aria-current=page]{color:var(--creator-ink)}.PwVb5G_nav button[aria-current=page]:after{background:var(--creator-blue);content:\"\";border-radius:2px 2px 0 0;height:2px;position:absolute;bottom:-1px;left:10px;right:10px}.PwVb5G_search{border:1px solid var(--dsw-alias-border-l2,var(--creator-line));background:var(--dsw-alias-bg-l2,var(--creator-canvas));color:#7b8798;border-radius:10px;align-items:center;width:min(250px,34%);min-width:180px;height:36px;padding:0 11px;display:flex}.PwVb5G_search>span:first-child{margin-right:7px;font-size:18px;line-height:1;transform:rotate(-12deg)}.PwVb5G_search input{width:100%;color:var(--creator-ink);background:0 0;border:0;outline:0;font-size:12px}.PwVb5G_search input::placeholder{color:#8b95a5}.PwVb5G_search:focus-within{background:var(--creator-paper);border-color:#89a8d4;box-shadow:0 0 0 3px #315fa814}.PwVb5G_discoveryHero{grid-template-columns:minmax(270px,.78fr) minmax(0,1.35fr);gap:12px;display:grid}.PwVb5G_problemCard,.PwVb5G_featured,.PwVb5G_library,.PwVb5G_vibeHero,.PwVb5G_guidePage{border:1px solid var(--dsw-alias-border-l2,var(--creator-line));background:var(--dsw-alias-bg-base,var(--creator-paper));border-radius:18px}.PwVb5G_problemCard{background:linear-gradient(160deg, var(--creator-paper) 0%, var(--creator-paper) 64%, var(--creator-mist) 150%);padding:22px;position:relative;overflow:hidden}.PwVb5G_problemCard:before{background:var(--creator-mist);content:\"\";opacity:.72;border-radius:0 0 0 76px;width:76px;height:76px;position:absolute;top:0;right:0}.PwVb5G_sectionKicker,.PwVb5G_vibeKicker{color:var(--creator-blue);letter-spacing:.08em;margin-bottom:7px;font-size:11px;font-weight:750;display:inline-block}.PwVb5G_problemCard h2{letter-spacing:-.025em;max-width:360px;margin-bottom:8px;font-size:clamp(21px,2.2vw,27px);line-height:1.28}.PwVb5G_problemCard>p{color:var(--creator-muted);margin-bottom:15px;font-size:12px;line-height:1.65}.PwVb5G_problemInput textarea{resize:vertical;border:1px solid var(--creator-line);background:var(--creator-paper);width:100%;min-height:104px;color:var(--creator-ink);border-radius:12px;padding:12px 13px;font-size:13px;line-height:1.6;box-shadow:0 6px 18px #1720330a}.PwVb5G_problemInput textarea::placeholder{color:#9aa3b0}.PwVb5G_exampleRow{flex-wrap:wrap;gap:5px;margin-top:8px;display:flex}.PwVb5G_exampleRow button{background:var(--dsw-alias-bg-l2,var(--creator-canvas));color:var(--creator-muted);cursor:pointer;border:0;border-radius:6px;padding:5px 7px;font-size:10px}.PwVb5G_exampleRow button:hover{background:var(--creator-mist);color:var(--creator-blue)}.PwVb5G_problemActions{align-items:center;gap:13px;margin-top:15px;display:flex}.PwVb5G_primaryButton,.PwVb5G_secondaryButton,.PwVb5G_vibeButton,.PwVb5G_notice>button{cursor:pointer;border-radius:9px;min-height:38px;padding:8px 13px;font-size:12px;font-weight:700}.PwVb5G_primaryButton{border:1px solid var(--creator-blue);background:var(--creator-blue);white-space:nowrap;box-shadow:0 6px 14px #315fa829;color:#fff!important}.PwVb5G_primaryButton:hover{border-color:var(--creator-blue-dark);background:var(--creator-blue-dark)}.PwVb5G_secondaryButton{border:1px solid var(--creator-line);background:var(--creator-paper)}.PwVb5G_secondaryButton:hover{background:var(--creator-canvas);border-color:#aebdd1}.PwVb5G_textButton{cursor:pointer;background:0 0;border:0;padding:7px 0;font-size:12px;font-weight:700;color:var(--creator-blue)!important}.PwVb5G_textButton:hover{text-underline-offset:3px;text-decoration:underline}.PwVb5G_capabilityRail{color:#6b7890;grid-template-columns:repeat(3,1fr);gap:0;margin:21px 0 0;padding:0;font-size:10px;list-style:none;display:grid;position:relative}.PwVb5G_capabilityRail:before{content:\"\";background:#a8bddc;height:1px;position:absolute;top:5px;left:12%;right:12%}.PwVb5G_capabilityRail li{justify-items:center;gap:6px;display:grid;position:relative}.PwVb5G_capabilityRail i{z-index:1;border:2px solid var(--creator-paper);background:var(--creator-blue);border-radius:50%;width:11px;height:11px;box-shadow:0 0 0 1px #93acd0}.PwVb5G_featured{min-width:0;padding:19px}.PwVb5G_featured>header,.PwVb5G_libraryHeader,.PwVb5G_collectionHeader{justify-content:space-between;align-items:flex-end;gap:14px;display:flex}.PwVb5G_featured>header{margin-bottom:13px}.PwVb5G_featured h2,.PwVb5G_libraryHeader h2{letter-spacing:-.015em;margin-bottom:0;font-size:18px}.PwVb5G_featured>header>span{color:var(--creator-muted);font-size:10px}.PwVb5G_sceneStrip{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;display:grid}.PwVb5G_sceneCard{background:var(--creator-mist);border-radius:13px;min-width:0;padding:0 13px 14px;overflow:hidden}.PwVb5G_sceneCard[data-scene=\"2\"]{background:#f3f5f8}.PwVb5G_sceneCard[data-scene=\"3\"]{background:#f7f1e9}.PwVb5G_sceneGraphic{border-bottom:1px solid #315fa814;height:88px;margin:0 -13px 12px;position:relative;overflow:hidden}.PwVb5G_sceneGraphic:before{content:\"\";background:#315fa821;border-radius:50%;width:55px;height:55px;position:absolute;inset:15px 15px auto auto}.PwVb5G_sceneGraphic:after{content:\"\";background:#ffffff8f;border:1px solid #315fa82e;border-radius:12px 12px 0 0;width:88px;height:57px;position:absolute;bottom:-18px;left:14px;transform:rotate(-4deg)}.PwVb5G_sceneGraphic i{z-index:1;background:var(--creator-blue);opacity:.45;border-radius:50%;width:6px;height:6px;position:absolute}.PwVb5G_sceneGraphic i:first-child{top:26px;left:26px}.PwVb5G_sceneGraphic i:nth-child(2){top:46px;left:58px}.PwVb5G_sceneGraphic i:nth-child(3){bottom:18px;right:34px}.PwVb5G_sceneCard>span{color:var(--creator-blue);letter-spacing:.08em;font-size:9px;font-weight:800}.PwVb5G_sceneCard h3{min-height:39px;margin:5px 0 6px;font-size:13px;line-height:1.45}.PwVb5G_sceneCard p{min-height:34px;color:var(--creator-muted);margin-bottom:9px;font-size:10px;line-height:1.55}.PwVb5G_sceneCard button{color:var(--creator-blue);cursor:pointer;background:0 0;border:0;padding:0;font-size:10px;font-weight:700}.PwVb5G_library{padding:20px}.PwVb5G_libraryHeader{border-bottom:1px solid var(--creator-soft-line);padding-bottom:14px}.PwVb5G_resultCount{color:var(--creator-muted);font-size:11px}.PwVb5G_filterRows{padding:12px 0 15px}.PwVb5G_filterRow{grid-template-columns:46px 1fr;align-items:start;gap:7px;padding:4px 0;display:grid}.PwVb5G_filterLabel{color:#8a94a4;padding-top:7px;font-size:10px}.PwVb5G_filterRow>div{flex-wrap:wrap;gap:2px;display:flex}.PwVb5G_filterRow button{min-height:28px;color:var(--creator-muted);cursor:pointer;background:0 0;border:0;border-radius:7px;padding:5px 8px;font-size:11px}.PwVb5G_filterRow button:hover{background:var(--creator-canvas);color:var(--creator-ink)}.PwVb5G_filterRow button[aria-pressed=true]{background:var(--creator-mist);color:var(--creator-blue);font-weight:700}.PwVb5G_abilityGrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;display:grid}.PwVb5G_abilityCard{border:1px solid var(--creator-line);background:var(--creator-paper);border-radius:13px;flex-direction:column;min-width:0;min-height:264px;padding:14px;transition:border-color .16s,box-shadow .16s,transform .16s;display:flex}.PwVb5G_abilityCard:hover{border-color:#b7c7db;transform:translateY(-1px);box-shadow:0 10px 26px #17203312}.PwVb5G_abilityCardSelected{border-color:#8eabd2;box-shadow:0 0 0 2px #315fa812}.PwVb5G_cardMarker{background:var(--creator-mist);width:31px;height:31px;color:var(--creator-blue);border-radius:9px;place-items:center;font-size:12px;font-weight:800;display:grid}.PwVb5G_abilityCard h3{margin:11px 0 5px;font-size:14px;line-height:1.4}.PwVb5G_cardOutcome{min-height:40px;color:var(--creator-muted);margin-bottom:10px;font-size:11px;line-height:1.6}.PwVb5G_cardFacts{gap:7px;margin-bottom:13px;display:grid}.PwVb5G_cardFacts div{grid-template-columns:39px 1fr;gap:5px;display:grid}.PwVb5G_cardFacts dt{color:#8a94a4;font-size:9px}.PwVb5G_cardFacts dd{color:#536075;margin:0;font-size:9px;line-height:1.5}.PwVb5G_cardFooter{border-top:1px solid var(--creator-soft-line);justify-content:space-between;align-items:flex-end;gap:7px;margin-top:auto;padding-top:10px;display:flex}.PwVb5G_cardTags{flex-wrap:wrap;gap:4px;display:flex}.PwVb5G_cardTags span{background:var(--creator-canvas);color:#778295;border-radius:4px;padding:3px 5px;font-size:8px}.PwVb5G_cardFooter button{color:var(--creator-blue);cursor:pointer;white-space:nowrap;background:0 0;border:0;padding:3px 0;font-size:9px;font-weight:700}.PwVb5G_emptyState{text-align:center;align-content:center;place-items:center;min-height:240px;display:grid}.PwVb5G_emptyState>span{color:#a8b3c2;font-size:40px}.PwVb5G_emptyState h3{margin:4px 0 6px;font-size:15px}.PwVb5G_emptyState p{color:var(--creator-muted);margin-bottom:12px;font-size:11px}.PwVb5G_emptyState>div{align-items:center;gap:12px;display:flex}.PwVb5G_abilityDetail{background:linear-gradient(180deg, #fbfdff, var(--creator-paper) 42%);border:1px solid #a9bfdd;border-radius:15px;margin-top:12px;padding:18px;box-shadow:0 12px 30px #315fa812}.PwVb5G_detailHeader{justify-content:space-between;align-items:flex-start;gap:16px;display:flex}.PwVb5G_detailHeader h3{margin:0 0 5px;font-size:18px}.PwVb5G_detailHeader p{color:var(--creator-muted);margin-bottom:0;font-size:11px;line-height:1.6}.PwVb5G_iconButton{border:1px solid var(--creator-line);background:var(--creator-paper);cursor:pointer;border-radius:50%;flex:none;place-items:center;width:31px;height:31px;font-size:18px;line-height:1;display:grid}.PwVb5G_reviewGrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:15px;display:grid}.PwVb5G_reviewGrid>div{background:var(--creator-canvas);border-radius:10px;padding:11px}.PwVb5G_reviewGrid span{color:var(--creator-ink);font-size:10px;font-weight:750}.PwVb5G_reviewGrid p{color:var(--creator-muted);margin:5px 0 0;font-size:10px;line-height:1.6}.PwVb5G_detailActions{justify-content:flex-end;gap:8px;margin-top:14px;display:flex}.PwVb5G_advanced{border-top:1px solid var(--creator-soft-line);margin-top:14px;padding-top:11px}.PwVb5G_advanced summary{width:fit-content;color:var(--creator-muted);cursor:pointer;font-size:10px;font-weight:700}.PwVb5G_advancedBody{background:var(--creator-canvas);border-radius:10px;gap:10px;margin-top:12px;padding:12px;display:grid}.PwVb5G_implementationLine{grid-template-columns:72px 1fr;gap:8px;font-size:10px;display:grid}.PwVb5G_implementationLine span,.PwVb5G_implementationLine ul{color:var(--creator-muted);margin:0;line-height:1.55}.PwVb5G_implementationLine ul{padding-left:17px}.PwVb5G_sourceLine{color:#7a8596;font-size:9px}.PwVb5G_promptLabel{color:var(--creator-ink);gap:6px;font-size:10px;font-weight:700;display:grid}.PwVb5G_promptLabel textarea{resize:vertical;border:1px solid var(--creator-line);background:var(--creator-paper);color:#3f4a5d;border-radius:9px;width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:9px;font-weight:400;line-height:1.55}.PwVb5G_notice{background:#fff9ef;border:1px solid #e4c697;border-radius:11px;justify-content:space-between;align-items:center;gap:14px;padding:11px 13px;display:flex}.PwVb5G_notice strong{font-size:11px}.PwVb5G_notice p{color:#765f3e;margin:3px 0 0;font-size:10px;line-height:1.5}.PwVb5G_notice>button{white-space:nowrap;background:#fff;border:1px solid #dfbd82}.PwVb5G_error{color:#bf3d43;margin:8px 0 0;font-size:11px}.PwVb5G_status{min-height:16px;color:var(--creator-blue);margin:-11px 0 0;font-size:10px}.PwVb5G_vibePage{gap:14px;display:grid}.PwVb5G_vibeHero{background:linear-gradient(120deg,#fff 0% 68%,#f7f1e9 130%);justify-content:space-between;align-items:flex-end;gap:22px;padding:26px;display:flex;overflow:hidden}.PwVb5G_vibeKicker{color:#aa6d31}.PwVb5G_vibeHero h2{letter-spacing:-.025em;max-width:600px;margin:0 0 7px;font-size:25px;line-height:1.28}.PwVb5G_vibeHero p{max-width:620px;color:var(--creator-muted);margin-bottom:0;font-size:12px;line-height:1.65}.PwVb5G_vibeButton{background:#fff8ef;border:1px solid #d4a067;flex:none;color:#8b5625!important}.PwVb5G_vibeButton:hover{background:#f9ead8}.PwVb5G_deliveryRail{border:1px solid var(--creator-line);background:var(--creator-paper);border-radius:13px;grid-template-columns:repeat(3,1fr);margin:0;padding:0;list-style:none;display:grid}.PwVb5G_deliveryRail li{border-right:1px solid var(--creator-soft-line);align-items:center;gap:9px;min-height:56px;padding:10px 16px;display:flex}.PwVb5G_deliveryRail li:last-child{border-right:0}.PwVb5G_deliveryRail b{color:var(--creator-warm);font-size:10px}.PwVb5G_deliveryRail span{font-size:12px;font-weight:700}.PwVb5G_collectionHeader{padding:8px 2px 0}.PwVb5G_collectionHeader h3{margin-bottom:0;font-size:17px}.PwVb5G_collectionHeader>p{color:var(--creator-muted);margin-bottom:0;font-size:10px}.PwVb5G_vibeGrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;display:grid}.PwVb5G_vibeCard{border:1px solid var(--creator-line);background:var(--creator-paper);border-radius:13px;min-height:278px;padding:16px;position:relative;overflow:hidden}.PwVb5G_vibeIndex{color:var(--creator-warm);letter-spacing:.08em;font-size:10px;font-weight:800}.PwVb5G_vibeCard h3{margin:9px 0 5px;font-size:14px}.PwVb5G_vibeCard>p{min-height:35px;color:var(--creator-muted);margin-bottom:11px;font-size:10px;line-height:1.6}.PwVb5G_vibeCard dl{gap:8px;margin-bottom:13px;display:grid}.PwVb5G_vibeCard dl div{grid-template-columns:64px 1fr;gap:5px;display:grid}.PwVb5G_vibeCard dt{color:#8a94a4;font-size:9px}.PwVb5G_vibeCard dd{color:#536075;margin:0;font-size:9px;line-height:1.5}.PwVb5G_vibeDetails{border-top:1px solid var(--creator-soft-line);margin:0 0 30px;padding-top:8px}.PwVb5G_vibeDetails summary{color:#8a6a4a;cursor:pointer;width:fit-content;font-size:9px;font-weight:700}.PwVb5G_vibeDetails p{color:var(--creator-muted);grid-template-columns:55px 1fr;gap:5px;margin:7px 0 0;font-size:8px;line-height:1.5;display:grid}.PwVb5G_vibeDetails b{color:#7e6650}.PwVb5G_vibeCard button{color:#9b622f;cursor:pointer;background:0 0;border:0;padding:0;font-size:9px;font-weight:750;position:absolute;bottom:14px;right:16px}.PwVb5G_guidePage{padding:25px}.PwVb5G_guideHero{max-width:700px}.PwVb5G_guideHero h2{letter-spacing:-.025em;margin:0 0 7px;font-size:24px}.PwVb5G_guideHero p{color:var(--creator-muted);font-size:12px;line-height:1.65}.PwVb5G_guideSteps{counter-reset:step;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0;padding:0;list-style:none;display:grid}.PwVb5G_guideSteps li{border-top:2px solid var(--creator-mist);gap:11px;padding:14px 4px 0;display:flex}.PwVb5G_guideSteps b{background:var(--creator-mist);width:25px;height:25px;color:var(--creator-blue);border-radius:50%;flex:none;place-items:center;font-size:10px;display:grid}.PwVb5G_guideSteps h3{margin:2px 0 5px;font-size:13px}.PwVb5G_guideSteps p{color:var(--creator-muted);margin-bottom:0;font-size:10px;line-height:1.6}.PwVb5G_helpCard{background:var(--creator-mist);border-radius:13px;justify-content:space-between;align-items:center;gap:16px;padding:16px;display:flex}.PwVb5G_helpCard span{color:var(--creator-blue);margin-bottom:4px;font-size:9px;font-weight:800;display:block}.PwVb5G_helpCard strong{font-size:13px}.PwVb5G_helpCard p{color:var(--creator-muted);margin:4px 0 0;font-size:10px}.PwVb5G_guideLinks{border-top:1px solid var(--creator-soft-line);flex-wrap:wrap;gap:15px;margin-top:20px;padding-top:14px;font-size:10px;display:flex}.PwVb5G_guideLinks span{color:#8a94a4}.PwVb5G_guideLinks a{color:var(--creator-blue);text-decoration:none}.PwVb5G_guideLinks a:hover{text-decoration:underline}.PwVb5G_guideActions{justify-content:flex-end;margin-top:18px;display:flex}.PwVb5G_principleGrid{grid-template-columns:repeat(2,1fr);gap:10px;margin-top:22px;display:grid}.PwVb5G_principleGrid article{border:1px solid var(--creator-line);border-radius:12px;padding:15px}.PwVb5G_principleGrid article>span{color:var(--creator-blue);font-size:9px;font-weight:800}.PwVb5G_principleGrid h3{margin:8px 0 5px;font-size:13px}.PwVb5G_principleGrid p{color:var(--creator-muted);margin-bottom:10px;font-size:10px;line-height:1.6}.PwVb5G_principleGrid small{color:#8a94a4;font-size:9px}@media (width<=1050px){.PwVb5G_abilityGrid,.PwVb5G_vibeGrid,.PwVb5G_reviewGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (width<=760px){.PwVb5G_page{gap:16px}.PwVb5G_topbar{padding-bottom:10px;display:grid;position:static}.PwVb5G_nav{overflow-x:auto}.PwVb5G_search{width:100%}.PwVb5G_discoveryHero{grid-template-columns:1fr}.PwVb5G_sceneStrip{grid-template-columns:repeat(3,minmax(180px,1fr));padding-bottom:4px;overflow-x:auto}.PwVb5G_abilityGrid,.PwVb5G_vibeGrid,.PwVb5G_reviewGrid,.PwVb5G_guideSteps,.PwVb5G_principleGrid{grid-template-columns:1fr}.PwVb5G_filterRow{grid-template-columns:1fr;gap:2px}.PwVb5G_filterLabel{padding-left:8px}.PwVb5G_vibeHero,.PwVb5G_helpCard{flex-direction:column;align-items:flex-start}.PwVb5G_deliveryRail{grid-template-columns:1fr}.PwVb5G_deliveryRail li{border-right:0;border-bottom:1px solid var(--creator-soft-line)}.PwVb5G_deliveryRail li:last-child{border-bottom:0}.PwVb5G_detailActions{flex-direction:column-reverse;align-items:stretch}.PwVb5G_detailActions button{width:100%}}@media (width<=460px){.PwVb5G_problemCard,.PwVb5G_featured,.PwVb5G_library,.PwVb5G_vibeHero,.PwVb5G_guidePage{border-radius:14px;padding:16px}.PwVb5G_abilityGrid,.PwVb5G_vibeGrid{grid-template-columns:1fr}.PwVb5G_libraryHeader,.PwVb5G_collectionHeader{flex-direction:column;align-items:flex-start}.PwVb5G_problemActions{flex-direction:column;align-items:stretch}.PwVb5G_problemActions button{width:100%}}@media (prefers-reduced-motion:reduce){.PwVb5G_page *,.PwVb5G_page :before,.PwVb5G_page :after{scroll-behavior:auto!important;transition:none!important}}@container (width<=760px){.PwVb5G_sceneStrip{scroll-snap-type:x proximity;grid-template-columns:none;grid-auto-columns:minmax(158px,66%);grid-auto-flow:column;padding-bottom:5px;overflow-x:auto}.PwVb5G_sceneCard{scroll-snap-align:start}.PwVb5G_problemActions{flex-wrap:wrap;gap:8px 12px}.PwVb5G_abilityGrid,.PwVb5G_vibeGrid,.PwVb5G_reviewGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.PwVb5G_guideSteps{grid-template-columns:1fr}}@container (width<=500px){.PwVb5G_topbar{padding-bottom:10px;display:grid;position:static}.PwVb5G_nav{overflow-x:auto}.PwVb5G_search{width:100%}.PwVb5G_discoveryHero,.PwVb5G_abilityGrid,.PwVb5G_vibeGrid,.PwVb5G_reviewGrid,.PwVb5G_principleGrid{grid-template-columns:1fr}.PwVb5G_filterRow{grid-template-columns:1fr;gap:2px}.PwVb5G_filterLabel{padding-left:8px}.PwVb5G_vibeHero,.PwVb5G_helpCard{flex-direction:column;align-items:flex-start}.PwVb5G_deliveryRail{grid-template-columns:1fr}.PwVb5G_deliveryRail li{border-right:0;border-bottom:1px solid var(--creator-soft-line)}.PwVb5G_deliveryRail li:last-child{border-bottom:0}.PwVb5G_detailActions{flex-direction:column-reverse;align-items:stretch}.PwVb5G_detailActions button{width:100%}}";
+		const css = ".PwVb5G_page{--creator-ink:#172033;--creator-muted:#657084;--creator-canvas:#f7f9fc;--creator-paper:#fff;--creator-blue:#315fa8;--creator-blue-dark:#244d8a;--creator-mist:#eaf1fa;--creator-warm:#d89b5b;--creator-line:#dfe5ee;--creator-soft-line:#edf1f6;color:var(--dsw-alias-text-primary,var(--creator-ink));gap:24px;padding-bottom:10px;font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,SF Pro Text,PingFang SC,Microsoft YaHei,sans-serif;display:grid;container-type:inline-size}.PwVb5G_page *,.PwVb5G_page :before,.PwVb5G_page :after{box-sizing:border-box}.PwVb5G_page h2,.PwVb5G_page h3,.PwVb5G_page p,.PwVb5G_page dl,.PwVb5G_page ol,.PwVb5G_page ul{margin-top:0}.PwVb5G_page button,.PwVb5G_page textarea,.PwVb5G_page input{font:inherit}.PwVb5G_page button{color:inherit}.PwVb5G_page button:focus-visible,.PwVb5G_page textarea:focus-visible,.PwVb5G_page input:focus-visible,.PwVb5G_page a:focus-visible,.PwVb5G_page summary:focus-visible{outline:2px solid var(--creator-blue);outline-offset:3px}.PwVb5G_page button:disabled{cursor:not-allowed;opacity:.48}.PwVb5G_sidebarEntry{box-sizing:border-box;border:1px solid var(--dsw-alias-border-l2,var(--creator-line));background:var(--dsw-alias-button-elevated-fill,var(--creator-paper));width:100%;height:38px;color:var(--dsw-alias-label-primary,var(--creator-ink));cursor:pointer;text-align:left;border-radius:12px;justify-content:center;align-items:center;gap:9px;padding:8px 16px;font-size:14px;font-weight:500;line-height:22px;display:flex}.PwVb5G_sidebarEntry:hover{background:var(--dsw-alias-button-floating-hover,var(--creator-canvas));color:var(--creator-ink)}.PwVb5G_sidebarEntryActive{background:var(--creator-mist);color:var(--creator-blue);border-color:#b9cce7;font-weight:700}.PwVb5G_sidebarEntryIcon{color:currentColor;flex:none;place-items:center;width:18px;height:18px;font-size:17px;line-height:1;display:grid}.PwVb5G_sidebarEntryLabel{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.PwVb5G_srOnly{clip:rect(0, 0, 0, 0);white-space:nowrap;border:0;width:1px;height:1px;margin:-1px;padding:0;position:absolute;overflow:hidden}.PwVb5G_topbar{z-index:5;border-bottom:1px solid var(--dsw-alias-border-l1,var(--creator-line));background:color-mix(in srgb, var(--dsw-alias-bg-base,#fff) 94%, transparent);backdrop-filter:blur(12px);justify-content:space-between;align-items:center;gap:16px;min-height:54px;display:flex;position:sticky;top:-1px}.PwVb5G_surface{z-index:30;background:var(--dsw-alias-bg-base,#f7f9fc);pointer-events:auto;position:absolute;top:0;bottom:0;right:0;overflow:auto}.PwVb5G_surface>.PwVb5G_page{min-height:100%;padding:28px clamp(20px,4vw,56px) 40px}.PwVb5G_topbarStart{align-items:center;gap:8px;min-width:0;display:flex}.PwVb5G_backButton{background:var(--creator-mist);color:var(--creator-blue);cursor:pointer;white-space:nowrap;border:0;border-radius:8px;padding:7px 9px;font-size:11px;font-weight:700}.PwVb5G_backButton:hover{background:#dfeaf8}.PwVb5G_nav{align-items:stretch;gap:4px;min-width:0;display:flex}.PwVb5G_nav button{min-height:42px;color:var(--creator-muted);cursor:pointer;white-space:nowrap;background:0 0;border:0;padding:0 11px;font-size:13px;font-weight:600;position:relative}.PwVb5G_nav button:hover,.PwVb5G_nav button[aria-current=page]{color:var(--creator-ink)}.PwVb5G_nav button[aria-current=page]:after{background:var(--creator-blue);content:\"\";border-radius:2px 2px 0 0;height:2px;position:absolute;bottom:-1px;left:10px;right:10px}.PwVb5G_search{border:1px solid var(--dsw-alias-border-l2,var(--creator-line));background:var(--dsw-alias-bg-l2,var(--creator-canvas));color:#7b8798;border-radius:10px;align-items:center;width:min(250px,34%);min-width:180px;height:36px;padding:0 11px;display:flex}.PwVb5G_search>span:first-child{margin-right:7px;font-size:18px;line-height:1;transform:rotate(-12deg)}.PwVb5G_search input{width:100%;color:var(--creator-ink);background:0 0;border:0;outline:0;font-size:12px}.PwVb5G_search input::placeholder{color:#8b95a5}.PwVb5G_search:focus-within{background:var(--creator-paper);border-color:#89a8d4;box-shadow:0 0 0 3px #315fa814}.PwVb5G_discoveryHero{grid-template-columns:minmax(270px,.78fr) minmax(0,1.35fr);gap:12px;display:grid}.PwVb5G_problemCard,.PwVb5G_featured,.PwVb5G_library,.PwVb5G_vibeHero,.PwVb5G_guidePage{border:1px solid var(--dsw-alias-border-l2,var(--creator-line));background:var(--dsw-alias-bg-base,var(--creator-paper));border-radius:18px}.PwVb5G_problemCard{background:linear-gradient(160deg, var(--creator-paper) 0%, var(--creator-paper) 64%, var(--creator-mist) 150%);padding:22px;position:relative;overflow:hidden}.PwVb5G_problemCard:before{background:var(--creator-mist);content:\"\";opacity:.72;border-radius:0 0 0 76px;width:76px;height:76px;position:absolute;top:0;right:0}.PwVb5G_sectionKicker,.PwVb5G_vibeKicker{color:var(--creator-blue);letter-spacing:.08em;margin-bottom:7px;font-size:11px;font-weight:750;display:inline-block}.PwVb5G_problemCard h2{letter-spacing:-.025em;max-width:360px;margin-bottom:8px;font-size:clamp(21px,2.2vw,27px);line-height:1.28}.PwVb5G_problemCard>p{color:var(--creator-muted);margin-bottom:15px;font-size:12px;line-height:1.65}.PwVb5G_problemInput textarea{resize:vertical;border:1px solid var(--creator-line);background:var(--creator-paper);width:100%;min-height:104px;color:var(--creator-ink);border-radius:12px;padding:12px 13px;font-size:13px;line-height:1.6;box-shadow:0 6px 18px #1720330a}.PwVb5G_problemInput textarea::placeholder{color:#9aa3b0}.PwVb5G_exampleRow{flex-wrap:wrap;gap:5px;margin-top:8px;display:flex}.PwVb5G_exampleRow button{background:var(--dsw-alias-bg-l2,var(--creator-canvas));color:var(--creator-muted);cursor:pointer;border:0;border-radius:6px;padding:5px 7px;font-size:10px}.PwVb5G_exampleRow button:hover{background:var(--creator-mist);color:var(--creator-blue)}.PwVb5G_problemActions{align-items:center;gap:13px;margin-top:15px;display:flex}.PwVb5G_primaryButton,.PwVb5G_secondaryButton,.PwVb5G_vibeButton,.PwVb5G_notice>button{cursor:pointer;border-radius:9px;min-height:38px;padding:8px 13px;font-size:12px;font-weight:700}.PwVb5G_primaryButton{border:1px solid var(--creator-blue);background:var(--creator-blue);white-space:nowrap;box-shadow:0 6px 14px #315fa829;color:#fff!important}.PwVb5G_primaryButton:hover{border-color:var(--creator-blue-dark);background:var(--creator-blue-dark)}.PwVb5G_secondaryButton{border:1px solid var(--creator-line);background:var(--creator-paper)}.PwVb5G_secondaryButton:hover{background:var(--creator-canvas);border-color:#aebdd1}.PwVb5G_textButton{cursor:pointer;background:0 0;border:0;padding:7px 0;font-size:12px;font-weight:700;color:var(--creator-blue)!important}.PwVb5G_textButton:hover{text-underline-offset:3px;text-decoration:underline}.PwVb5G_capabilityRail{color:#6b7890;grid-template-columns:repeat(3,1fr);gap:0;margin:21px 0 0;padding:0;font-size:10px;list-style:none;display:grid;position:relative}.PwVb5G_capabilityRail:before{content:\"\";background:#a8bddc;height:1px;position:absolute;top:5px;left:12%;right:12%}.PwVb5G_capabilityRail li{justify-items:center;gap:6px;display:grid;position:relative}.PwVb5G_capabilityRail i{z-index:1;border:2px solid var(--creator-paper);background:var(--creator-blue);border-radius:50%;width:11px;height:11px;box-shadow:0 0 0 1px #93acd0}.PwVb5G_featured{min-width:0;padding:19px}.PwVb5G_featured>header,.PwVb5G_libraryHeader,.PwVb5G_collectionHeader{justify-content:space-between;align-items:flex-end;gap:14px;display:flex}.PwVb5G_featured>header{margin-bottom:13px}.PwVb5G_featured h2,.PwVb5G_libraryHeader h2{letter-spacing:-.015em;margin-bottom:0;font-size:18px}.PwVb5G_featured>header>span{color:var(--creator-muted);font-size:10px}.PwVb5G_sceneStrip{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;display:grid}.PwVb5G_sceneCard{background:var(--creator-mist);border-radius:13px;min-width:0;padding:0 13px 14px;overflow:hidden}.PwVb5G_sceneCard[data-scene=\"2\"]{background:#f3f5f8}.PwVb5G_sceneCard[data-scene=\"3\"]{background:#f7f1e9}.PwVb5G_sceneGraphic{border-bottom:1px solid #315fa814;height:88px;margin:0 -13px 12px;position:relative;overflow:hidden}.PwVb5G_sceneGraphic:before{content:\"\";background:#315fa821;border-radius:50%;width:55px;height:55px;position:absolute;inset:15px 15px auto auto}.PwVb5G_sceneGraphic:after{content:\"\";background:#ffffff8f;border:1px solid #315fa82e;border-radius:12px 12px 0 0;width:88px;height:57px;position:absolute;bottom:-18px;left:14px;transform:rotate(-4deg)}.PwVb5G_sceneGraphic i{z-index:1;background:var(--creator-blue);opacity:.45;border-radius:50%;width:6px;height:6px;position:absolute}.PwVb5G_sceneGraphic i:first-child{top:26px;left:26px}.PwVb5G_sceneGraphic i:nth-child(2){top:46px;left:58px}.PwVb5G_sceneGraphic i:nth-child(3){bottom:18px;right:34px}.PwVb5G_sceneCard>span{color:var(--creator-blue);letter-spacing:.08em;font-size:9px;font-weight:800}.PwVb5G_sceneCard h3{min-height:39px;margin:5px 0 6px;font-size:13px;line-height:1.45}.PwVb5G_sceneCard p{min-height:34px;color:var(--creator-muted);margin-bottom:9px;font-size:10px;line-height:1.55}.PwVb5G_sceneCard button{color:var(--creator-blue);cursor:pointer;background:0 0;border:0;padding:0;font-size:10px;font-weight:700}.PwVb5G_library{padding:20px}.PwVb5G_libraryHeader{border-bottom:1px solid var(--creator-soft-line);padding-bottom:14px}.PwVb5G_resultCount{color:var(--creator-muted);font-size:11px}.PwVb5G_filterRows{padding:12px 0 15px}.PwVb5G_filterRow{grid-template-columns:46px 1fr;align-items:start;gap:7px;padding:4px 0;display:grid}.PwVb5G_filterLabel{color:#8a94a4;padding-top:7px;font-size:10px}.PwVb5G_filterRow>div{flex-wrap:wrap;gap:2px;display:flex}.PwVb5G_filterRow button{min-height:28px;color:var(--creator-muted);cursor:pointer;background:0 0;border:0;border-radius:7px;padding:5px 8px;font-size:11px}.PwVb5G_filterRow button:hover{background:var(--creator-canvas);color:var(--creator-ink)}.PwVb5G_filterRow button[aria-pressed=true]{background:var(--creator-mist);color:var(--creator-blue);font-weight:700}.PwVb5G_abilityGrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;display:grid}.PwVb5G_abilityCard{border:1px solid var(--creator-line);background:var(--creator-paper);border-radius:13px;flex-direction:column;min-width:0;min-height:264px;padding:14px;transition:border-color .16s,box-shadow .16s,transform .16s;display:flex}.PwVb5G_abilityCard:hover{border-color:#b7c7db;transform:translateY(-1px);box-shadow:0 10px 26px #17203312}.PwVb5G_abilityCardSelected{border-color:#8eabd2;box-shadow:0 0 0 2px #315fa812}.PwVb5G_cardMarker{background:var(--creator-mist);width:31px;height:31px;color:var(--creator-blue);border-radius:9px;place-items:center;font-size:12px;font-weight:800;display:grid}.PwVb5G_abilityCard h3{margin:11px 0 5px;font-size:14px;line-height:1.4}.PwVb5G_cardOutcome{min-height:40px;color:var(--creator-muted);margin-bottom:10px;font-size:11px;line-height:1.6}.PwVb5G_cardFacts{gap:7px;margin-bottom:13px;display:grid}.PwVb5G_cardFacts div{grid-template-columns:39px 1fr;gap:5px;display:grid}.PwVb5G_cardFacts dt{color:#8a94a4;font-size:9px}.PwVb5G_cardFacts dd{color:#536075;margin:0;font-size:9px;line-height:1.5}.PwVb5G_cardFooter{border-top:1px solid var(--creator-soft-line);justify-content:space-between;align-items:flex-end;gap:7px;margin-top:auto;padding-top:10px;display:flex}.PwVb5G_cardTags{flex-wrap:wrap;gap:4px;display:flex}.PwVb5G_cardTags span{background:var(--creator-canvas);color:#778295;border-radius:4px;padding:3px 5px;font-size:8px}.PwVb5G_cardFooter button{color:var(--creator-blue);cursor:pointer;white-space:nowrap;background:0 0;border:0;padding:3px 0;font-size:9px;font-weight:700}.PwVb5G_emptyState{text-align:center;align-content:center;place-items:center;min-height:240px;display:grid}.PwVb5G_emptyState>span{color:#a8b3c2;font-size:40px}.PwVb5G_emptyState h3{margin:4px 0 6px;font-size:15px}.PwVb5G_emptyState p{color:var(--creator-muted);margin-bottom:12px;font-size:11px}.PwVb5G_emptyState>div{align-items:center;gap:12px;display:flex}.PwVb5G_abilityDetail{background:linear-gradient(180deg, #fbfdff, var(--creator-paper) 42%);border:1px solid #a9bfdd;border-radius:15px;margin-top:12px;padding:18px;box-shadow:0 12px 30px #315fa812}.PwVb5G_detailHeader{justify-content:space-between;align-items:flex-start;gap:16px;display:flex}.PwVb5G_detailHeader h3{margin:0 0 5px;font-size:18px}.PwVb5G_detailHeader p{color:var(--creator-muted);margin-bottom:0;font-size:11px;line-height:1.6}.PwVb5G_iconButton{border:1px solid var(--creator-line);background:var(--creator-paper);cursor:pointer;border-radius:50%;flex:none;place-items:center;width:31px;height:31px;font-size:18px;line-height:1;display:grid}.PwVb5G_reviewGrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:15px;display:grid}.PwVb5G_reviewGrid>div{background:var(--creator-canvas);border-radius:10px;padding:11px}.PwVb5G_reviewGrid span{color:var(--creator-ink);font-size:10px;font-weight:750}.PwVb5G_reviewGrid p{color:var(--creator-muted);margin:5px 0 0;font-size:10px;line-height:1.6}.PwVb5G_detailActions{justify-content:flex-end;gap:8px;margin-top:14px;display:flex}.PwVb5G_advanced{border-top:1px solid var(--creator-soft-line);margin-top:14px;padding-top:11px}.PwVb5G_advanced summary{width:fit-content;color:var(--creator-muted);cursor:pointer;font-size:10px;font-weight:700}.PwVb5G_advancedBody{background:var(--creator-canvas);border-radius:10px;gap:10px;margin-top:12px;padding:12px;display:grid}.PwVb5G_implementationLine{grid-template-columns:72px 1fr;gap:8px;font-size:10px;display:grid}.PwVb5G_implementationLine span,.PwVb5G_implementationLine ul{color:var(--creator-muted);margin:0;line-height:1.55}.PwVb5G_implementationLine ul{padding-left:17px}.PwVb5G_sourceLine{color:#7a8596;font-size:9px}.PwVb5G_promptLabel{color:var(--creator-ink);gap:6px;font-size:10px;font-weight:700;display:grid}.PwVb5G_promptLabel textarea{resize:vertical;border:1px solid var(--creator-line);background:var(--creator-paper);color:#3f4a5d;border-radius:9px;width:100%;padding:10px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:9px;font-weight:400;line-height:1.55}.PwVb5G_notice{background:#fff9ef;border:1px solid #e4c697;border-radius:11px;justify-content:space-between;align-items:center;gap:14px;padding:11px 13px;display:flex}.PwVb5G_notice strong{font-size:11px}.PwVb5G_notice p{color:#765f3e;margin:3px 0 0;font-size:10px;line-height:1.5}.PwVb5G_notice>button{white-space:nowrap;background:#fff;border:1px solid #dfbd82}.PwVb5G_error{color:#bf3d43;margin:8px 0 0;font-size:11px}.PwVb5G_status{min-height:16px;color:var(--creator-blue);margin:-11px 0 0;font-size:10px}.PwVb5G_vibePage{gap:14px;display:grid}.PwVb5G_vibeHero{background:linear-gradient(120deg,#fff 0% 68%,#f7f1e9 130%);justify-content:space-between;align-items:flex-end;gap:22px;padding:26px;display:flex;overflow:hidden}.PwVb5G_vibeKicker{color:#aa6d31}.PwVb5G_vibeHero h2{letter-spacing:-.025em;max-width:600px;margin:0 0 7px;font-size:25px;line-height:1.28}.PwVb5G_vibeHero p{max-width:620px;color:var(--creator-muted);margin-bottom:0;font-size:12px;line-height:1.65}.PwVb5G_vibeButton{background:#fff8ef;border:1px solid #d4a067;flex:none;color:#8b5625!important}.PwVb5G_vibeButton:hover{background:#f9ead8}.PwVb5G_deliveryRail{border:1px solid var(--creator-line);background:var(--creator-paper);border-radius:13px;grid-template-columns:repeat(3,1fr);margin:0;padding:0;list-style:none;display:grid}.PwVb5G_deliveryRail li{border-right:1px solid var(--creator-soft-line);align-items:center;gap:9px;min-height:56px;padding:10px 16px;display:flex}.PwVb5G_deliveryRail li:last-child{border-right:0}.PwVb5G_deliveryRail b{color:var(--creator-warm);font-size:10px}.PwVb5G_deliveryRail span{font-size:12px;font-weight:700}.PwVb5G_collectionHeader{padding:8px 2px 0}.PwVb5G_collectionHeader h3{margin-bottom:0;font-size:17px}.PwVb5G_collectionHeader>p{color:var(--creator-muted);margin-bottom:0;font-size:10px}.PwVb5G_vibeGrid{grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;display:grid}.PwVb5G_vibeCard{border:1px solid var(--creator-line);background:var(--creator-paper);border-radius:13px;min-height:278px;padding:16px;position:relative;overflow:hidden}.PwVb5G_vibeIndex{color:var(--creator-warm);letter-spacing:.08em;font-size:10px;font-weight:800}.PwVb5G_vibeCard h3{margin:9px 0 5px;font-size:14px}.PwVb5G_vibeCard>p{min-height:35px;color:var(--creator-muted);margin-bottom:11px;font-size:10px;line-height:1.6}.PwVb5G_vibeCard dl{gap:8px;margin-bottom:13px;display:grid}.PwVb5G_vibeCard dl div{grid-template-columns:64px 1fr;gap:5px;display:grid}.PwVb5G_vibeCard dt{color:#8a94a4;font-size:9px}.PwVb5G_vibeCard dd{color:#536075;margin:0;font-size:9px;line-height:1.5}.PwVb5G_vibeDetails{border-top:1px solid var(--creator-soft-line);margin:0 0 30px;padding-top:8px}.PwVb5G_vibeDetails summary{color:#8a6a4a;cursor:pointer;width:fit-content;font-size:9px;font-weight:700}.PwVb5G_vibeDetails p{color:var(--creator-muted);grid-template-columns:55px 1fr;gap:5px;margin:7px 0 0;font-size:8px;line-height:1.5;display:grid}.PwVb5G_vibeDetails b{color:#7e6650}.PwVb5G_vibeCard button{color:#9b622f;cursor:pointer;background:0 0;border:0;padding:0;font-size:9px;font-weight:750;position:absolute;bottom:14px;right:16px}.PwVb5G_guidePage{padding:25px}.PwVb5G_guideHero{max-width:700px}.PwVb5G_guideHero h2{letter-spacing:-.025em;margin:0 0 7px;font-size:24px}.PwVb5G_guideHero p{color:var(--creator-muted);font-size:12px;line-height:1.65}.PwVb5G_guideSteps{counter-reset:step;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0;padding:0;list-style:none;display:grid}.PwVb5G_guideSteps li{border-top:2px solid var(--creator-mist);gap:11px;padding:14px 4px 0;display:flex}.PwVb5G_guideSteps b{background:var(--creator-mist);width:25px;height:25px;color:var(--creator-blue);border-radius:50%;flex:none;place-items:center;font-size:10px;display:grid}.PwVb5G_guideSteps h3{margin:2px 0 5px;font-size:13px}.PwVb5G_guideSteps p{color:var(--creator-muted);margin-bottom:0;font-size:10px;line-height:1.6}.PwVb5G_helpCard{background:var(--creator-mist);border-radius:13px;justify-content:space-between;align-items:center;gap:16px;padding:16px;display:flex}.PwVb5G_helpCard span{color:var(--creator-blue);margin-bottom:4px;font-size:9px;font-weight:800;display:block}.PwVb5G_helpCard strong{font-size:13px}.PwVb5G_helpCard p{color:var(--creator-muted);margin:4px 0 0;font-size:10px}.PwVb5G_guideLinks{border-top:1px solid var(--creator-soft-line);flex-wrap:wrap;gap:15px;margin-top:20px;padding-top:14px;font-size:10px;display:flex}.PwVb5G_guideLinks span{color:#8a94a4}.PwVb5G_guideLinks a{color:var(--creator-blue);text-decoration:none}.PwVb5G_guideLinks a:hover{text-decoration:underline}.PwVb5G_guideActions{justify-content:flex-end;margin-top:18px;display:flex}.PwVb5G_principleGrid{grid-template-columns:repeat(2,1fr);gap:10px;margin-top:22px;display:grid}.PwVb5G_principleGrid article{border:1px solid var(--creator-line);border-radius:12px;padding:15px}.PwVb5G_principleGrid article>span{color:var(--creator-blue);font-size:9px;font-weight:800}.PwVb5G_principleGrid h3{margin:8px 0 5px;font-size:13px}.PwVb5G_principleGrid p{color:var(--creator-muted);margin-bottom:10px;font-size:10px;line-height:1.6}.PwVb5G_principleGrid small{color:#8a94a4;font-size:9px}@media (width<=1050px){.PwVb5G_abilityGrid,.PwVb5G_vibeGrid,.PwVb5G_reviewGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media (width<=760px){.PwVb5G_page{gap:16px}.PwVb5G_topbar{padding-bottom:10px;display:grid;position:static}.PwVb5G_nav{overflow-x:auto}.PwVb5G_search{width:100%}.PwVb5G_discoveryHero{grid-template-columns:1fr}.PwVb5G_sceneStrip{grid-template-columns:repeat(3,minmax(180px,1fr));padding-bottom:4px;overflow-x:auto}.PwVb5G_abilityGrid,.PwVb5G_vibeGrid,.PwVb5G_reviewGrid,.PwVb5G_guideSteps,.PwVb5G_principleGrid{grid-template-columns:1fr}.PwVb5G_filterRow{grid-template-columns:1fr;gap:2px}.PwVb5G_filterLabel{padding-left:8px}.PwVb5G_vibeHero,.PwVb5G_helpCard{flex-direction:column;align-items:flex-start}.PwVb5G_deliveryRail{grid-template-columns:1fr}.PwVb5G_deliveryRail li{border-right:0;border-bottom:1px solid var(--creator-soft-line)}.PwVb5G_deliveryRail li:last-child{border-bottom:0}.PwVb5G_detailActions{flex-direction:column-reverse;align-items:stretch}.PwVb5G_detailActions button{width:100%}}@media (width<=460px){.PwVb5G_problemCard,.PwVb5G_featured,.PwVb5G_library,.PwVb5G_vibeHero,.PwVb5G_guidePage{border-radius:14px;padding:16px}.PwVb5G_abilityGrid,.PwVb5G_vibeGrid{grid-template-columns:1fr}.PwVb5G_libraryHeader,.PwVb5G_collectionHeader{flex-direction:column;align-items:flex-start}.PwVb5G_problemActions{flex-direction:column;align-items:stretch}.PwVb5G_problemActions button{width:100%}}@media (prefers-reduced-motion:reduce){.PwVb5G_page *,.PwVb5G_page :before,.PwVb5G_page :after{scroll-behavior:auto!important;transition:none!important}}@container (width<=760px){.PwVb5G_sceneStrip{scroll-snap-type:x proximity;grid-template-columns:none;grid-auto-columns:minmax(158px,66%);grid-auto-flow:column;padding-bottom:5px;overflow-x:auto}.PwVb5G_sceneCard{scroll-snap-align:start}.PwVb5G_problemActions{flex-wrap:wrap;gap:8px 12px}.PwVb5G_abilityGrid,.PwVb5G_vibeGrid,.PwVb5G_reviewGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.PwVb5G_guideSteps{grid-template-columns:1fr}}@container (width<=500px){.PwVb5G_topbar{padding-bottom:10px;display:grid;position:static}.PwVb5G_nav{overflow-x:auto}.PwVb5G_search{width:100%}.PwVb5G_discoveryHero,.PwVb5G_abilityGrid,.PwVb5G_vibeGrid,.PwVb5G_reviewGrid,.PwVb5G_principleGrid{grid-template-columns:1fr}.PwVb5G_filterRow{grid-template-columns:1fr;gap:2px}.PwVb5G_filterLabel{padding-left:8px}.PwVb5G_vibeHero,.PwVb5G_helpCard{flex-direction:column;align-items:flex-start}.PwVb5G_deliveryRail{grid-template-columns:1fr}.PwVb5G_deliveryRail li{border-right:0;border-bottom:1px solid var(--creator-soft-line)}.PwVb5G_deliveryRail li:last-child{border-bottom:0}.PwVb5G_detailActions{flex-direction:column-reverse;align-items:stretch}.PwVb5G_detailActions button{width:100%}}";
 		const tagId = "@whale-desktop/dsh-creator-center/creator-center.module.css";
 		if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify(tagId) + "]") === null) {
 			const tag = document.createElement("style");
@@ -131,6 +131,10 @@ window.__ModuleLoader__.load({
 			{
 				id: "all",
 				label: "全部行业"
+			},
+			{
+				id: "programmer",
+				label: "程序员"
 			},
 			{
 				id: "financial-services",
@@ -355,7 +359,7 @@ window.__ModuleLoader__.load({
 				title: "代码变更检查",
 				outcome: "按严重程度检查代码变更，并给出位置、证据和建议。",
 				summary: "默认只读，不会自动修改、提交、推送或创建合并请求。",
-				industryIds: [],
+				industryIds: ["programmer"],
 				kindIds: ["coding"],
 				collectionIds: ["vibe-coding"],
 				aliases: [
@@ -389,7 +393,7 @@ window.__ModuleLoader__.load({
 				title: "做出第一个可运行版本",
 				outcome: "把一个明确想法变成可以启动、可以验证的最小版本。",
 				summary: "先说清楚谁要用和完成后是什么样，再决定最简单的实现方式。",
-				industryIds: [],
+				industryIds: ["programmer"],
 				kindIds: ["coding"],
 				collectionIds: ["vibe-coding"],
 				aliases: [
@@ -464,7 +468,7 @@ window.__ModuleLoader__.load({
 				title: "自定义界面与主题",
 				outcome: "给 Harness 增加可关闭的主题、桌宠或快捷入口。",
 				summary: "保留官方聊天核心，视觉功能失败时自动回到官方界面。",
-				industryIds: [],
+				industryIds: ["programmer"],
 				kindIds: ["coding"],
 				collectionIds: ["vibe-coding"],
 				aliases: [
@@ -495,100 +499,6 @@ window.__ModuleLoader__.load({
 				}
 			})
 		];
-		const FEATURED_SCENES = [
-			{
-				id: "work",
-				title: "把重复工作交给 DeepSeek",
-				description: "总结、分类、按流程检查",
-				abilityIds: [
-					"weekly-report",
-					"company-sop",
-					"scheduled-check"
-				]
-			},
-			{
-				id: "research",
-				title: "把资料变成可靠结论",
-				description: "检索、对比、数据分析",
-				abilityIds: ["web-research", "file-data-analysis"]
-			},
-			{
-				id: "build",
-				title: "把想法做成可运行版本",
-				description: "搭工具、查代码、改界面",
-				abilityIds: [
-					"project-scaffold",
-					"github-review",
-					"custom-ui-theme"
-				]
-			}
-		];
-		const VIBE_CODING_GROUPS = [
-			{
-				id: "new-tool",
-				title: "从零做一个小工具",
-				description: "把一个具体需求做成能运行的第一版。",
-				starter: "我想做一个给谁用、解决什么问题的小工具。",
-				access: "一个新项目目录；需要安装依赖时会先询问。",
-				milestone: "能启动、能完成核心任务的最小版本。",
-				confirmation: "确认第一版方向后才继续增加功能。",
-				verify: "提供启动命令和一条完整的使用示例。",
-				abilityId: "project-scaffold"
-			},
-			{
-				id: "add-feature",
-				title: "给现有项目加功能",
-				description: "先理解项目，再做一个边界清楚的改动。",
-				starter: "这个项目现在能做什么，我希望它再多一个什么能力。",
-				access: "读取项目文件；修改前先列出预计变更。",
-				milestone: "一个范围可控、可以单独验收的功能。",
-				confirmation: "确认实现方案和文件范围后再写代码。",
-				verify: "运行现有测试，并给出新功能的验收步骤。"
-			},
-			{
-				id: "fix-problem",
-				title: "修复一个问题",
-				description: "先复现和定位，再修复并证明问题消失。",
-				starter: "我遇到了什么现象、怎样触发、原本应该怎样。",
-				access: "读取日志和相关代码；不先猜着改。",
-				milestone: "稳定复现问题并确认根因。",
-				confirmation: "说明根因和修复范围后再改动。",
-				verify: "加入回归检查并重跑相关测试。",
-				abilityId: "github-review"
-			},
-			{
-				id: "improve-code",
-				title: "整理和改进代码",
-				description: "做边界明确的整理，不改变原本行为。",
-				starter: "哪部分难维护、慢或容易出错。",
-				access: "读取目标模块和现有测试。",
-				milestone: "列出能删除、合并或简化的具体位置。",
-				confirmation: "确认不改变的行为和改动范围。",
-				verify: "重跑测试并对比整理前后的行为。",
-				abilityId: "github-review"
-			},
-			{
-				id: "shareable",
-				title: "做出可以分享的版本",
-				description: "补齐说明、检查、打包和发布清单。",
-				starter: "现在项目怎样启动，希望分享给什么人。",
-				access: "读取项目配置；发布动作必须单独确认。",
-				milestone: "别人按文档可以在本地跑起来。",
-				confirmation: "确认安装方式和发布目标后再打包。",
-				verify: "在干净环境执行一次安装和启动检查。",
-				abilityId: "project-scaffold"
-			},
-			{
-				id: "learn-project",
-				title: "学习项目是怎么工作的",
-				description: "先画清结构，再完成一次有指导的小改动。",
-				starter: "我最想理解哪条功能链路或哪个目录。",
-				access: "只读项目即可开始。",
-				milestone: "一张结构说明和一条关键执行路径。",
-				confirmation: "选择一个低风险练习后再修改。",
-				verify: "你可以自己复述流程并跑通练习。"
-			}
-		];
 		function normalize(value) {
 			return value.trim().toLocaleLowerCase().replace(/\s+/g, "");
 		}
@@ -606,26 +516,6 @@ window.__ModuleLoader__.load({
 		function abilitiesFor(filters) {
 			const query = normalize(filters.query);
 			return ABILITIES.filter((item) => (filters.industry === "all" || item.industryIds.includes(filters.industry)) && (filters.kind === "all" || item.kindIds.includes(filters.kind)) && (query.length === 0 || searchableText(item).includes(query)));
-		}
-		function recommendAbilities(problem) {
-			const query = normalize(problem);
-			if (query.length === 0) return [];
-			return ABILITIES.map((item, index) => {
-				return {
-					item,
-					index,
-					score: [
-						item.title,
-						...item.aliases,
-						...item.examples
-					].map(normalize).reduce((total, field) => {
-						if (field.length === 0) return total;
-						if (query.includes(field)) return total + Math.min(field.length, 8) * 3;
-						if (field.includes(query)) return total + Math.min(query.length, 8) * 2;
-						return total;
-					}, searchableText(item).includes(query) ? 12 : 0)
-				};
-			}).sort((left, right) => right.score - left.score || left.index - right.index).slice(0, 3).map((result) => result.item);
 		}
 		const EXTENSION_TYPE_LABELS = {
 			"agent-preset": "Agent 预设",
@@ -756,7 +646,7 @@ ${input.template?.implementation.checks.map((item) => `- ${item}`).join("\n") ??
 		}
 		//#endregion
 		//#region src/client/AbilityLibrary.tsx
-		function AbilityLibrary({ abilities, industry, kind, selectedId, recommendationLabel, creatorDisabled, onIndustryChange, onKindChange, onSelect, onClear, onCreate, onAskAdvisor }) {
+		function AbilityLibrary({ abilities, industry, kind, selectedId, creatorDisabled, onIndustryChange, onKindChange, onSelect, onClear, onCreate, onAskAdvisor }) {
 			const selected = abilities.find((item) => item.id === selectedId);
 			return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("section", {
 				className: creator_center_module_css_default.library,
@@ -770,9 +660,13 @@ ${input.template?.implementation.checks.map((item) => `- ${item}`).join("\n") ??
 						}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("h2", {
 							id: "creator-library-title",
 							children: "能力库"
-						})] }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
+						})] }), /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("span", {
 							className: creator_center_module_css_default.resultCount,
-							children: recommendationLabel ?? `找到 ${abilities.length} 个能力`
+							children: [
+								"找到 ",
+								abilities.length,
+								" 个能力"
+							]
 						})]
 					}),
 					/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
@@ -887,232 +781,13 @@ ${input.template?.implementation.checks.map((item) => `- ${item}`).join("\n") ??
 			});
 		}
 		//#endregion
-		//#region src/client/CreatorGuide.tsx
-		function CreatorGuide({ view, onDiscover, onAskAdvisor }) {
-			if (view === "principles") return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("section", {
-				className: creator_center_module_css_default.guidePage,
-				children: [
-					/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("header", {
-						className: creator_center_module_css_default.guideHero,
-						children: [
-							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
-								className: creator_center_module_css_default.sectionKicker,
-								children: "想看懂原理时再来这里"
-							}),
-							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("h2", { children: "DeepSeek Harness 的扩展不只有插件" }),
-							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: "先看你想得到什么，再决定实现方式。大多数个人需求不需要修改官方代码。" })
-						]
-					}),
-					/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
-						className: creator_center_module_css_default.principleGrid,
-						children: [
-							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("article", { children: [
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "01" }),
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("h3", { children: "可重复的方法" }),
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: "把稳定做法写成说明，让 DeepSeek 每次按同一标准完成。" }),
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("small", { children: "对应：Skill" })
-							] }),
-							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("article", { children: [
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "02" }),
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("h3", { children: "专门负责一类事" }),
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: "把角色、可用工具和方法组合成一个专用助手。" }),
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("small", { children: "对应：Agent 预设" })
-							] }),
-							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("article", { children: [
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "03" }),
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("h3", { children: "按固定步骤自动跑" }),
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: "适合定时检查、批量处理和有条件分支的重复流程。" }),
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("small", { children: "对应：工作流" })
-							] }),
-							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("article", { children: [
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "04" }),
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("h3", { children: "接入新的工具或界面" }),
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: "只有需要新服务、底层能力或 UI 时，才考虑写插件。" }),
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("small", { children: "对应：插件 / 界面扩展" })
-							] })
-						]
-					}),
-					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
-						className: creator_center_module_css_default.guideActions,
-						children: /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
-							type: "button",
-							className: creator_center_module_css_default.primaryButton,
-							onClick: onDiscover,
-							children: "回到能力库"
-						})
-					})
-				]
-			});
-			return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("section", {
-				className: creator_center_module_css_default.guidePage,
-				children: [
-					/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("header", {
-						className: creator_center_module_css_default.guideHero,
-						children: [
-							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
-								className: creator_center_module_css_default.sectionKicker,
-								children: "不要求懂代码"
-							}),
-							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("h2", { children: "第一次创建能力，只要记住三步" }),
-							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: "你只负责讲清楚需求和确认方案，DeepSeek 负责检查环境、列计划和验证结果。" })
-						]
-					}),
-					/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("ol", {
-						className: creator_center_module_css_default.guideSteps,
-						children: [
-							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("li", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("b", { children: "1" }), /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("h3", { children: "说清楚问题" }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: "描述“现在怎么做、哪里麻烦、希望最后得到什么”，不用先猜该装什么。" })] })] }),
-							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("li", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("b", { children: "2" }), /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("h3", { children: "先看它准备怎么改" }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: "确认会读取什么、修改什么、需要什么权限，以及不想用时怎么撤销。" })] })] }),
-							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("li", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("b", { children: "3" }), /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("h3", { children: "用真实例子验收" }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: "先跑通一个真实任务，再决定是否长期启用；失败时保留原版本。" })] })] })
-						]
-					}),
-					/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("aside", {
-						className: creator_center_module_css_default.helpCard,
-						children: [/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [
-							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "还是不知道怎么描述？" }),
-							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "让 AI 一次只问一个关键问题" }),
-							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: "最多问三个问题，再给你一个主方案和两个以内的备选。" })
-						] }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
-							type: "button",
-							className: creator_center_module_css_default.primaryButton,
-							onClick: onAskAdvisor,
-							children: "让 AI 帮我定制"
-						})]
-					}),
-					/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("footer", {
-						className: creator_center_module_css_default.guideLinks,
-						children: [
-							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "继续学习" }),
-							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("a", {
-								href: "https://github.com/deepseek-ai/deepseek-harness",
-								target: "_blank",
-								rel: "noreferrer",
-								children: "官方 Harness GitHub ↗"
-							}),
-							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("a", {
-								href: "https://github.com/zhu1090093659/dsh-web-ui",
-								target: "_blank",
-								rel: "noreferrer",
-								children: "社区 UI 示例 ↗"
-							})
-						]
-					})
-				]
-			});
-		}
-		//#endregion
-		//#region src/client/VibeCodingColumn.tsx
-		function VibeCodingColumn({ onStart }) {
-			return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("section", {
-				className: creator_center_module_css_default.vibePage,
-				children: [
-					/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("header", {
-						className: creator_center_module_css_default.vibeHero,
-						children: [/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [
-							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
-								className: creator_center_module_css_default.vibeKicker,
-								children: "VIBE CODING · 从想法出发"
-							}),
-							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("h2", { children: "说出想法，让 DeepSeek 和你一起做出来" }),
-							/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: "不用先决定技术栈。先说清楚谁要用、解决什么问题、完成后是什么样。" })
-						] }), /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("button", {
-							type: "button",
-							className: creator_center_module_css_default.vibeButton,
-							onClick: () => {
-								onStart("project-scaffold", VIBE_CODING_GROUPS[0].starter);
-							},
-							children: ["描述我想做的东西 ", /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
-								"aria-hidden": "true",
-								children: "↗"
-							})]
-						})]
-					}),
-					/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("ol", {
-						className: creator_center_module_css_default.deliveryRail,
-						"aria-label": "Vibe Coding 交付步骤",
-						children: [
-							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("li", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("b", { children: "01" }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "先做可运行第一版" })] }),
-							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("li", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("b", { children: "02" }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "用户确认" })] }),
-							/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("li", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("b", { children: "03" }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "继续完善" })] })
-						]
-					}),
-					/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("header", {
-						className: creator_center_module_css_default.collectionHeader,
-						children: [/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
-							className: creator_center_module_css_default.sectionKicker,
-							children: "从常见任务开始"
-						}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("h3", { children: "六种最容易说清楚的起点" })] }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: "每次只推进一个能验证的阶段。" })]
-					}),
-					/* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
-						className: creator_center_module_css_default.vibeGrid,
-						children: VIBE_CODING_GROUPS.map((group, index) => /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("article", {
-							className: creator_center_module_css_default.vibeCard,
-							"data-testid": "vibe-group",
-							children: [
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
-									className: creator_center_module_css_default.vibeIndex,
-									children: String(index + 1).padStart(2, "0")
-								}),
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("h3", { children: group.title }),
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: group.description }),
-								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("dl", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("dt", { children: "你可以这样说" }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("dd", { children: group.starter })] }), /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("dt", { children: "第一步做到" }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("dd", { children: group.milestone })] })] }),
-								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("details", {
-									className: creator_center_module_css_default.vibeDetails,
-									children: [
-										/* @__PURE__ */ (0, react_jsx_runtime.jsx)("summary", { children: "会怎么推进" }),
-										/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("p", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("b", { children: "需要访问" }), group.access] }),
-										/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("p", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("b", { children: "确认节点" }), group.confirmation] }),
-										/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("p", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("b", { children: "怎么验收" }), group.verify] })
-									]
-								}),
-								/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("button", {
-									type: "button",
-									onClick: () => {
-										onStart(group.abilityId, group.starter);
-									},
-									children: ["从这个方向开始 ", /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
-										"aria-hidden": "true",
-										children: "→"
-									})]
-								})
-							]
-						}, group.id))
-					})
-				]
-			});
-		}
-		//#endregion
 		//#region src/client/CreatorCenter.tsx
 		const ADVISOR_PRESET_ID$1 = "whale-extension-advisor";
-		const NAV_ITEMS = [
-			{
-				id: "discover",
-				label: "找能力"
-			},
-			{
-				id: "vibe",
-				label: "Vibe Coding"
-			},
-			{
-				id: "guide",
-				label: "创建指南"
-			},
-			{
-				id: "principles",
-				label: "扩展原理"
-			}
-		];
 		function CreatorCenter({ launcher, onClose, clipboard = navigator.clipboard }) {
-			const pageRef = (0, react.useRef)(null);
 			const launch = (0, react.useSyncExternalStore)(launcher.subscribe, launcher.getSnapshot);
-			const [view, setView] = (0, react.useState)("discover");
 			const [industry, setIndustry] = (0, react.useState)("all");
 			const [kind, setKind] = (0, react.useState)("all");
-			const [query, setQuery] = (0, react.useState)("");
-			const [problem, setProblem] = (0, react.useState)("");
-			const [recommendationIds, setRecommendationIds] = (0, react.useState)(null);
-			const [recommendationLabel, setRecommendationLabel] = (0, react.useState)(null);
 			const [selectedId, setSelectedId] = (0, react.useState)(null);
-			const [validationError, setValidationError] = (0, react.useState)(null);
 			const [copyError, setCopyError] = (0, react.useState)(null);
 			const [status, setStatus] = (0, react.useState)("");
 			const [advisorRequested, setAdvisorRequested] = (0, react.useState)(false);
@@ -1120,19 +795,11 @@ ${input.template?.implementation.checks.map((item) => `- ${item}`).join("\n") ??
 			const [creatorAvailable, setCreatorAvailable] = (0, react.useState)(null);
 			const busy = launch.busy;
 			const creatorDisabled = busy || creatorAvailable === false;
-			const visibleAbilities = (0, react.useMemo)(() => {
-				if (recommendationIds !== null) return recommendationIds.map((id) => ABILITIES.find((item) => item.id === id)).filter((item) => item !== void 0);
-				return abilitiesFor({
-					industry,
-					kind,
-					query
-				});
-			}, [
+			const visibleAbilities = (0, react.useMemo)(() => abilitiesFor({
 				industry,
 				kind,
-				query,
-				recommendationIds
-			]);
+				query: ""
+			}), [industry, kind]);
 			(0, react.useEffect)(() => {
 				let active = true;
 				launcher.isPresetAvailable("cordis").then((available) => {
@@ -1158,62 +825,17 @@ ${input.template?.implementation.checks.map((item) => `- ${item}`).join("\n") ??
 				closeOnLaunch,
 				launch.error
 			]);
-			(0, react.useEffect)(() => {
-				const page = pageRef.current;
-				if (page !== null && typeof page.scrollIntoView === "function") page.scrollIntoView({ block: "start" });
-			}, [view]);
-			const switchView = (next) => {
-				setView(next);
-				setValidationError(null);
-			};
 			const resetDiscovery = () => {
 				setIndustry("all");
 				setKind("all");
-				setQuery("");
-				setRecommendationIds(null);
-				setRecommendationLabel(null);
 				setSelectedId(null);
 			};
 			const updateIndustry = (next) => {
 				setIndustry(next);
-				setRecommendationIds(null);
-				setRecommendationLabel(null);
 				setSelectedId(null);
 			};
 			const updateKind = (next) => {
 				setKind(next);
-				setRecommendationIds(null);
-				setRecommendationLabel(null);
-				setSelectedId(null);
-			};
-			const updateQuery = (value) => {
-				setQuery(value);
-				setRecommendationIds(null);
-				setRecommendationLabel(null);
-				setSelectedId(null);
-				setView("discover");
-			};
-			const findForProblem = () => {
-				if (problem.trim().length === 0) {
-					setValidationError("先简单说说你想解决的问题。");
-					return;
-				}
-				const matches = recommendAbilities(problem);
-				setValidationError(null);
-				setIndustry("all");
-				setKind("all");
-				setQuery("");
-				setRecommendationIds(matches.map((item) => item.id));
-				setRecommendationLabel(`为你推荐 ${matches.length} 个接近的能力`);
-				setSelectedId(null);
-				setStatus("推荐来自本地能力库；你可以先查看方案，再决定是否创建。");
-			};
-			const showScene = (scene) => {
-				setIndustry("all");
-				setKind("all");
-				setQuery("");
-				setRecommendationIds(scene.abilityIds);
-				setRecommendationLabel(`精选场景 · ${scene.title}`);
 				setSelectedId(null);
 			};
 			const copyOnly = async (prompt) => {
@@ -1254,202 +876,26 @@ ${input.template?.implementation.checks.map((item) => `- ${item}`).join("\n") ??
 				launcher.launch("cordis");
 				setStatus("正在重新打开创造模式…");
 			};
-			const startVibe = (abilityId, starter) => {
-				setView("discover");
-				resetDiscovery();
-				if (abilityId === void 0) {
-					setProblem(starter);
-					return;
-				}
-				setSelectedId(abilityId);
-			};
 			return /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("main", {
 				className: creator_center_module_css_default.page,
-				ref: pageRef,
 				children: [
-					/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("header", {
-						className: creator_center_module_css_default.topbar,
-						children: [/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
-							className: creator_center_module_css_default.topbarStart,
-							children: [onClose !== void 0 && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
-								type: "button",
-								className: creator_center_module_css_default.backButton,
-								onClick: onClose,
-								children: "← 返回聊天"
-							}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("nav", {
-								className: creator_center_module_css_default.nav,
-								"aria-label": "创造中心导航",
-								children: NAV_ITEMS.map((item) => /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
-									type: "button",
-									"aria-current": view === item.id ? "page" : void 0,
-									onClick: () => {
-										switchView(item.id);
-									},
-									children: item.label
-								}, item.id))
-							})]
-						}), /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("label", {
-							className: creator_center_module_css_default.search,
-							children: [
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
-									"aria-hidden": "true",
-									children: "⌕"
-								}),
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
-									className: creator_center_module_css_default.srOnly,
-									children: "搜索能力"
-								}),
-								/* @__PURE__ */ (0, react_jsx_runtime.jsx)("input", {
-									type: "search",
-									value: query,
-									placeholder: "搜索你想增加的能力",
-									"aria-label": "搜索能力",
-									onChange: (event) => {
-										updateQuery(event.currentTarget.value);
-									}
-								})
-							]
-						})]
+					creatorAvailable === false && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
+						className: creator_center_module_css_default.notice,
+						role: "alert",
+						children: /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "创造功能暂时不可用" }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: "浏览和查看方案不受影响。请到“设置 → Agent 预设”恢复内置创造模式。" })] })
 					}),
-					view === "discover" && /* @__PURE__ */ (0, react_jsx_runtime.jsxs)(react_jsx_runtime.Fragment, { children: [
-						/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("section", {
-							className: creator_center_module_css_default.discoveryHero,
-							children: [/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
-								className: creator_center_module_css_default.problemCard,
-								children: [
-									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
-										className: creator_center_module_css_default.sectionKicker,
-										children: "从你的问题开始"
-									}),
-									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("h2", { children: "你希望 DeepSeek 帮你解决什么问题？" }),
-									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: "不用知道实现方式，像平时聊天一样描述就可以。" }),
-									/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("label", {
-										className: creator_center_module_css_default.problemInput,
-										children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
-											className: creator_center_module_css_default.srOnly,
-											children: "描述你想解决的问题"
-										}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("textarea", {
-											value: problem,
-											rows: 4,
-											"aria-label": "描述你想解决的问题",
-											placeholder: "例如：每天把客户反馈分成产品、物流和售后三类",
-											onChange: (event) => {
-												setProblem(event.currentTarget.value);
-											}
-										})]
-									}),
-									/* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
-										className: creator_center_module_css_default.exampleRow,
-										"aria-label": "问题示例",
-										children: [
-											"整理每周工作",
-											"分析一份表格",
-											"做一个小工具"
-										].map((example) => /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
-											type: "button",
-											onClick: () => {
-												setProblem(example);
-											},
-											children: example
-										}, example))
-									}),
-									/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
-										className: creator_center_module_css_default.problemActions,
-										children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
-											type: "button",
-											className: creator_center_module_css_default.primaryButton,
-											onClick: findForProblem,
-											children: "帮我找适合的能力"
-										}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("button", {
-											type: "button",
-											className: creator_center_module_css_default.textButton,
-											disabled: busy,
-											onClick: askAdvisor,
-											children: "让 AI 帮我定制"
-										})]
-									}),
-									validationError !== null && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", {
-										className: creator_center_module_css_default.error,
-										role: "alert",
-										children: validationError
-									}),
-									/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("ol", {
-										className: creator_center_module_css_default.capabilityRail,
-										"aria-label": "创建能力流程",
-										children: [
-											/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("li", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("i", {}), "说问题"] }),
-											/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("li", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("i", {}), "看方案"] }),
-											/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("li", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("i", {}), "开始创建"] })
-										]
-									})
-								]
-							}), /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
-								className: creator_center_module_css_default.featured,
-								children: [/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("header", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
-									className: creator_center_module_css_default.sectionKicker,
-									children: "不用从空白开始"
-								}), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("h2", { children: "精选场景" })] }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", { children: "选择一个接近的方向" })] }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
-									className: creator_center_module_css_default.sceneStrip,
-									children: FEATURED_SCENES.map((scene, index) => /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("article", {
-										className: creator_center_module_css_default.sceneCard,
-										"data-scene": index + 1,
-										"data-testid": "featured-scene",
-										children: [
-											/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", {
-												className: creator_center_module_css_default.sceneGraphic,
-												"aria-hidden": "true",
-												children: [
-													/* @__PURE__ */ (0, react_jsx_runtime.jsx)("i", {}),
-													/* @__PURE__ */ (0, react_jsx_runtime.jsx)("i", {}),
-													/* @__PURE__ */ (0, react_jsx_runtime.jsx)("i", {})
-												]
-											}),
-											/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("span", { children: ["场景 ", String(index + 1).padStart(2, "0")] }),
-											/* @__PURE__ */ (0, react_jsx_runtime.jsx)("h3", { children: scene.title }),
-											/* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: scene.description }),
-											/* @__PURE__ */ (0, react_jsx_runtime.jsxs)("button", {
-												type: "button",
-												"aria-label": `查看“${scene.title}”场景`,
-												onClick: () => {
-													showScene(scene);
-												},
-												children: ["查看这个方向 ", /* @__PURE__ */ (0, react_jsx_runtime.jsx)("span", {
-													"aria-hidden": "true",
-													children: "→"
-												})]
-											})
-										]
-									}, scene.id))
-								})]
-							})]
-						}),
-						creatorAvailable === false && /* @__PURE__ */ (0, react_jsx_runtime.jsx)("div", {
-							className: creator_center_module_css_default.notice,
-							role: "alert",
-							children: /* @__PURE__ */ (0, react_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, react_jsx_runtime.jsx)("strong", { children: "创造功能暂时不可用" }), /* @__PURE__ */ (0, react_jsx_runtime.jsx)("p", { children: "浏览和查看方案不受影响。请到“设置 → Agent 预设”恢复内置创造模式。" })] })
-						}),
-						/* @__PURE__ */ (0, react_jsx_runtime.jsx)(AbilityLibrary, {
-							abilities: visibleAbilities,
-							industry,
-							kind,
-							selectedId,
-							recommendationLabel,
-							creatorDisabled,
-							onIndustryChange: updateIndustry,
-							onKindChange: updateKind,
-							onSelect: setSelectedId,
-							onClear: resetDiscovery,
-							onCreate: (prompt) => {
-								copyAndCreate(prompt);
-							},
-							onAskAdvisor: askAdvisor
-						})
-					] }),
-					view === "vibe" && /* @__PURE__ */ (0, react_jsx_runtime.jsx)(VibeCodingColumn, { onStart: startVibe }),
-					(view === "guide" || view === "principles") && /* @__PURE__ */ (0, react_jsx_runtime.jsx)(CreatorGuide, {
-						view,
-						onDiscover: () => {
-							switchView("discover");
+					/* @__PURE__ */ (0, react_jsx_runtime.jsx)(AbilityLibrary, {
+						abilities: visibleAbilities,
+						industry,
+						kind,
+						selectedId,
+						creatorDisabled,
+						onIndustryChange: updateIndustry,
+						onKindChange: updateKind,
+						onSelect: setSelectedId,
+						onClear: resetDiscovery,
+						onCreate: (prompt) => {
+							copyAndCreate(prompt);
 						},
 						onAskAdvisor: askAdvisor
 					}),

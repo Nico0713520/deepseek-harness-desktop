@@ -15,7 +15,6 @@ export interface AbilityLibraryProps {
   readonly industry: IndustryId | 'all'
   readonly kind: AbilityKindId | 'all'
   readonly selectedId: string | null
-  readonly recommendationLabel: string | null
   readonly creatorDisabled: boolean
   readonly onIndustryChange: (industry: IndustryId | 'all') => void
   readonly onKindChange: (kind: AbilityKindId | 'all') => void
@@ -30,7 +29,6 @@ export function AbilityLibrary({
   industry,
   kind,
   selectedId,
-  recommendationLabel,
   creatorDisabled,
   onIndustryChange,
   onKindChange,
@@ -48,7 +46,7 @@ export function AbilityLibrary({
           <span className={styles.sectionKicker}>按你的工作来找</span>
           <h2 id="creator-library-title">能力库</h2>
         </div>
-        <span className={styles.resultCount}>{recommendationLabel ?? `找到 ${abilities.length} 个能力`}</span>
+        <span className={styles.resultCount}>找到 {abilities.length} 个能力</span>
       </header>
 
       <div className={styles.filterRows}>

@@ -28,23 +28,26 @@
 .page button:disabled { cursor: not-allowed; opacity: .48; }
 
 .sidebarEntry {
+  box-sizing: border-box;
   display: flex;
   width: 100%;
-  min-height: 36px;
+  height: 38px;
   align-items: center;
+  justify-content: center;
   gap: 9px;
-  border: 0;
-  border-radius: 9px;
-  background: transparent;
-  padding: 7px 10px;
-  color: var(--dsw-alias-label-secondary, var(--creator-muted));
+  border: 1px solid var(--dsw-alias-border-l2, var(--creator-line));
+  border-radius: 12px;
+  background: var(--dsw-alias-button-elevated-fill, var(--creator-paper));
+  padding: 8px 16px;
+  color: var(--dsw-alias-label-primary, var(--creator-ink));
   cursor: pointer;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
+  line-height: 22px;
   text-align: left;
 }
-.sidebarEntry:hover { background: var(--dsw-alias-interactive-bg-hover, var(--creator-canvas)); color: var(--creator-ink); }
-.sidebarEntryActive { background: var(--creator-mist); color: var(--creator-blue); font-weight: 700; }
+.sidebarEntry:hover { background: var(--dsw-alias-button-floating-hover, var(--creator-canvas)); color: var(--creator-ink); }
+.sidebarEntryActive { border-color: #b9cce7; background: var(--creator-mist); color: var(--creator-blue); font-weight: 700; }
 .sidebarEntryIcon { display: grid; width: 18px; height: 18px; flex: 0 0 auto; place-items: center; color: currentColor; font-size: 17px; line-height: 1; }
 .sidebarEntryLabel { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
@@ -84,7 +87,7 @@
   background: var(--dsw-alias-bg-base, #f7f9fc);
   pointer-events: auto;
 }
-.surface > .page { min-height: 100%; padding: 0 clamp(20px, 4vw, 56px) 40px; }
+.surface > .page { min-height: 100%; padding: 28px clamp(20px, 4vw, 56px) 40px; }
 .topbarStart { display: flex; min-width: 0; align-items: center; gap: 8px; }
 .backButton { border: 0; border-radius: 8px; background: var(--creator-mist); padding: 7px 9px; color: var(--creator-blue); cursor: pointer; font-size: 11px; font-weight: 700; white-space: nowrap; }
 .backButton:hover { background: #dfeaf8; }

@@ -1,4 +1,4 @@
-export type IndustryId = 'financial-services' | 'healthcare' | 'life-sciences' | 'retail' | 'government' | 'education';
+export type IndustryId = 'programmer' | 'financial-services' | 'healthcare' | 'life-sciences' | 'retail' | 'government' | 'education';
 export type AbilityKindId = 'coding' | 'content-creation' | 'research' | 'agents' | 'data-analysis';
 export type CollectionId = 'vibe-coding';
 export type ExtensionType = 'agent-preset' | 'skill' | 'workflow' | 'plugin' | 'ui-extension';

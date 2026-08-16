@@ -13,6 +13,7 @@ describe('Creator Center catalog', () => {
   it('uses the agreed official industry and beginner ability-kind labels', () => {
     expect(INDUSTRIES.map(item => item.label)).toEqual([
       '全部行业',
+      '程序员',
       '金融服务',
       '医疗健康',
       '生命科学',
@@ -43,6 +44,8 @@ describe('Creator Center catalog', () => {
   })
 
   it('combines search, industry, and kind filters without resetting either axis', () => {
+    expect(abilitiesFor({ industry: 'programmer', kind: 'coding', query: '' }).map(item => item.id))
+      .toEqual(['github-review', 'project-scaffold', 'custom-ui-theme'])
     expect(abilitiesFor({ industry: 'retail', kind: 'data-analysis', query: '' }).map(item => item.id))
       .toEqual(['file-data-analysis'])
     expect(abilitiesFor({ industry: 'all', kind: 'coding', query: '代码审查' }).map(item => item.id))

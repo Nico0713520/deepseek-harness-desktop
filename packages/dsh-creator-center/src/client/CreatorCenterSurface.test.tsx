@@ -1,4 +1,4 @@
-import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
+import { act, cleanup, render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import type { LaunchSnapshot } from './session-launcher.ts'
 import { CreatorCenterSurface } from './CreatorCenterSurface.tsx'
@@ -27,15 +27,16 @@ describe('CreatorCenterSurface', () => {
     act(() => { navigation.open() })
 
     expect(screen.getByTestId('creator-center-surface')).toBeTruthy()
-    expect(screen.getByRole('heading', { name: '你希望 DeepSeek 帮你解决什么问题？' })).toBeTruthy()
+    expect(screen.getByRole('heading', { name: '能力库' })).toBeTruthy()
+    expect(screen.getByRole('group', { name: '行业分类' })).toBeTruthy()
   })
 
-  it('returns to chat from the full page', () => {
+  it('hides the full page when navigation returns to chat', () => {
     const navigation = new CreatorNavigationController()
     render(<CreatorCenterSurface navigation={navigation} launcher={launcher()} />)
     act(() => { navigation.open() })
 
-    fireEvent.click(screen.getByRole('button', { name: /返回聊天/ }))
+    act(() => { navigation.close() })
 
     expect(navigation.getSnapshot()).toBe('chat')
     expect(screen.queryByTestId('creator-center-surface')).toBeNull()
