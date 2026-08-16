@@ -1,0 +1,82 @@
+diff --git a/lib/client.js b/lib/client.js
+index 629e31396df4a91209773e902110f0adeb68e9de..f817206486cc9b6704c1b097b2753c44d7b4e9d0 100644
+--- a/lib/client.js
++++ b/lib/client.js
+@@ -195,6 +195,15 @@ window.__ModuleLoader__.load({
+ 							})]
+ 						})
+ 					}),
++					(0, react_jsx_runtime.jsx)("div", {
++						style: { display: "grid", gap: 4, margin: "0 2px 8px" },
++						children: renderSlot("sidebar.primary.action", {
++							wide,
++							expandSidebar: () => {
++								if (collapsed) toggleSidebar();
++							}
++						})
++					}),
+ 					(0, react_jsx_runtime.jsx)("div", {
+ 						className: SidebarRoot_module_css_default.regionArea,
+ 						children: renderSlot("sidebar.workspaces", {
+@@ -266,6 +275,10 @@ window.__ModuleLoader__.load({
+ 				name: "sidebar",
+ 				locale: NS,
+ 				children: {
++					"sidebar.primary.action": {
++						kind: "list",
++						scope: "root"
++					},
+ 					"sidebar.workspaces": {
+ 						kind: "single",
+ 						scope: "root"
+diff --git a/lib/types/client/contract/slots.d.ts b/lib/types/client/contract/slots.d.ts
+index dc15aa71d15b6142b6865e503dd9725d7a8509e2..af1f7170e5c9be3b7b18694a86504826680dd7f9 100644
+--- a/lib/types/client/contract/slots.d.ts
++++ b/lib/types/client/contract/slots.d.ts
+@@ -11,6 +11,12 @@ import type { PropsLocale, PropsRenderSlots, PropsRuntime } from '@deepseek-ai/d
+ import type { WorkspaceId } from '@deepseek-ai/dsh-client-runtime/client';
+ declare module '@deepseek-ai/dsh-client-ui-slots' {
+     interface SlotMap {
++        /** Optional primary action rendered immediately below New Session. */
++        'sidebar.primary.action': {
++            kind: 'list';
++            scope: 'root';
++            owner: SidebarPrimaryActionOwnerProps;
++        };
+         /**
+          * The workspace/session browsing region: section header, search, the
+          * grouped/flat session list, and every workspace dialog. Declared by this
+@@ -53,6 +59,13 @@ export interface SidebarSectionOwnerProps {
+     /** Rail icons request expansion; the browser rides the wide flip for focus. */
+     expandSidebar: () => void;
+ }
++/** Owner share of an action rendered between New Session and the workspace browser. */
++export interface SidebarPrimaryActionOwnerProps {
++    /** Whether the sidebar renders wide content (false = 56px rail). */
++    wide: boolean;
++    /** Expand the rail before the action is used. */
++    expandSidebar: () => void;
++}
+ /**
+  * Owner share of the sidebar settings seat: the column display state the
+  * occupant's trigger row must render against (wide row vs rail icon).
+@@ -86,5 +99,5 @@ export type SidebarRootInjected = {
+  * render shares, this package's injected callbacks, and the standard locale
+  * seat. No store is registered.
+  */
+-export type SidebarRootComponentProps = PropsRuntime<'sidebar'> & PropsRenderSlots<'sidebar.workspaces' | 'sidebar.settings' | 'sidebar.footer.action'> & SidebarRootInjected & PropsLocale<'sidebar'>;
++export type SidebarRootComponentProps = PropsRuntime<'sidebar'> & PropsRenderSlots<'sidebar.primary.action' | 'sidebar.workspaces' | 'sidebar.settings' | 'sidebar.footer.action'> & SidebarRootInjected & PropsLocale<'sidebar'>;
+ //# sourceMappingURL=slots.d.ts.map
+diff --git a/lib/types/client/index.d.ts b/lib/types/client/index.d.ts
+index f3e28a8a9adaefa56e91055ada0f431d126a654e..5d511cba5ee823aecd678bf1e22d8215bd0498de 100644
+--- a/lib/types/client/index.d.ts
++++ b/lib/types/client/index.d.ts
+@@ -1,7 +1,7 @@
+ /** Registers the sidebar shell into the layout-owned slot. */
+ import type { ClientContext } from '@deepseek-ai/dsh-client-runtime/client';
+ import { type SidebarKey } from './locales.ts';
+-export type { SidebarFooterActionOwnerProps, SidebarRootComponentProps, SidebarRootInjected, SidebarSectionOwnerProps, SidebarSettingsOwnerProps, } from './contract/slots.ts';
++export type { SidebarFooterActionOwnerProps, SidebarPrimaryActionOwnerProps, SidebarRootComponentProps, SidebarRootInjected, SidebarSectionOwnerProps, SidebarSettingsOwnerProps, } from './contract/slots.ts';
+ export type { SidebarKey } from './locales.ts';
+ declare module '@deepseek-ai/dsh-client-ui-slots' {
+     interface LocaleNamespaceMap {

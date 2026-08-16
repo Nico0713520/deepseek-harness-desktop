@@ -11,3 +11,5 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - '@linxin666/dsh-client-ui-skin-center@0.1.12'
   - '@linxin666/dsh-client-ui-web-ui-settings@0.1.12'
+patchedDependencies:
+  '@deepseek-ai/dsh-client-ui-sidebar@0.1.0-rc.6': patches/@deepseek-ai__dsh-client-ui-sidebar@0.1.0-rc.6.patch
