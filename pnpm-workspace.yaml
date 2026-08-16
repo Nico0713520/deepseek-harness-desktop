@@ -4,9 +4,13 @@ packages:
 blockExoticSubdeps: false
 verifyDepsBeforeRun: false
 allowBuilds:
+  '@deepseek-ai/dsh-subprocess-local': false
+  '@google/genai': false
   electron: true
   electron-winstaller: true
+  koffi: false
   node-pty: true
+  protobufjs: false
   sharp: true
 minimumReleaseAgeExclude:
   - '@linxin666/dsh-client-ui-skin-center@0.1.12'
