@@ -1,5 +1,7 @@
 import { isManagedAdvisorHost } from "./advisor-status.js";
-import { CreatorCenter } from "./CreatorCenter.js";
+import { CreatorCenterSidebarAction } from "./CreatorCenterSidebarAction.js";
+import { CreatorCenterSurface } from "./CreatorCenterSurface.js";
+import { CreatorNavigationController } from "./creator-navigation.js";
 import { SessionLauncher } from "./session-launcher.js";
 const ADVISOR_PRESET_ID = 'whale-extension-advisor';
 const ADVISOR_MARKER = '<!-- whale-extension-advisor -->';
@@ -10,7 +12,7 @@ function agentPresetSeat(ctx) {
     const face = inject?.();
     return typeof face?.select === 'function' ? face : undefined;
 }
-export const inject = ['slots', 'connection', 'sessions', 'workspaces'];
+export const inject = ['slots', 'connection', 'sessions', 'workspaces', 'layout'];
 export function apply(ctx) {
     const { api } = ctx.get('connection');
     const launcher = new SessionLauncher({
@@ -46,12 +48,36 @@ export function apply(ctx) {
             }
         },
     });
+    const navigation = new CreatorNavigationController();
     ctx.effect(() => () => { launcher.dispose(); }, 'creator-center: session launcher');
-    ctx.slots.inject('settings.section', () => ctx.slots.register({
-        name: 'settings.section',
+    ctx.effect(() => {
+        let lastCurrent = ctx.sessions.list.getSnapshot().current;
+        const unsubscribeSessions = ctx.sessions.list.subscribe(() => {
+            const current = ctx.sessions.list.getSnapshot().current;
+            if (navigation.getSnapshot() === 'creator-center' && current !== lastCurrent)
+                navigation.close();
+            lastCurrent = current;
+        });
+        const unsubscribeNavigation = navigation.subscribe(() => {
+            if (navigation.getSnapshot() === 'creator-center')
+                ctx.layout.closeDetails();
+        });
+        return () => {
+            unsubscribeSessions();
+            unsubscribeNavigation();
+            navigation.dispose();
+        };
+    }, 'creator-center: navigation');
+    ctx.slots.inject('sidebar.primary.action', () => ctx.slots.register({
+        name: 'sidebar.primary.action',
         id: 'creator-center',
-        order: 19,
-        label: () => '创造中心',
-        inject: () => ({ launcher }),
-    }, CreatorCenter));
+        order: 10,
+        inject: () => ({ navigation }),
+    }, CreatorCenterSidebarAction));
+    ctx.slots.inject('shell.overlay', () => ctx.slots.register({
+        name: 'shell.overlay',
+        id: 'creator-center',
+        order: 60,
+        inject: () => ({ navigation, launcher }),
+    }, CreatorCenterSurface));
 }

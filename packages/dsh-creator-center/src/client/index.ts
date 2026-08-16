@@ -1,8 +1,11 @@
 import type { ClientContext } from '@deepseek-ai/dsh-client-runtime/client'
-import type { SettingsSectionOwnerProps } from '@deepseek-ai/dsh-client-ui-settings/client'
+import type { SidebarPrimaryActionOwnerProps } from '@deepseek-ai/dsh-client-ui-sidebar/client'
+import type {} from '@deepseek-ai/dsh-client-ui-layout/client'
 import type {} from '@deepseek-ai/dsh-client-ui-slots'
 import { isManagedAdvisorHost } from './advisor-status.ts'
-import { CreatorCenter } from './CreatorCenter.tsx'
+import { CreatorCenterSidebarAction } from './CreatorCenterSidebarAction.tsx'
+import { CreatorCenterSurface } from './CreatorCenterSurface.tsx'
+import { CreatorNavigationController } from './creator-navigation.ts'
 import { SessionLauncher, type SessionListState, type SessionStore } from './session-launcher.ts'
 
 interface AgentPresetSeatFace {
@@ -29,11 +32,11 @@ function agentPresetSeat(ctx: ClientContext): AgentPresetSeatFace | undefined {
 
 declare module '@deepseek-ai/dsh-client-ui-slots' {
   interface SlotMap {
-    'settings.section': { kind: 'list'; scope: 'root'; owner: SettingsSectionOwnerProps }
+    'sidebar.primary.action': { kind: 'list'; scope: 'root'; owner: SidebarPrimaryActionOwnerProps }
   }
 }
 
-export const inject = ['slots', 'connection', 'sessions', 'workspaces']
+export const inject = ['slots', 'connection', 'sessions', 'workspaces', 'layout']
 
 export function apply(ctx: ClientContext): void {
   const { api } = ctx.get('connection')
@@ -69,15 +72,38 @@ export function apply(ctx: ClientContext): void {
       }
     },
   })
+  const navigation = new CreatorNavigationController()
 
   ctx.effect(() => () => { launcher.dispose() }, 'creator-center: session launcher')
-  ctx.slots.inject('settings.section', () => ctx.slots.register({
-    name: 'settings.section',
+  ctx.effect(() => {
+    let lastCurrent = ctx.sessions.list.getSnapshot().current
+    const unsubscribeSessions = ctx.sessions.list.subscribe(() => {
+      const current = ctx.sessions.list.getSnapshot().current
+      if (navigation.getSnapshot() === 'creator-center' && current !== lastCurrent) navigation.close()
+      lastCurrent = current
+    })
+    const unsubscribeNavigation = navigation.subscribe(() => {
+      if (navigation.getSnapshot() === 'creator-center') ctx.layout.closeDetails()
+    })
+    return () => {
+      unsubscribeSessions()
+      unsubscribeNavigation()
+      navigation.dispose()
+    }
+  }, 'creator-center: navigation')
+
+  ctx.slots.inject('sidebar.primary.action', () => ctx.slots.register({
+    name: 'sidebar.primary.action',
     id: 'creator-center',
-    order: 19,
-    label: () => '创造中心',
-    inject: () => ({ launcher }),
-  }, CreatorCenter))
+    order: 10,
+    inject: () => ({ navigation }),
+  }, CreatorCenterSidebarAction))
+  ctx.slots.inject('shell.overlay', () => ctx.slots.register({
+    name: 'shell.overlay',
+    id: 'creator-center',
+    order: 60,
+    inject: () => ({ navigation, launcher }),
+  }, CreatorCenterSurface))
 }
 
 export type { SessionListState }

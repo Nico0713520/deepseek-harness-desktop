@@ -26,7 +26,7 @@ function setup(presetAvailable = true) {
   const writes: string[] = []
   const clipboard = { writeText: vi.fn(async (text: string) => { writes.push(text) }) }
   const close = vi.fn()
-  render(<CreatorCenter launcher={launcher} clipboard={clipboard} close={close} />)
+  render(<CreatorCenter launcher={launcher} clipboard={clipboard} onClose={close} />)
   return { launcher, launch, clipboard, close, writes, publish }
 }
 
@@ -43,6 +43,14 @@ describe('Creator Center', () => {
     expect(screen.queryByText('Agent 预设')).toBeNull()
     expect(screen.queryByText('Skill')).toBeNull()
     expect(screen.queryByText('插件')).toBeNull()
+  })
+
+  it('offers an obvious return-to-chat action', () => {
+    const kit = setup()
+
+    fireEvent.click(screen.getByRole('button', { name: /返回聊天/ }))
+
+    expect(kit.close).toHaveBeenCalledOnce()
   })
 
   it('combines industry, kind, and search filters and offers a clean reset', () => {

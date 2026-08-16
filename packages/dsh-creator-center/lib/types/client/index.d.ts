@@ -1,12 +1,12 @@
 import type { ClientContext } from '@deepseek-ai/dsh-client-runtime/client';
-import type { SettingsSectionOwnerProps } from '@deepseek-ai/dsh-client-ui-settings/client';
+import type { SidebarPrimaryActionOwnerProps } from '@deepseek-ai/dsh-client-ui-sidebar/client';
 import { type SessionListState } from './session-launcher.ts';
 declare module '@deepseek-ai/dsh-client-ui-slots' {
     interface SlotMap {
-        'settings.section': {
+        'sidebar.primary.action': {
             kind: 'list';
             scope: 'root';
-            owner: SettingsSectionOwnerProps;
+            owner: SidebarPrimaryActionOwnerProps;
         };
     }
 }

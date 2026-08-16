@@ -27,6 +27,27 @@
 }
 .page button:disabled { cursor: not-allowed; opacity: .48; }
 
+.sidebarEntry {
+  display: flex;
+  width: 100%;
+  min-height: 36px;
+  align-items: center;
+  gap: 9px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  padding: 7px 10px;
+  color: var(--dsw-alias-label-secondary, var(--creator-muted));
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+}
+.sidebarEntry:hover { background: var(--dsw-alias-interactive-bg-hover, var(--creator-canvas)); color: var(--creator-ink); }
+.sidebarEntryActive { background: var(--creator-mist); color: var(--creator-blue); font-weight: 700; }
+.sidebarEntryIcon { display: grid; width: 18px; height: 18px; flex: 0 0 auto; place-items: center; color: currentColor; font-size: 17px; line-height: 1; }
+.sidebarEntryLabel { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
 .srOnly {
   position: absolute;
   width: 1px;
@@ -52,6 +73,21 @@
   background: color-mix(in srgb, var(--dsw-alias-bg-base, #fff) 94%, transparent);
   backdrop-filter: blur(12px);
 }
+
+.surface {
+  position: absolute;
+  z-index: 30;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+  background: var(--dsw-alias-bg-base, #f7f9fc);
+  pointer-events: auto;
+}
+.surface > .page { min-height: 100%; padding: 0 clamp(20px, 4vw, 56px) 40px; }
+.topbarStart { display: flex; min-width: 0; align-items: center; gap: 8px; }
+.backButton { border: 0; border-radius: 8px; background: var(--creator-mist); padding: 7px 9px; color: var(--creator-blue); cursor: pointer; font-size: 11px; font-weight: 700; white-space: nowrap; }
+.backButton:hover { background: #dfeaf8; }
 
 .nav { display: flex; align-items: stretch; gap: 4px; min-width: 0; }
 .nav button {

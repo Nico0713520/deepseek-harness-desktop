@@ -1,5 +1,4 @@
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
-import type { SettingsSectionOwnerProps } from '@deepseek-ai/dsh-client-ui-settings/client'
 import {
   ABILITIES,
   FEATURED_SCENES,
@@ -30,8 +29,9 @@ export interface ClipboardPort {
   writeText(text: string): Promise<void>
 }
 
-export interface CreatorCenterProps extends SettingsSectionOwnerProps {
+export interface CreatorCenterProps {
   readonly launcher: CreatorLauncher
+  readonly onClose?: () => void
   readonly clipboard?: ClipboardPort
 }
 
@@ -42,7 +42,7 @@ const NAV_ITEMS: readonly { id: CreatorView; label: string }[] = [
   { id: 'principles', label: '扩展原理' },
 ]
 
-export function CreatorCenter({ launcher, close, clipboard = navigator.clipboard }: CreatorCenterProps) {
+export function CreatorCenter({ launcher, onClose, clipboard = navigator.clipboard }: CreatorCenterProps) {
   const pageRef = useRef<HTMLElement>(null)
   const launch = useSyncExternalStore(launcher.subscribe, launcher.getSnapshot)
   const [view, setView] = useState<CreatorView>('discover')
@@ -81,8 +81,8 @@ export function CreatorCenter({ launcher, close, clipboard = navigator.clipboard
   }, [launcher])
 
   useEffect(() => {
-    if (closeOnLaunch && launch.launchedPreset !== null) close()
-  }, [close, closeOnLaunch, launch.launchedPreset])
+    if (closeOnLaunch && launch.launchedPreset !== null) onClose?.()
+  }, [closeOnLaunch, launch.launchedPreset, onClose])
 
   useEffect(() => {
     if (closeOnLaunch && !advisorRequested && launch.error !== null) {
@@ -214,16 +214,21 @@ export function CreatorCenter({ launcher, close, clipboard = navigator.clipboard
   return (
     <main className={styles.page} ref={pageRef}>
       <header className={styles.topbar}>
-        <nav className={styles.nav} aria-label="创造中心导航">
-          {NAV_ITEMS.map(item => (
-            <button
-              type="button"
-              key={item.id}
-              aria-current={view === item.id ? 'page' : undefined}
-              onClick={() => { switchView(item.id) }}
-            >{item.label}</button>
-          ))}
-        </nav>
+        <div className={styles.topbarStart}>
+          {onClose !== undefined && (
+            <button type="button" className={styles.backButton} onClick={onClose}>← 返回聊天</button>
+          )}
+          <nav className={styles.nav} aria-label="创造中心导航">
+            {NAV_ITEMS.map(item => (
+              <button
+                type="button"
+                key={item.id}
+                aria-current={view === item.id ? 'page' : undefined}
+                onClick={() => { switchView(item.id) }}
+              >{item.label}</button>
+            ))}
+          </nav>
+        </div>
         <label className={styles.search}>
           <span aria-hidden="true">⌕</span>
           <span className={styles.srOnly}>搜索能力</span>

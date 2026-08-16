@@ -8,6 +8,7 @@ describe('Creator Center client registration', () => {
     const advisorStatus = vi.fn(async () => ({ ok: true, json: async () => ({ managed: true }) }))
     vi.stubGlobal('fetch', advisorStatus)
     const registrations: Array<Record<string, unknown>> = []
+    const injectedSlots: string[] = []
     const sessionListeners = new Set<() => void>()
     const noteAgentPreset = vi.fn()
     const apiRead = vi.fn(async () => ({
@@ -53,6 +54,7 @@ describe('Creator Center client registration', () => {
         noteAgentPreset,
       },
       workspaces: { startSession: vi.fn() },
+      layout: { closeDetails: vi.fn() },
       effect: vi.fn(),
       slots: {
         entriesOfSlot(name: string) {
@@ -63,7 +65,7 @@ describe('Creator Center client registration', () => {
           }) }]
         },
         inject(name: string, factory: () => unknown) {
-          expect(name).toBe('settings.section')
+          injectedSlots.push(name)
           factory()
         },
         register(options: Record<string, unknown>) {
@@ -75,17 +77,15 @@ describe('Creator Center client registration', () => {
 
     apply(ctx as never)
 
-    expect(inject).toEqual(['slots', 'connection', 'sessions', 'workspaces'])
-    expect(registrations).toHaveLength(1)
-    expect(registrations[0]).toMatchObject({
-      name: 'settings.section',
-      id: 'creator-center',
-      order: 19,
-    })
-    expect((registrations[0].label as () => string)()).toBe('创造中心')
-    expect(registrations[0].inject).toEqual(expect.any(Function))
+    expect(inject).toEqual(['slots', 'connection', 'sessions', 'workspaces', 'layout'])
+    expect(injectedSlots).toEqual(['sidebar.primary.action', 'shell.overlay'])
+    expect(registrations.map(item => [item.name, item.id, item.order])).toEqual([
+      ['sidebar.primary.action', 'creator-center', 10],
+      ['shell.overlay', 'creator-center', 60],
+    ])
+    expect(registrations[1].inject).toEqual(expect.any(Function))
 
-    const injected = (registrations[0].inject as () => { launcher: { launch(presetId: string): void } })()
+    const injected = (registrations[1].inject as () => { launcher: { launch(presetId: string): void } })()
     injected.launcher.launch('whale-extension-advisor')
     await vi.waitFor(() => {
       expect(noteAgentPreset).toHaveBeenCalledWith('blank-session', 'whale-extension-advisor')

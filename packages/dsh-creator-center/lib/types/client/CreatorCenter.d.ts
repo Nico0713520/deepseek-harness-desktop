@@ -1,4 +1,3 @@
-import type { SettingsSectionOwnerProps } from '@deepseek-ai/dsh-client-ui-settings/client';
 import type { LaunchSnapshot } from './session-launcher.ts';
 export interface CreatorLauncher {
     getSnapshot(): LaunchSnapshot;
@@ -10,9 +9,10 @@ export interface CreatorLauncher {
 export interface ClipboardPort {
     writeText(text: string): Promise<void>;
 }
-export interface CreatorCenterProps extends SettingsSectionOwnerProps {
+export interface CreatorCenterProps {
     readonly launcher: CreatorLauncher;
+    readonly onClose?: () => void;
     readonly clipboard?: ClipboardPort;
 }
-export declare function CreatorCenter({ launcher, close, clipboard }: CreatorCenterProps): import("react/jsx-runtime").JSX.Element;
+export declare function CreatorCenter({ launcher, onClose, clipboard }: CreatorCenterProps): import("react/jsx-runtime").JSX.Element;
 //# sourceMappingURL=CreatorCenter.d.ts.map
