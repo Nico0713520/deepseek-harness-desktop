@@ -34,7 +34,8 @@ describe('Creator Center', () => {
   it('shows only the focused ability library and its two filters', () => {
     setup()
 
-    expect(screen.queryByRole('navigation', { name: '创造中心导航' })).toBeNull()
+    expect(screen.queryByRole('heading', { name: '能力库' })).toBeNull()
+    expect(screen.getByRole('region', { name: '能力 Hub' })).toBeTruthy()
     expect(screen.queryByRole('button', { name: /返回聊天/ })).toBeNull()
     expect(screen.queryByRole('heading', { name: '你希望 DeepSeek 帮你解决什么问题？' })).toBeNull()
     expect(screen.queryByRole('heading', { name: '精选场景' })).toBeNull()

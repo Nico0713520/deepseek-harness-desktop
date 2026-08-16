@@ -47,7 +47,7 @@
   text-align: left;
 }
 .sidebarEntry:hover { background: var(--dsw-alias-button-floating-hover, var(--creator-canvas)); color: var(--creator-ink); }
-.sidebarEntryActive { border-color: #b9cce7; background: var(--creator-mist); color: var(--creator-blue); font-weight: 700; }
+.sidebarEntryActive { border-color: #b9cce7; background: var(--dsw-alias-button-elevated-fill, var(--creator-paper)); color: var(--creator-blue); font-weight: 700; }
 .sidebarEntryIcon { display: grid; width: 18px; height: 18px; flex: 0 0 auto; place-items: center; color: currentColor; font-size: 17px; line-height: 1; }
 .sidebarEntryLabel { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
@@ -84,7 +84,7 @@
   right: 0;
   bottom: 0;
   overflow: auto;
-  background: var(--dsw-alias-bg-base, #f7f9fc);
+  background: var(--dsw-alias-bg-base, var(--creator-paper));
   pointer-events: auto;
 }
 .surface > .page { min-height: 100%; padding: 28px clamp(20px, 4vw, 56px) 40px; }
@@ -259,8 +259,9 @@
 .library { padding: 20px; }
 .libraryHeader { padding-bottom: 14px; border-bottom: 1px solid var(--creator-soft-line); }
 .resultCount { color: var(--creator-muted); font-size: 11px; }
-.filterRows { padding: 12px 0 15px; }
-.filterRow { display: grid; grid-template-columns: 46px 1fr; align-items: start; gap: 7px; padding: 4px 0; }
+.filterRows { padding: 0 0 15px; }
+.filterRow { display: block; padding: 0; }
+.filterRow + .filterRow { margin-top: 2px; }
 .filterLabel { padding-top: 7px; color: #8a94a4; font-size: 10px; }
 .filterRow > div { display: flex; flex-wrap: wrap; gap: 2px; }
 .filterRow button {

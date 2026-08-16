@@ -27,7 +27,7 @@ describe('CreatorCenterSurface', () => {
     act(() => { navigation.open() })
 
     expect(screen.getByTestId('creator-center-surface')).toBeTruthy()
-    expect(screen.getByRole('heading', { name: '能力库' })).toBeTruthy()
+    expect(screen.getByRole('region', { name: '能力 Hub' })).toBeTruthy()
     expect(screen.getByRole('group', { name: '行业分类' })).toBeTruthy()
   })
 

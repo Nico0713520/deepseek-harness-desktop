@@ -40,18 +40,9 @@ export function AbilityLibrary({
   const selected = abilities.find(item => item.id === selectedId)
 
   return (
-    <section className={styles.library} aria-labelledby="creator-library-title">
-      <header className={styles.libraryHeader}>
-        <div>
-          <span className={styles.sectionKicker}>按你的工作来找</span>
-          <h2 id="creator-library-title">能力库</h2>
-        </div>
-        <span className={styles.resultCount}>找到 {abilities.length} 个能力</span>
-      </header>
-
+    <section className={styles.library} aria-label="能力 Hub">
       <div className={styles.filterRows}>
         <div className={styles.filterRow} role="group" aria-label="行业分类">
-          <span className={styles.filterLabel}>行业</span>
           <div>
             {INDUSTRIES.map(item => (
               <button
@@ -64,7 +55,6 @@ export function AbilityLibrary({
           </div>
         </div>
         <div className={styles.filterRow} role="group" aria-label="能力种类">
-          <span className={styles.filterLabel}>种类</span>
           <div>
             {ABILITY_KINDS.map(item => (
               <button
