@@ -28,7 +28,7 @@
 - New entries use existing `IndustryId`, `AbilityKindId`, `ExtensionType`, prompt, checks, and rollback fields.
 
 - [ ] Add a test asserting all seven verified entries have the expected repository URLs and licenses.
-- [ ] Add entries for Superpowers, OpenSpec, Agent Reach, Firecrawl MCP, Last 30 Days, Ponytail, and frontend-design.
+- [ ] Add entries for Superpowers, OpenSpec, Agent Reach, Firecrawl MCP, Last 30 Days, Ponytail, frontend-design, and Playwright.
 - [ ] Add one local-workflow entry naming the unverified local skills without a repository URL.
 - [ ] Keep all entries under existing `programmer`, `coding`, or `research` filters and use plain-language Chinese copy.
 - [ ] Run `pnpm --filter @whale-desktop/dsh-creator-center test -- catalog.test.ts` and confirm the catalog tests pass.

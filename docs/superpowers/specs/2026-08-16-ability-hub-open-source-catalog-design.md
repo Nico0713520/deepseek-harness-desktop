@@ -24,6 +24,7 @@
 | 最近 30 天趋势调研 | https://github.com/mvanhorn/last30days-skill | MIT | Community Skill for recent-topic research |
 | 少写代码的简化准则 | https://github.com/lenML/Ponytail | MIT | Ponytail guidance in one Markdown file |
 | 前端视觉设计 | https://github.com/Ilm-Alan/frontend-design | MIT | Community frontend-design Skill |
+| Playwright 网页自动化 | https://github.com/microsoft/playwright | Apache-2.0 | Browser testing and automation framework; useful for bounded crawler examples |
 
 ## Unverified local skills
 

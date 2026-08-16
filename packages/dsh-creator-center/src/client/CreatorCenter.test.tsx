@@ -43,7 +43,7 @@ describe('Creator Center', () => {
     expect(screen.getByRole('group', { name: '行业分类' })).toBeTruthy()
     expect(screen.getByRole('group', { name: '能力种类' })).toBeTruthy()
     expect(screen.getByRole('button', { name: '程序员' })).toBeTruthy()
-    expect(screen.getAllByTestId('ability-card')).toHaveLength(16)
+    expect(screen.getAllByTestId('ability-card')).toHaveLength(17)
     expect(screen.queryByText('Agent 预设')).toBeNull()
     expect(screen.queryByText('Skill')).toBeNull()
     expect(screen.queryByText('插件')).toBeNull()
@@ -62,7 +62,7 @@ describe('Creator Center', () => {
 
     fireEvent.click(screen.getByRole('button', { name: '全部行业' }))
     fireEvent.click(screen.getByRole('button', { name: '全部种类' }))
-    expect(screen.getAllByTestId('ability-card')).toHaveLength(16)
+    expect(screen.getAllByTestId('ability-card')).toHaveLength(17)
   })
 
   it('shows verified GitHub links and hides them for local-only skills', () => {

@@ -32,8 +32,8 @@ describe('Creator Center catalog', () => {
   })
 
   it('ships replaceable seed abilities with complete beginner review fields', () => {
-    expect(ABILITIES).toHaveLength(16)
-    expect(new Set(ABILITIES.map(item => item.id)).size).toBe(16)
+    expect(ABILITIES).toHaveLength(17)
+    expect(new Set(ABILITIES.map(item => item.id)).size).toBe(17)
     for (const ability of ABILITIES) {
       expect(ability.outcome.length).toBeGreaterThan(5)
       expect(ability.userProvides.length).toBeGreaterThan(3)
@@ -53,6 +53,7 @@ describe('Creator Center catalog', () => {
     expect(repositories.get('last30days-research')).toBe('https://github.com/mvanhorn/last30days-skill')
     expect(repositories.get('ponytail-simplifier')).toBe('https://github.com/lenML/Ponytail')
     expect(repositories.get('frontend-design-skill')).toBe('https://github.com/Ilm-Alan/frontend-design')
+    expect(repositories.get('playwright-automation')).toBe('https://github.com/microsoft/playwright')
     expect(repositories.get('local-skill-workbench')).toBeUndefined()
   })
 
@@ -62,6 +63,7 @@ describe('Creator Center catalog', () => {
         'github-review',
         'project-scaffold',
         'custom-ui-theme',
+        'playwright-automation',
         'superpowers-workflow',
         'openspec-workflow',
         'ponytail-simplifier',
