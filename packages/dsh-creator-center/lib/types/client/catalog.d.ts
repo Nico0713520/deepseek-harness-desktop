@@ -29,6 +29,7 @@ export interface AbilityDefinition {
         readonly checks: readonly string[];
         readonly source: string;
         readonly license: string;
+        readonly repositoryUrl?: string;
     };
 }
 export interface AbilityFilters {

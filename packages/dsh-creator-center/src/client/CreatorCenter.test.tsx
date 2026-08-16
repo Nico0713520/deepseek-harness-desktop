@@ -43,7 +43,7 @@ describe('Creator Center', () => {
     expect(screen.getByRole('group', { name: '行业分类' })).toBeTruthy()
     expect(screen.getByRole('group', { name: '能力种类' })).toBeTruthy()
     expect(screen.getByRole('button', { name: '程序员' })).toBeTruthy()
-    expect(screen.getAllByTestId('ability-card')).toHaveLength(8)
+    expect(screen.getAllByTestId('ability-card')).toHaveLength(16)
     expect(screen.queryByText('Agent 预设')).toBeNull()
     expect(screen.queryByText('Skill')).toBeNull()
     expect(screen.queryByText('插件')).toBeNull()
@@ -62,7 +62,23 @@ describe('Creator Center', () => {
 
     fireEvent.click(screen.getByRole('button', { name: '全部行业' }))
     fireEvent.click(screen.getByRole('button', { name: '全部种类' }))
-    expect(screen.getAllByTestId('ability-card')).toHaveLength(8)
+    expect(screen.getAllByTestId('ability-card')).toHaveLength(16)
+  })
+
+  it('shows verified GitHub links and hides them for local-only skills', () => {
+    setup()
+
+    fireEvent.click(screen.getByRole('button', { name: '查看“开发流程基础包”方案' }))
+    const verifiedReview = screen.getByRole('region', { name: '开发流程基础包方案' })
+    fireEvent.click(within(verifiedReview).getByText('高级信息'))
+    expect(within(verifiedReview).getByRole('link', { name: '查看 GitHub 仓库 ↗' }).getAttribute('href'))
+      .toBe('https://github.com/obra/superpowers')
+
+    fireEvent.click(within(verifiedReview).getByRole('button', { name: '关闭“开发流程基础包”方案' }))
+    fireEvent.click(screen.getByRole('button', { name: '查看“本地 Skill 工作台”方案' }))
+    const localReview = screen.getByRole('region', { name: '本地 Skill 工作台方案' })
+    fireEvent.click(within(localReview).getByText('高级信息'))
+    expect(within(localReview).queryByRole('link', { name: '查看 GitHub 仓库 ↗' })).toBeNull()
   })
 
   it('opens a beginner review in-page and keeps implementation details collapsed', () => {

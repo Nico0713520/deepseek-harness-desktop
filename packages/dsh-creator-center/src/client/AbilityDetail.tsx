@@ -55,6 +55,16 @@ export function AbilityDetail({ ability, disabled, onClose, onCreate, onAskAdvis
             <ul>{ability.implementation.checks.map(item => <li key={item}>{item}</li>)}</ul>
           </div>
           <div className={styles.sourceLine}>来源：{ability.implementation.source} · 许可证：{ability.implementation.license}</div>
+          {ability.implementation.repositoryUrl !== undefined && (
+            <a
+              className={styles.repositoryLink}
+              href={ability.implementation.repositoryUrl}
+              target="_blank"
+              rel="noreferrer"
+            >
+              查看 GitHub 仓库 ↗
+            </a>
+          )}
           <label className={styles.promptLabel}>
             安全创建说明
             <textarea readOnly value={prompt} rows={8} />

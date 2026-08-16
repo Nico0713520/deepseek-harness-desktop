@@ -316,6 +316,8 @@
 .implementationLine span, .implementationLine ul { margin: 0; color: var(--creator-muted); line-height: 1.55; }
 .implementationLine ul { padding-left: 17px; }
 .sourceLine { color: #7a8596; font-size: 9px; }
+.repositoryLink { display: inline-flex; color: var(--creator-blue); font-size: 10px; font-weight: 700; text-decoration: none; }
+.repositoryLink:hover { text-decoration: underline; }
 .promptLabel { display: grid; gap: 6px; color: var(--creator-ink); font-size: 10px; font-weight: 700; }
 .promptLabel textarea { width: 100%; resize: vertical; border: 1px solid var(--creator-line); border-radius: 9px; background: var(--creator-paper); padding: 10px; color: #3f4a5d; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 9px; font-weight: 400; line-height: 1.55; }
 
