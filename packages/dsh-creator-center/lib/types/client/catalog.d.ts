@@ -26,10 +26,11 @@ export interface AbilityDefinition {
     readonly implementation: {
         readonly extensionTypes: readonly ExtensionType[];
         readonly goal: string;
+        readonly addMethod: string;
         readonly checks: readonly string[];
         readonly source: string;
         readonly license: string;
-        readonly repositoryUrl?: string;
+        readonly repositoryUrl: string;
     };
 }
 export interface AbilityFilters {
@@ -54,20 +55,20 @@ export declare const INDUSTRY_LABELS: Readonly<Record<IndustryId, string>>;
 export declare const ABILITY_KIND_LABELS: Readonly<Record<AbilityKindId, string>>;
 export declare const ABILITIES: readonly AbilityDefinition[];
 export declare const FEATURED_SCENES: readonly [{
-    readonly id: "work";
-    readonly title: "把重复工作交给 DeepSeek";
-    readonly description: "总结、分类、按流程检查";
-    readonly abilityIds: readonly ["weekly-report", "company-sop", "scheduled-check"];
+    readonly id: "workflow";
+    readonly title: "建立开发工作流";
+    readonly description: "规划、实现、调试、验证";
+    readonly abilityIds: readonly ["obra-superpowers", "mattpocock-skills", "lenml-ponytail"];
 }, {
     readonly id: "research";
-    readonly title: "把资料变成可靠结论";
-    readonly description: "检索、对比、数据分析";
-    readonly abilityIds: readonly ["web-research", "file-data-analysis"];
+    readonly title: "扩展资料检索";
+    readonly description: "搜索、抓取、近期趋势";
+    readonly abilityIds: readonly ["panniantong-agent-reach", "firecrawl-mcp-server", "mvanhorn-last30days-skill"];
 }, {
-    readonly id: "build";
-    readonly title: "把想法做成可运行版本";
-    readonly description: "搭工具、查代码、改界面";
-    readonly abilityIds: readonly ["project-scaffold", "github-review", "custom-ui-theme"];
+    readonly id: "browser";
+    readonly title: "做浏览器自动化";
+    readonly description: "测试网页、采集公开资料";
+    readonly abilityIds: readonly ["microsoft-playwright"];
 }];
 export declare const VIBE_CODING_GROUPS: readonly VibeCodingGroup[];
 export declare function abilitiesFor(filters: AbilityFilters): readonly AbilityDefinition[];

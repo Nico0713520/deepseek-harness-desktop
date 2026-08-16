@@ -1,60 +1,23 @@
-# Ability Hub Open-Source Catalog Implementation Plan
+# Ability Hub GitHub 项目目录实施计划
 
-> **For agentic workers:** Implement this plan inline in the current repository. The change is intentionally data-first and does not add remote installation behavior.
+> 这是能力目录，不是安装器：项目卡片只提供分类、说明、添加方法和 GitHub 入口。
 
-**Goal:** Add the user's curated open-source Skills and plugins to the Ability Hub with verified GitHub links and beginner-readable details.
+## 任务 1：只保留已核验 GitHub 项目
 
-**Architecture:** Extend the existing local `AbilityDefinition` catalog with an optional repository URL. Add verified upstream entries as ordinary filtered abilities, and render the link only inside the existing detail panel. Keep unverified local Skills link-free and label their source honestly.
+- [x] 删除原先自设计的示例能力卡片。
+- [x] 加入用户推荐且已核验地址的 8 个项目。
+- [x] 每个项目使用独立卡片和稳定 ID。
+- [x] 排除没有可靠公开上游的本地 Skill，避免误导。
 
-**Tech Stack:** TypeScript, React, Vitest, CSS Modules, pnpm workspace, Electron desktop bundle.
+## 任务 2：让新手看懂如何添加
 
-## Global Constraints
+- [x] 卡片显示 Skill / 插件等扩展类型。
+- [x] 详情显示“怎么添加”说明。
+- [x] 详情显示许可证和 GitHub 仓库链接。
+- [x] 保留复制创建说明并进入官方创造模式的安全流程。
 
-- Keep the current white, minimal Ability Hub layout with only industry and kind filters.
-- Do not auto-install third-party code, run remote scripts, or add a network-backed catalog.
-- Only display GitHub links whose repository and license were verified.
-- Preserve the official Creator Mode handoff as the primary action.
+## 任务 3：验证
 
----
-
-### Task 1: Add repository metadata and verified catalog entries
-
-**Files:**
-- Modify: `packages/dsh-creator-center/src/client/catalog.ts`
-- Test: `packages/dsh-creator-center/src/client/catalog.test.ts`
-
-**Interfaces:**
-- `AbilityDefinition.implementation.repositoryUrl?: string` is optional metadata consumed by `AbilityDetail`.
-- New entries use existing `IndustryId`, `AbilityKindId`, `ExtensionType`, prompt, checks, and rollback fields.
-
-- [ ] Add a test asserting all seven verified entries have the expected repository URLs and licenses.
-- [ ] Add entries for Superpowers, OpenSpec, Agent Reach, Firecrawl MCP, Last 30 Days, Ponytail, frontend-design, and Playwright.
-- [ ] Add one local-workflow entry naming the unverified local skills without a repository URL.
-- [ ] Keep all entries under existing `programmer`, `coding`, or `research` filters and use plain-language Chinese copy.
-- [ ] Run `pnpm --filter @whale-desktop/dsh-creator-center test -- catalog.test.ts` and confirm the catalog tests pass.
-
-### Task 2: Show verified GitHub links in the detail panel
-
-**Files:**
-- Modify: `packages/dsh-creator-center/src/client/AbilityDetail.tsx`
-- Modify: `packages/dsh-creator-center/src/client/creator-center.module.css`
-- Test: `packages/dsh-creator-center/src/client/CreatorCenter.test.tsx`
-
-**Interfaces:**
-- `AbilityDetail` reads `ability.implementation.repositoryUrl` and does not change creation or advisor behavior.
-
-- [ ] Add a labeled `查看 GitHub 仓库` external link when `repositoryUrl` exists.
-- [ ] Use `target="_blank"` and `rel="noreferrer"`; do not render an empty link for local-only entries.
-- [ ] Add a test that opens one verified detail and sees the link, then checks a local-only entry has no GitHub link.
-- [ ] Run the package test suite and typecheck.
-
-### Task 3: Build and verify the desktop surface
-
-**Files:**
-- Regenerate: `packages/dsh-creator-center/lib/*`
-
-- [ ] Run `pnpm --filter @whale-desktop/dsh-creator-center build`.
-- [ ] Run `pnpm test` and `git diff --check`.
-- [ ] Run `pnpm run pack` and open the macOS arm64 desktop app.
-- [ ] Verify the programmer/coding and research filters, one GitHub link, and the unchanged Creator Mode action.
-- [ ] Commit with `feat: add curated open-source abilities`.
+- [ ] 运行目录测试、组件测试和类型检查。
+- [ ] 构建 dsh-creator-center 和桌面安装包。
+- [ ] 在实际 macOS GUI 中检查 8 张卡片、筛选、GitHub 链接和添加方法。

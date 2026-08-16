@@ -51,6 +51,10 @@ export function AbilityDetail({ ability, disabled, onClose, onCreate, onAskAdvis
             <span>{ability.implementation.extensionTypes.map(type => EXTENSION_TYPE_LABELS[type]).join(' · ')}</span>
           </div>
           <div className={styles.implementationLine}>
+            <strong>怎么添加</strong>
+            <span>{ability.implementation.addMethod}</span>
+          </div>
+          <div className={styles.implementationLine}>
             <strong>完成检查</strong>
             <ul>{ability.implementation.checks.map(item => <li key={item}>{item}</li>)}</ul>
           </div>

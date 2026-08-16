@@ -1,6 +1,7 @@
 import {
   ABILITY_KINDS,
   ABILITY_KIND_LABELS,
+  EXTENSION_TYPE_LABELS,
   INDUSTRIES,
   INDUSTRY_LABELS,
   type AbilityDefinition,
@@ -101,6 +102,7 @@ export function AbilityLibrary({
                 <div className={styles.cardTags}>
                   <span>{cardIndustry === undefined ? '通用' : INDUSTRY_LABELS[cardIndustry]}</span>
                   <span>{ABILITY_KIND_LABELS[ability.kindIds[0]!]}</span>
+                  <span>{EXTENSION_TYPE_LABELS[ability.implementation.extensionTypes[0]!]}</span>
                 </div>
                 <button
                   type="button"

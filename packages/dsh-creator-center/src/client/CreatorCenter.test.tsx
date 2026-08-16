@@ -43,50 +43,51 @@ describe('Creator Center', () => {
     expect(screen.getByRole('group', { name: '行业分类' })).toBeTruthy()
     expect(screen.getByRole('group', { name: '能力种类' })).toBeTruthy()
     expect(screen.getByRole('button', { name: '程序员' })).toBeTruthy()
-    expect(screen.getAllByTestId('ability-card')).toHaveLength(17)
-    expect(screen.queryByText('Agent 预设')).toBeNull()
-    expect(screen.queryByText('Skill')).toBeNull()
-    expect(screen.queryByText('插件')).toBeNull()
+    expect(screen.getAllByTestId('ability-card')).toHaveLength(8)
+    expect(screen.getAllByText('Skill').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('插件').length).toBeGreaterThan(0)
   })
 
   it('combines industry and kind filters and offers a clean reset', () => {
     setup()
 
-    fireEvent.click(screen.getByRole('button', { name: '零售与电商' }))
-    fireEvent.click(screen.getByRole('button', { name: '数据分析' }))
+    fireEvent.click(screen.getByRole('button', { name: '程序员' }))
+    fireEvent.click(screen.getByRole('button', { name: '资料研究' }))
 
-    expect(screen.getByRole('button', { name: '零售与电商' }).getAttribute('aria-pressed')).toBe('true')
-    expect(screen.getByRole('button', { name: '数据分析' }).getAttribute('aria-pressed')).toBe('true')
-    expect(screen.getAllByTestId('ability-card')).toHaveLength(1)
-    expect(screen.getByText('文件与数据分析')).toBeTruthy()
+    expect(screen.getByRole('button', { name: '程序员' }).getAttribute('aria-pressed')).toBe('true')
+    expect(screen.getByRole('button', { name: '资料研究' }).getAttribute('aria-pressed')).toBe('true')
+    expect(screen.getAllByTestId('ability-card')).toHaveLength(3)
+    expect(screen.getByText('Panniantong/Agent-Reach')).toBeTruthy()
 
     fireEvent.click(screen.getByRole('button', { name: '全部行业' }))
     fireEvent.click(screen.getByRole('button', { name: '全部种类' }))
-    expect(screen.getAllByTestId('ability-card')).toHaveLength(17)
+    expect(screen.getAllByTestId('ability-card')).toHaveLength(8)
   })
 
-  it('shows verified GitHub links and hides them for local-only skills', () => {
+  it('shows the project type, add method, and verified GitHub link', () => {
     setup()
 
-    fireEvent.click(screen.getByRole('button', { name: '查看“开发流程基础包”方案' }))
-    const verifiedReview = screen.getByRole('region', { name: '开发流程基础包方案' })
+    fireEvent.click(screen.getByRole('button', { name: '查看“obra/superpowers”方案' }))
+    const verifiedReview = screen.getByRole('region', { name: 'obra/superpowers方案' })
     fireEvent.click(within(verifiedReview).getByText('高级信息'))
+    expect(within(verifiedReview).getByText('怎么添加')).toBeTruthy()
     expect(within(verifiedReview).getByRole('link', { name: '查看 GitHub 仓库 ↗' }).getAttribute('href'))
       .toBe('https://github.com/obra/superpowers')
 
-    fireEvent.click(within(verifiedReview).getByRole('button', { name: '关闭“开发流程基础包”方案' }))
-    fireEvent.click(screen.getByRole('button', { name: '查看“本地 Skill 工作台”方案' }))
-    const localReview = screen.getByRole('region', { name: '本地 Skill 工作台方案' })
-    fireEvent.click(within(localReview).getByText('高级信息'))
-    expect(within(localReview).queryByRole('link', { name: '查看 GitHub 仓库 ↗' })).toBeNull()
+    fireEvent.click(within(verifiedReview).getByRole('button', { name: '关闭“obra/superpowers”方案' }))
+    fireEvent.click(screen.getByRole('button', { name: '查看“microsoft/playwright”方案' }))
+    const playwrightReview = screen.getByRole('region', { name: 'microsoft/playwright方案' })
+    fireEvent.click(within(playwrightReview).getByText('高级信息'))
+    expect(within(playwrightReview).getByRole('link', { name: '查看 GitHub 仓库 ↗' }).getAttribute('href'))
+      .toBe('https://github.com/microsoft/playwright')
   })
 
   it('opens a beginner review in-page and keeps implementation details collapsed', () => {
     setup()
 
-    fireEvent.click(screen.getByRole('button', { name: '查看“网页调研整理”方案' }))
+    fireEvent.click(screen.getByRole('button', { name: '查看“Panniantong/Agent-Reach”方案' }))
 
-    const review = screen.getByRole('region', { name: '网页调研整理方案' })
+    const review = screen.getByRole('region', { name: 'Panniantong/Agent-Reach方案' })
     expect(within(review).getByText('它会帮你完成什么')).toBeTruthy()
     expect(within(review).getByText('你需要准备什么')).toBeTruthy()
     expect(within(review).getByText('最后会得到什么')).toBeTruthy()
@@ -97,14 +98,14 @@ describe('Creator Center', () => {
     expect(advanced.open).toBe(false)
     fireEvent.click(within(review).getByText('高级信息'))
     expect(advanced.open).toBe(true)
-    expect(within(review).getByText('Agent 预设')).toBeTruthy()
+    expect(within(review).getByText('Skill')).toBeTruthy()
   })
 
   it('disables creation when the official Creator Mode is missing', async () => {
     setup(false)
 
     expect((await screen.findByRole('alert')).textContent).toContain('设置 → Agent 预设')
-    fireEvent.click(screen.getByRole('button', { name: '查看“网页调研整理”方案' }))
+    fireEvent.click(screen.getByRole('button', { name: '查看“Panniantong/Agent-Reach”方案' }))
     expect(screen.getByRole('button', { name: '让 DeepSeek 帮我创建' }).hasAttribute('disabled')).toBe(true)
   })
 
@@ -114,7 +115,7 @@ describe('Creator Center', () => {
     kit.clipboard.writeText.mockImplementation(async () => { order.push('copy') })
     kit.launch.mockImplementation(() => { order.push('launch') })
 
-    fireEvent.click(screen.getByRole('button', { name: '查看“网页调研整理”方案' }))
+    fireEvent.click(screen.getByRole('button', { name: '查看“Panniantong/Agent-Reach”方案' }))
     fireEvent.click(screen.getByRole('button', { name: '让 DeepSeek 帮我创建' }))
 
     await vi.waitFor(() => expect(order).toEqual(['copy', 'launch']))
@@ -125,7 +126,7 @@ describe('Creator Center', () => {
   it('opens the AI advisor without copying a synthetic user message', () => {
     const kit = setup()
 
-    fireEvent.click(screen.getByRole('button', { name: '查看“网页调研整理”方案' }))
+    fireEvent.click(screen.getByRole('button', { name: '查看“Panniantong/Agent-Reach”方案' }))
     fireEvent.click(screen.getByRole('button', { name: '先问 AI 是否适合我' }))
 
     expect(kit.launch).toHaveBeenCalledWith('whale-extension-advisor')
@@ -135,7 +136,7 @@ describe('Creator Center', () => {
   it('leaves Settings after the requested blank session is ready', async () => {
     const kit = setup()
 
-    fireEvent.click(screen.getByRole('button', { name: '查看“网页调研整理”方案' }))
+    fireEvent.click(screen.getByRole('button', { name: '查看“Panniantong/Agent-Reach”方案' }))
     fireEvent.click(screen.getByRole('button', { name: '先问 AI 是否适合我' }))
     expect(kit.close).not.toHaveBeenCalled()
 
@@ -145,7 +146,7 @@ describe('Creator Center', () => {
 
   it('offers the official Creator Mode fallback when advisor selection fails', async () => {
     const kit = setup()
-    fireEvent.click(screen.getByRole('button', { name: '查看“网页调研整理”方案' }))
+    fireEvent.click(screen.getByRole('button', { name: '查看“Panniantong/Agent-Reach”方案' }))
     fireEvent.click(screen.getByRole('button', { name: '先问 AI 是否适合我' }))
     kit.publish({ busy: false, error: 'advisor preset is unavailable', launchedPreset: null })
 
@@ -157,7 +158,7 @@ describe('Creator Center', () => {
 
   it('keeps Settings open and explains an ordinary Creator Mode launch failure', async () => {
     const kit = setup()
-    fireEvent.click(screen.getByRole('button', { name: '查看“网页调研整理”方案' }))
+    fireEvent.click(screen.getByRole('button', { name: '查看“Panniantong/Agent-Reach”方案' }))
     fireEvent.click(screen.getByRole('button', { name: '让 DeepSeek 帮我创建' }))
     await vi.waitFor(() => expect(kit.launch).toHaveBeenCalledWith('cordis'))
 

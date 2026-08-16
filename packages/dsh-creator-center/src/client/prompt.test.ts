@@ -14,7 +14,7 @@ describe('Creator Center prompt builder', () => {
   })
 
   it('adds template-specific acceptance checks', () => {
-    const template = ABILITIES.find(item => item.id === 'web-research')
+    const template = ABILITIES.find(item => item.id === 'panniantong-agent-reach')
     expect(template).toBeDefined()
     const prompt = buildCreationPrompt({ goal: template!.implementation.goal, template })
     for (const check of template!.implementation.checks) expect(prompt).toContain(`- ${check}`)

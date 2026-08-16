@@ -14,7 +14,7 @@ export function VibeCodingColumn({ onStart }: VibeCodingColumnProps) {
           <h2>说出想法，让 DeepSeek 和你一起做出来</h2>
           <p>不用先决定技术栈。先说清楚谁要用、解决什么问题、完成后是什么样。</p>
         </div>
-        <button type="button" className={styles.vibeButton} onClick={() => { onStart('project-scaffold', VIBE_CODING_GROUPS[0]!.starter) }}>
+        <button type="button" className={styles.vibeButton} onClick={() => { onStart('mattpocock-skills', VIBE_CODING_GROUPS[0]!.starter) }}>
           描述我想做的东西 <span aria-hidden="true">↗</span>
         </button>
       </header>

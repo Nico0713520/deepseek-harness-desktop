@@ -31,53 +31,48 @@ describe('Creator Center catalog', () => {
     ])
   })
 
-  it('ships replaceable seed abilities with complete beginner review fields', () => {
-    expect(ABILITIES).toHaveLength(17)
-    expect(new Set(ABILITIES.map(item => item.id)).size).toBe(17)
+  it('keeps only authoritative GitHub project cards', () => {
+    expect(ABILITIES).toHaveLength(8)
+    expect(new Set(ABILITIES.map(item => item.id)).size).toBe(8)
     for (const ability of ABILITIES) {
       expect(ability.outcome.length).toBeGreaterThan(5)
       expect(ability.userProvides.length).toBeGreaterThan(3)
       expect(ability.userReceives.length).toBeGreaterThan(3)
       expect(ability.rollback.length).toBeGreaterThan(3)
       expect(ability.implementation.checks.length).toBeGreaterThan(0)
+      expect(ability.implementation.repositoryUrl).toMatch(/^https:\/\/github\.com\//)
+      expect(ability.implementation.addMethod.length).toBeGreaterThan(10)
     }
   })
 
-  it('records only verified GitHub sources and keeps local-only skills link-free', () => {
-    const repositories = new Map(ABILITIES.map(item => [item.id, item.implementation.repositoryUrl]))
-
-    expect(repositories.get('superpowers-workflow')).toBe('https://github.com/obra/superpowers')
-    expect(repositories.get('openspec-workflow')).toBe('https://github.com/Fission-AI/OpenSpec')
-    expect(repositories.get('agent-reach')).toBe('https://github.com/Panniantong/Agent-Reach')
-    expect(repositories.get('firecrawl-research')).toBe('https://github.com/firecrawl/firecrawl-mcp-server')
-    expect(repositories.get('last30days-research')).toBe('https://github.com/mvanhorn/last30days-skill')
-    expect(repositories.get('ponytail-simplifier')).toBe('https://github.com/lenML/Ponytail')
-    expect(repositories.get('frontend-design-skill')).toBe('https://github.com/Ilm-Alan/frontend-design')
-    expect(repositories.get('playwright-automation')).toBe('https://github.com/microsoft/playwright')
-    expect(repositories.get('local-skill-workbench')).toBeUndefined()
+  it('records the verified repository for every displayed project', () => {
+    expect(Object.fromEntries(ABILITIES.map(item => [item.id, item.implementation.repositoryUrl]))).toEqual({
+      'obra-superpowers': 'https://github.com/obra/superpowers',
+      'mattpocock-skills': 'https://github.com/mattpocock/skills',
+      'panniantong-agent-reach': 'https://github.com/Panniantong/Agent-Reach',
+      'firecrawl-mcp-server': 'https://github.com/firecrawl/firecrawl-mcp-server',
+      'mvanhorn-last30days-skill': 'https://github.com/mvanhorn/last30days-skill',
+      'lenml-ponytail': 'https://github.com/lenML/Ponytail',
+      'ilm-alan-frontend-design': 'https://github.com/Ilm-Alan/frontend-design',
+      'microsoft-playwright': 'https://github.com/microsoft/playwright',
+    })
   })
 
-  it('combines search, industry, and kind filters without resetting either axis', () => {
+  it('combines the separate industry and kind filters', () => {
     expect(abilitiesFor({ industry: 'programmer', kind: 'coding', query: '' }).map(item => item.id))
       .toEqual([
-        'github-review',
-        'project-scaffold',
-        'custom-ui-theme',
-        'playwright-automation',
-        'superpowers-workflow',
-        'openspec-workflow',
-        'ponytail-simplifier',
-        'frontend-design-skill',
-        'local-skill-workbench',
+        'obra-superpowers',
+        'mattpocock-skills',
+        'lenml-ponytail',
+        'ilm-alan-frontend-design',
+        'microsoft-playwright',
       ])
-    expect(abilitiesFor({ industry: 'retail', kind: 'data-analysis', query: '' }).map(item => item.id))
-      .toEqual(['file-data-analysis'])
-    expect(abilitiesFor({ industry: 'all', kind: 'coding', query: '代码审查' }).map(item => item.id))
-      .toEqual(['github-review', 'superpowers-workflow'])
-    expect(abilitiesFor({ industry: 'education', kind: 'research', query: '' }).map(item => item.id))
-      .toContain('web-research')
     expect(abilitiesFor({ industry: 'programmer', kind: 'research', query: '' }).map(item => item.id))
-      .toEqual(['agent-reach', 'firecrawl-research', 'last30days-research'])
+      .toEqual(['panniantong-agent-reach', 'firecrawl-mcp-server', 'mvanhorn-last30days-skill'])
+    expect(abilitiesFor({ industry: 'all', kind: 'coding', query: '代码审查' }).map(item => item.id))
+      .toContain('obra-superpowers')
+    expect(abilitiesFor({ industry: 'all', kind: 'research', query: '网页抓取' }).map(item => item.id))
+      .toEqual(['firecrawl-mcp-server'])
   })
 
   it('keeps Vibe Coding as a collection instead of an industry or ability kind', () => {
@@ -87,7 +82,7 @@ describe('Creator Center catalog', () => {
     expect(collectionAbilities('vibe-coding').every(item => item.kindIds.includes('coding'))).toBe(true)
   })
 
-  it('returns at most three deterministic local recommendations and rejects blank problems', () => {
+  it('returns at most three deterministic recommendations and rejects blank problems', () => {
     const first = recommendAbilities('每天整理客户反馈')
     const second = recommendAbilities('每天整理客户反馈')
 

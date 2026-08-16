@@ -1,44 +1,36 @@
-# Ability Hub Open-Source Catalog Design
+# Ability Hub GitHub 项目目录设计
 
-**Status:** Approved for implementation by the user's direct request to add the recommended Skills and plugins.
+**状态：** 按用户最新方向收敛并进入实现。
 
-## Goal
+## 目标
 
-把用户已经筛选过的 Vibe Coding 推荐 Skill、插件和项目加入能力 Hub，同时为已经核验的上游项目提供 GitHub 链接、许可证和来源说明。
+把用户推荐的公开 Skill、插件和项目整理成“能力 Hub”目录。Hub 只负责帮助用户看懂、筛选和学习，不把这些项目自动安装到 DeepSeek Harness。
 
-## Scope
+## 本次范围
 
-- 保留当前能力 Hub 的白底、行业/种类两行筛选和卡片布局。
-- 增加一组面向程序员的开源能力卡片，覆盖开发流程、规格设计、联网研究、网页抓取、趋势调研、代码简化和前端设计。
-- 详情页的高级信息显示 GitHub 仓库链接；没有核验到公开上游的本地 Skill 显示“本地内置 / 待补地址”，不伪造 URL。
-- 不在本次工作中自动安装第三方代码、不执行远程脚本、不新增远程目录服务。
+- 保留白底、简洁的能力库和“行业 / 种类”两行筛选。
+- 删除之前的每周总结、SOP、网页调研、文件分析等自设计示例卡片。
+- 每个 GitHub 项目独占一张卡片，卡片明确显示项目名、行业、能力种类和扩展类型（Skill / 插件）。
+- 点进详情后显示适合谁、怎么添加、检查清单、许可证和 GitHub 地址。
+- “让 DeepSeek 帮我创建”只复制安全说明并进入官方创造模式；不自动安装远程仓库、不执行远程脚本。
 
-## Verified sources
+## 当前保留的已核验项目
 
-| Hub entry | Repository | License | Notes |
-| --- | --- | --- | --- |
-| 开发流程基础包 | https://github.com/obra/superpowers | MIT | Covers brainstorming, writing plans, TDD, systematic debugging, review handoff, and verification |
-| 需求到规格与任务 | https://github.com/Fission-AI/OpenSpec | MIT | Spec-driven development for AI coding assistants |
-| 全网检索助手 | https://github.com/Panniantong/Agent-Reach | MIT | Search and read multiple public web platforms |
-| Firecrawl 网页抓取 | https://github.com/firecrawl/firecrawl-mcp-server | MIT | Official Firecrawl MCP server; core Firecrawl repository has a different AGPL-3.0 license |
-| 最近 30 天趋势调研 | https://github.com/mvanhorn/last30days-skill | MIT | Community Skill for recent-topic research |
-| 少写代码的简化准则 | https://github.com/lenML/Ponytail | MIT | Ponytail guidance in one Markdown file |
-| 前端视觉设计 | https://github.com/Ilm-Alan/frontend-design | MIT | Community frontend-design Skill |
-| Playwright 网页自动化 | https://github.com/microsoft/playwright | Apache-2.0 | Browser testing and automation framework; useful for bounded crawler examples |
+| 项目 | 类型 | GitHub | 许可证 | 说明 |
+| --- | --- | --- | --- | --- |
+| obra/superpowers | Skill | https://github.com/obra/superpowers | MIT | 规划、TDD、调试、审查和完成前验证 |
+| mattpocock/skills | Skill | https://github.com/mattpocock/skills | MIT | implement、to-spec、to-tickets、排错、审查和原型 |
+| Panniantong/Agent-Reach | Skill | https://github.com/Panniantong/Agent-Reach | MIT | 多来源公开互联网检索 |
+| firecrawl/firecrawl-mcp-server | 插件 | https://github.com/firecrawl/firecrawl-mcp-server | MIT | Firecrawl 官方 MCP 网页抓取服务 |
+| mvanhorn/last30days-skill | Skill | https://github.com/mvanhorn/last30days-skill | MIT | 最近 30 天公开讨论研究 |
+| lenML/Ponytail | Skill | https://github.com/lenML/Ponytail | MIT | YAGNI 和减少过度设计 |
+| Ilm-Alan/frontend-design | Skill | https://github.com/Ilm-Alan/frontend-design | MIT | 社区前端设计 Skill，非官方上游 |
+| microsoft/playwright | 插件 | https://github.com/microsoft/playwright | Apache-2.0 | 浏览器测试和自动化框架 |
 
-## Unverified local skills
+没有核验到公开上游的本地 Skill（例如 growth-memory、tracegate）不放进这一版项目目录，避免把不同项目误标为同一个 GitHub 来源。
 
-`implement`、`to-spec`、`to-tickets`、`prototype`、`growth-memory`、`tracegate`、`frontend-design` 的本地版本以及其他工作流 Skill 没有被确认是上述公开仓库的同一份内容。它们可以作为本地能力说明出现，但不显示未经核验的 GitHub 地址；后续用户提供上游后只需补充数据字段。
+## 数据约束
 
-## Data contract
-
-`AbilityDefinition.implementation.repositoryUrl` is optional. The UI renders an external link only when it is present. Existing fields continue to describe the guarded creation prompt, checks, rollback, and license. Repository links are informational; the primary action remains copying a creation prompt and entering official Creator Mode.
-
-## Acceptance criteria
-
-1. The existing eight local templates remain available and unchanged.
-2. Every verified repository appears in exactly one catalog entry with its URL and license.
-3. The programmer + coding filter returns the new coding entries and existing coding templates.
-4. The research filter returns Agent Reach, Firecrawl, and Last 30 Days entries.
-5. A detail panel exposes a labeled external GitHub link only for entries with a verified URL.
-6. No UI action silently installs or executes a remote repository.
+- `repositoryUrl` 在当前目录中是必填字段，因为展示的都是已核验 GitHub 项目。
+- `addMethod` 是必填字段，详情页必须直接告诉小白“去哪里看、复制什么、让创造模式做什么、如何验证和撤销”。
+- 项目卡片不代表已安装，也不代表 Harness 官方支持；详情页需保留来源、许可证和风险边界。
