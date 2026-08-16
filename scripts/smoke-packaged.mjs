@@ -16,14 +16,14 @@ import {
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const defaultAppPath = process.platform === 'win32'
-  ? path.join(root, 'dist', 'win-unpacked', 'DeepSeek Harness Whale Desktop.exe')
+  ? path.join(root, 'dist', 'win-unpacked', 'DeepSeek Harness Desktop.exe')
   : process.platform === 'linux'
     ? path.join(root, 'dist', 'linux-unpacked', 'deepseek-harness')
-    : path.join(root, 'dist', process.arch === 'x64' ? 'mac' : 'mac-arm64', 'DeepSeek Harness Whale Desktop.app')
+    : path.join(root, 'dist', process.arch === 'x64' ? 'mac' : 'mac-arm64', 'DeepSeek Harness Desktop.app')
 const appPath = process.env.PACKAGED_APP_PATH ?? defaultAppPath
 const electronExecutable = process.platform === 'win32' || process.platform === 'linux'
   ? appPath
-  : path.join(appPath, 'Contents', 'MacOS', 'DeepSeek Harness Whale Desktop')
+  : path.join(appPath, 'Contents', 'MacOS', 'DeepSeek Harness Desktop')
 const packagedResourcesRoot = process.platform === 'win32' || process.platform === 'linux'
   ? path.join(path.dirname(appPath), 'resources', 'app')
   : path.join(appPath, 'Contents', 'Resources', 'app')

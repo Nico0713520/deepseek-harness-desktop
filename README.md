@@ -1,9 +1,9 @@
-# DeepSeek Harness Whale Desktop
+# DeepSeek Harness Desktop
 
-An unofficial cross-platform desktop distribution for
-[DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness). It keeps the official Harness Web UI and runs it locally inside a desktop window.
+把 [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness)
+做成方便所有人下载和使用的跨平台桌面版。项目保留官方 Web UI，并在本地桌面窗口中运行，提供开箱即用的安装体验、更完整的桌面能力，以及适合不同用户和行业的扩展资料。
 
-> Early preview. The desktop shell, settings-based Whale Canvas theme, two selectable whale pets, and local extension academy work in development on macOS ARM64; signed installers and Windows release verification are in progress.
+> 社区项目，非 DeepSeek 官方发行版。当前提供 macOS Apple Silicon、macOS Intel 和 Windows x64 安装包。
 
 ## What already works
 
@@ -23,15 +23,16 @@ An unofficial cross-platform desktop distribution for
 - Packages macOS ARM64 successfully and verifies the packaged Web UI with an isolated smoke test.
 - Includes macOS ARM64/x64 and Windows x64 GitHub Actions release jobs.
 
-## Why this project exists
+## 为什么做这个项目
 
-DeepSeek Harness is powerful and extensible, but installing and customizing a local agent is still unfamiliar to many users. Whale Desktop aims to provide:
+DeepSeek Harness 的核心设计是“所有能力皆可扩展”，但许多用户不知道如何安装、选择和定制适合自己的扩展。DeepSeek Harness Desktop 希望让每个人都能先轻松用起来，再逐步把 Harness 变成适合自己的智能工作台：
 
-- one-click desktop installers;
-- the original Harness experience without a second frontend to learn;
-- a whale-maid desktop pet and switchable visual packs;
-- an extension center with curated recommendations and practical tutorials;
-- transparent links back to upstream projects and extension repositories.
+- 提供可直接下载的 Mac 与 Windows 桌面安装包；
+- 保留官方 Harness 使用体验，不需要重新学习另一套前端；
+- 提供主题、桌宠和更完整的桌面功能；
+- 提供按开发方向与行业整理的扩展中心和开源项目资料；
+- 帮助用户理解 Skill、插件、MCP、Agent 与工作流，并设计自己的 DeepSeek Harness；
+- 所有推荐项目保留来源和 GitHub 地址，不冒充官方插件市场，也不会自动安装。
 
 ## Development
 
@@ -80,7 +81,7 @@ The smoke test creates a temporary `DSH_HOME`, starts the packaged runtime, veri
 ## Current verified build
 
 - Platform: macOS ARM64
-- App: `dist/mac-arm64/DeepSeek Harness Whale Desktop.app`
+- App: `dist/mac-arm64/DeepSeek Harness Desktop.app`
 - Source tests: 31 shell tests and 10 Whale Appearance tests passing
 - Packaged runtime smoke test: official Web UI, Whale Appearance state/assets, theme/pet apply, and official-appearance reset verified over HTTP 200
 - Signing: development ad-hoc signature only; not notarized for public distribution yet

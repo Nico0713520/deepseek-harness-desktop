@@ -13,7 +13,7 @@ export function createTrayMenuTemplate({
 
   return [
     {
-      label: isChinese ? '打开 Whale Desktop' : 'Open Whale Desktop',
+      label: isChinese ? '打开 DeepSeek Harness Desktop' : 'Open DeepSeek Harness Desktop',
       click: showWindow,
     },
     {

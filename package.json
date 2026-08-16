@@ -1,10 +1,10 @@
 {
-  "name": "deepseek-harness-whale-desktop",
+  "name": "deepseek-harness-desktop",
   "version": "0.1.0",
-  "description": "An unofficial whale-themed desktop distribution for DeepSeek Harness.",
+  "description": "An accessible cross-platform desktop distribution for DeepSeek Harness with curated extension resources.",
   "type": "module",
   "main": "src/main.js",
-  "author": "DeepSeek Harness Whale Desktop contributors",
+  "author": "Nico0713520",
   "license": "MIT",
   "packageManager": "pnpm@11.9.0",
   "scripts": {
@@ -76,9 +76,9 @@
   },
   "build": {
     "afterSign": "scripts/after-pack.cjs",
-    "appId": "com.community.deepseek-harness-whale-desktop",
-    "productName": "DeepSeek Harness Whale Desktop",
-    "artifactName": "DeepSeek-Harness-Whale-Desktop-${version}-${arch}.${ext}",
+    "appId": "com.community.deepseek-harness-desktop",
+    "productName": "DeepSeek Harness Desktop",
+    "artifactName": "DeepSeek-Harness-Desktop-${version}-${arch}.${ext}",
     "asar": false,
     "files": [
       "src/**/*",
@@ -122,7 +122,7 @@
     },
     "win": {
       "icon": "assets/icon.ico",
-      "artifactName": "DeepSeek-Harness-Whale-Desktop-${version}-windows-${arch}.${ext}",
+      "artifactName": "DeepSeek-Harness-Desktop-${version}-windows-${arch}.${ext}",
       "target": [
         {
           "target": "nsis",
@@ -146,7 +146,7 @@
       "runAfterFinish": false
     },
     "dmg": {
-      "title": "DeepSeek Harness Whale Desktop ${version}",
+      "title": "DeepSeek Harness Desktop ${version}",
       "backgroundColor": "#f5f7fb",
       "window": {
         "width": 540,

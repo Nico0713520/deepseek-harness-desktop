@@ -19,7 +19,7 @@ test('tray menu exposes localized show, hide, and quit actions', () => {
   })
 
   assert.deepEqual(menu.map(({ label, type }) => label ?? type), [
-    '打开 Whale Desktop',
+    '打开 DeepSeek Harness Desktop',
     '隐藏窗口',
     '扩展与教程',
     'separator',
@@ -43,7 +43,7 @@ test('tray menu falls back to English labels', () => {
   })
 
   assert.deepEqual(menu.map(({ label, type }) => label ?? type), [
-    'Open Whale Desktop',
+    'Open DeepSeek Harness Desktop',
     'Hide Window',
     'Extensions & Tutorials',
     'separator',

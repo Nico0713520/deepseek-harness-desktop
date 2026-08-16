@@ -25,7 +25,7 @@ import {
 import { createWindowOptions } from './window-options.js'
 import { createTrayMenuTemplate, shouldHideWindowOnClose } from './window-lifecycle.js'
 
-const APP_NAME = 'DeepSeek Harness Whale Desktop'
+const APP_NAME = 'DeepSeek Harness Desktop'
 const STARTUP_PAGE = fileURLToPath(new URL('./startup.html', import.meta.url))
 const EXTENSIONS_PAGE = fileURLToPath(new URL('./extensions.html', import.meta.url))
 const TRAY_ICON = fileURLToPath(new URL('../assets/tray.png', import.meta.url))
@@ -59,7 +59,7 @@ async function showExtensionAcademy() {
       minWidth: 680,
       minHeight: 520,
       show: false,
-      title: 'Whale Desktop — Extensions & Tutorials',
+      title: 'DeepSeek Harness Desktop — Extensions & Tutorials',
       webPreferences: {
         contextIsolation: true,
         nodeIntegration: false,
