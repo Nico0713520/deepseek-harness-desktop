@@ -16,6 +16,12 @@ export interface AbilityDetailProps {
 export function AbilityDetail({ ability, disabled, onBack, onCreate, onAskAdvisor }: AbilityDetailProps) {
   const prompt = buildCreationPrompt({ goal: ability.implementation.goal, template: ability })
   const isPiExtension = ability.ecosystem === 'pi'
+  const sourceUrl = ability.implementation.repositoryUrl ?? ability.implementation.sourceUrl
+  const sourceLabel = ability.implementation.sourceLabel ?? (isPiExtension ? 'Pi 扩展' : 'GitHub 开源项目')
+  const metaLabel = ability.implementation.repositoryUrl === undefined
+    ? sourceLabel
+    : (isPiExtension ? 'Pi 扩展' : 'GitHub 项目')
+  const repositoryLabel = ability.implementation.sourceLabel ?? (isPiExtension ? 'Pi 参考仓库' : 'GitHub 开源项目')
 
   return (
     <section className={styles.abilityDetail} role="region" aria-label={`${ability.title}详情`}>
@@ -28,15 +34,19 @@ export function AbilityDetail({ ability, disabled, onBack, onCreate, onAskAdviso
       </header>
 
       <div className={styles.detailMeta} aria-label="来源与兼容信息">
-        <span>{isPiExtension ? 'Pi 热门扩展' : 'GitHub 项目'}</span>
-        {isPiExtension && <span>面向高阶开发者</span>}
+        <span>{metaLabel}</span>
+        {isPiExtension && <span>高级开发者学习</span>}
       </div>
 
-      {ability.compatibility === 'manual-adapter' && (
+      {isPiExtension && (
+        <p className={styles.piReferenceNotice}>
+          Pi 扩展，供高级开发者学习与借鉴。它们不能直接安装到 DeepSeek Harness，需要按 Harness 的 Skill、MCP、Preset 或插件机制改造成自己的扩展。
+        </p>
+      )}
+
+      {ability.compatibility === 'manual-adapter' && !isPiExtension && (
         <p className={styles.compatibilityNotice}>
-          {isPiExtension
-            ? '这些是 Pi 生态中使用量靠前的热门扩展，供高阶开发者选择和借鉴。它们不能直接安装到 DeepSeek Harness，但可以用 Harness 自己的 Skill、MCP、Preset 或插件机制，定制适合自己的等价扩展。'
-            : '这是其他 Agent 生态的参考项目，不能直接安装到 DeepSeek Harness。下面的添加方法会教你用 Harness 自己的 Skill、MCP、Preset 或插件机制实现等价能力。'}
+          这是其他 Agent 生态的参考项目，不能直接安装到 DeepSeek Harness。下面的添加方法会教你用 Harness 自己的 Skill、MCP、Preset 或插件机制实现等价能力。
         </p>
       )}
 
@@ -45,27 +55,19 @@ export function AbilityDetail({ ability, disabled, onBack, onCreate, onAskAdviso
         <p>{ability.outcome} {ability.summary}</p>
       </div>
 
-      <div className={styles.repositoryCard}>
-        <div>
-          <span className={styles.repositoryLabel}>GitHub 开源项目</span>
-          <a
-            className={styles.repositoryUrl}
-            href={ability.implementation.repositoryUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {ability.implementation.repositoryUrl}
+      {sourceUrl !== undefined && (
+        <div className={styles.repositoryCard}>
+          <div>
+            <span className={styles.repositoryLabel}>{repositoryLabel}</span>
+            <a className={styles.repositoryUrl} href={sourceUrl} target="_blank" rel="noreferrer">
+              {sourceUrl}
+            </a>
+          </div>
+          <a className={styles.repositoryButton} href={sourceUrl} target="_blank" rel="noreferrer">
+            {ability.implementation.repositoryUrl === undefined ? '打开官方说明 ↗' : '打开仓库 ↗'}
           </a>
         </div>
-        <a
-          className={styles.repositoryButton}
-          href={ability.implementation.repositoryUrl}
-          target="_blank"
-          rel="noreferrer"
-        >
-          打开仓库 ↗
-        </a>
-      </div>
+      )}
 
       <div className={styles.detailActions}>
         <button type="button" className={styles.secondaryButton} onClick={onAskAdvisor}>先问 AI 是否适合我</button>

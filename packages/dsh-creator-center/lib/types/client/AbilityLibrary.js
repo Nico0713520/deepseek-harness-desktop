@@ -10,6 +10,8 @@ function projectMonogram(title) {
     return firstVisible.toLocaleUpperCase();
 }
 function repositoryOwner(repositoryUrl) {
+    if (repositoryUrl === undefined)
+        return undefined;
     return /^https:\/\/github\.com\/([^/]+)/i.exec(repositoryUrl)?.[1]?.toLowerCase();
 }
 function localProjectLogo(owner) {
@@ -57,6 +59,7 @@ export function AbilityLibrary({ abilities, allAbilities, industry, kind, develo
                             : ability.industryIds[0];
                         const primaryDirection = ability.developerDirectionIds[0];
                         const isPiExtension = ability.ecosystem === 'pi';
+                        const isOfficialCapability = ability.implementation.repositoryUrl === undefined && ability.implementation.sourceUrl !== undefined;
                         const logoOwner = repositoryOwner(ability.implementation.repositoryUrl);
                         const logoStyle = localProjectLogo(logoOwner);
                         const openAbility = () => {
@@ -67,6 +70,6 @@ export function AbilityLibrary({ abilities, allAbilities, industry, kind, develo
                                     event.preventDefault();
                                     openAbility();
                                 }
-                            }, children: [_jsxs("div", { className: styles.cardTopline, children: [_jsx("div", { className: styles.cardMarker, "aria-hidden": "true", "data-project-logo-owner": logoOwner, "data-ecosystem": ability.ecosystem, "data-has-logo": logoStyle === undefined ? undefined : 'true', style: logoStyle, children: _jsx("span", { children: projectMonogram(ability.title) }) }), _jsxs("div", { className: styles.cardBadges, children: [_jsx("span", { className: styles.cardStars, title: ability.popularity ?? 'GitHub Star 未同步', children: githubStarLabel(ability.popularity) }), _jsx("span", { children: EXTENSION_TYPE_LABELS[ability.implementation.extensionTypes[0]] })] })] }), _jsx("h3", { children: ability.title }), _jsx("p", { className: styles.cardOutcome, children: ability.outcome }), _jsx("p", { className: styles.cardSummary, children: ability.summary }), _jsxs("div", { className: styles.cardSourceLine, children: [_jsx("span", { children: isPiExtension ? 'Pi 热门扩展' : (primaryDirection === undefined ? '通用能力' : DEVELOPER_DIRECTION_LABELS[primaryDirection]) }), _jsx("span", { children: isPiExtension ? '高阶定制参考' : 'GitHub 项目' })] }), _jsxs("footer", { className: styles.cardFooter, children: [_jsxs("div", { className: styles.cardTags, children: [_jsx("span", { children: ABILITY_KIND_LABELS[ability.kindIds[0]] }), cardIndustry !== undefined && industry === 'all' && _jsx("span", { children: INDUSTRY_LABELS[cardIndustry] })] }), _jsxs("button", { type: "button", "aria-expanded": selectedId === ability.id, "aria-label": `查看“${ability.title}”方案`, onClick: event => { event.stopPropagation(); openAbility(); }, children: ["\u67E5\u770B\u65B9\u6848 ", _jsx("span", { "aria-hidden": "true", children: "\u2192" })] })] })] }, ability.id));
+                            }, children: [_jsxs("div", { className: styles.cardTopline, children: [_jsx("div", { className: styles.cardMarker, "aria-hidden": "true", "data-project-logo-owner": logoOwner, "data-ecosystem": ability.ecosystem, "data-has-logo": logoStyle === undefined ? undefined : 'true', style: logoStyle, children: _jsx("span", { children: projectMonogram(ability.title) }) }), _jsxs("div", { className: styles.cardBadges, children: [_jsx("span", { className: styles.cardStars, title: ability.popularity ?? 'GitHub Star 未同步', children: githubStarLabel(ability.popularity) }), _jsx("span", { children: EXTENSION_TYPE_LABELS[ability.implementation.extensionTypes[0]] })] })] }), _jsx("h3", { children: ability.title }), _jsx("p", { className: styles.cardOutcome, children: ability.outcome }), _jsx("p", { className: styles.cardSummary, children: ability.summary }), _jsxs("div", { className: styles.cardSourceLine, children: [_jsx("span", { children: isPiExtension ? 'Pi 扩展' : (isOfficialCapability ? 'Codex 官方能力' : (primaryDirection === undefined ? '通用能力' : DEVELOPER_DIRECTION_LABELS[primaryDirection])) }), _jsx("span", { children: isPiExtension ? '高级开发者学习' : (isOfficialCapability ? '官方运行时' : 'GitHub 项目') })] }), _jsxs("footer", { className: styles.cardFooter, children: [_jsxs("div", { className: styles.cardTags, children: [_jsx("span", { children: ABILITY_KIND_LABELS[ability.kindIds[0]] }), cardIndustry !== undefined && industry === 'all' && _jsx("span", { children: INDUSTRY_LABELS[cardIndustry] })] }), _jsxs("button", { type: "button", "aria-expanded": selectedId === ability.id, "aria-label": `查看“${ability.title}”方案`, onClick: event => { event.stopPropagation(); openAbility(); }, children: ["\u67E5\u770B\u65B9\u6848 ", _jsx("span", { "aria-hidden": "true", children: "\u2192" })] })] })] }, ability.id));
                     }) }))] })) }));
 }

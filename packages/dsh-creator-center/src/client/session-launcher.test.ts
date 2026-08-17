@@ -54,10 +54,10 @@ describe('SessionLauncher', () => {
   it('can reuse the blank session that is already current', async () => {
     const kit = harness({ current: 'blank', byId: { blank: { id: 'blank', blank: true } } })
 
-    kit.launcher.launch('whale-extension-advisor')
+    kit.launcher.launch('cordis')
     await settle()
 
-    expect(kit.selectPreset).toHaveBeenCalledWith('blank', 'whale-extension-advisor')
+    expect(kit.selectPreset).toHaveBeenCalledWith('blank', 'cordis')
   })
 
   it('coalesces repeated launch clicks while a selection is pending', async () => {
@@ -66,7 +66,7 @@ describe('SessionLauncher', () => {
     kit.selectPreset.mockImplementation(() => new Promise<void>(resolve => { finish = resolve }))
 
     kit.launcher.launch('cordis')
-    kit.launcher.launch('whale-extension-advisor')
+    kit.launcher.launch('cordis')
 
     expect(kit.startSession).toHaveBeenCalledOnce()
     expect(kit.selectPreset).toHaveBeenCalledOnce()
@@ -76,14 +76,14 @@ describe('SessionLauncher', () => {
 
   it('surfaces preset selection failures and clears the pending stage', async () => {
     const kit = harness({ current: 'blank', byId: { blank: { id: 'blank', blank: true } } })
-    kit.selectPreset.mockRejectedValue(new Error('advisor preset is broken'))
+    kit.selectPreset.mockRejectedValue(new Error('creator preset is broken'))
 
-    kit.launcher.launch('whale-extension-advisor')
+    kit.launcher.launch('cordis')
     await settle()
 
     expect(kit.launcher.getSnapshot()).toEqual({
       busy: false,
-      error: 'advisor preset is broken',
+      error: 'creator preset is broken',
       launchedPreset: null,
     })
   })

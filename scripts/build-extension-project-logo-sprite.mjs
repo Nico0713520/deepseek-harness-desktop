@@ -8,6 +8,7 @@ const repositoryRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const catalogFiles = [
   resolve(repositoryRoot, 'packages/dsh-creator-center/src/client/catalog.ts'),
   resolve(repositoryRoot, 'packages/dsh-creator-center/src/client/additional-catalog.ts'),
+  resolve(repositoryRoot, 'packages/dsh-creator-center/src/client/curated-industry-catalog.ts'),
 ]
 const outputFile = resolve(repositoryRoot, 'packages/dsh-creator-center/src/client/project-logos.ts')
 const cellSize = 32

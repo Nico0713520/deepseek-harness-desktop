@@ -32,13 +32,15 @@ describe('CreatorCenterSurface', () => {
     const organizationLogo = container.querySelector<HTMLElement>('[data-project-logo-owner="firecrawl"]')
     const personalRepository = container.querySelector<HTMLElement>('[data-project-logo-owner="obra"]')
     const deepSeekOfficialLogo = container.querySelector<HTMLElement>('[data-project-logo-owner="deepseek-ai"]')
+    const curatedProjectLogo = container.querySelector<HTMLElement>('[data-project-logo-owner="addyosmani"]')
     expect(organizationLogo?.style.backgroundImage).toContain('data:image/jpeg;base64,')
     expect(personalRepository?.style.backgroundImage).toContain('data:image/jpeg;base64,')
     expect(deepSeekOfficialLogo?.style.backgroundImage).toContain('data:image/jpeg;base64,')
+    expect(curatedProjectLogo?.style.backgroundImage).toContain('data:image/jpeg;base64,')
     expect(container.innerHTML).not.toContain('https://github.com/obra.png')
     expect(container.innerHTML).not.toContain('avatars.githubusercontent.com')
-    expect(screen.getAllByText('Pi 热门扩展').length).toBeGreaterThan(0)
-    expect(screen.getAllByText('高阶定制参考').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Pi 扩展').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('高级开发者学习').length).toBeGreaterThan(0)
   })
 
   it('explains that Pi projects are popular advanced customization references', () => {
@@ -48,8 +50,8 @@ describe('CreatorCenterSurface', () => {
 
     fireEvent.click(screen.getByLabelText('打开“nicobailon/pi-mcp-adapter”详情'))
 
-    expect(screen.getByText('Pi 热门扩展')).toBeTruthy()
-    expect(screen.getByText(/供高阶开发者选择和借鉴/)).toBeTruthy()
+    expect(screen.getByText('Pi 扩展')).toBeTruthy()
+    expect(screen.getByText(/供高级开发者学习与借鉴/)).toBeTruthy()
   })
 
   it('hides the full page when navigation returns to chat', () => {

@@ -11,8 +11,6 @@ import { ADVISOR_FALLBACK_PROMPT } from './prompt.ts'
 import type { LaunchSnapshot } from './session-launcher.ts'
 import styles from './creator-center.module.css'
 
-const ADVISOR_PRESET_ID = 'whale-extension-advisor'
-
 export interface CreatorLauncher {
   getSnapshot(): LaunchSnapshot
   subscribe(listener: () => void): () => void
@@ -39,7 +37,6 @@ export function CreatorCenter({ launcher, onClose, clipboard = navigator.clipboa
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [copyError, setCopyError] = useState<string | null>(null)
   const [status, setStatus] = useState('')
-  const [advisorRequested, setAdvisorRequested] = useState(false)
   const [closeOnLaunch, setCloseOnLaunch] = useState(false)
   const [creatorAvailable, setCreatorAvailable] = useState<boolean | null>(null)
 
@@ -64,10 +61,10 @@ export function CreatorCenter({ launcher, onClose, clipboard = navigator.clipboa
   }, [closeOnLaunch, launch.launchedPreset, onClose])
 
   useEffect(() => {
-    if (closeOnLaunch && !advisorRequested && launch.error !== null) {
+    if (closeOnLaunch && launch.error !== null) {
       setStatus('创建说明已准备好，但创造会话未能启动。')
     }
-  }, [advisorRequested, closeOnLaunch, launch.error])
+  }, [closeOnLaunch, launch.error])
 
   const resetDiscovery = (): void => {
     setIndustry('all')
@@ -105,31 +102,19 @@ export function CreatorCenter({ launcher, onClose, clipboard = navigator.clipboa
     }
   }
 
-  const copyAndCreate = async (prompt: string, presetId = 'cordis'): Promise<void> => {
+  const copyAndCreate = async (prompt: string): Promise<void> => {
     if (!await copyOnly(prompt)) return
     launcher.clearError()
-    setAdvisorRequested(false)
     setCloseOnLaunch(true)
-    launcher.launch(presetId)
+    launcher.launch('cordis')
     setStatus('创建说明已准备好；进入创造会话后请粘贴并发送。')
   }
 
   const askAdvisor = (): void => {
-    setAdvisorRequested(true)
-    setCopyError(null)
-    launcher.clearError()
-    setCloseOnLaunch(true)
-    launcher.launch(ADVISOR_PRESET_ID)
-    setStatus('正在打开 AI 顾问；进入对话后直接说你想解决的问题。')
-  }
-
-  const fallbackAdvisor = async (): Promise<void> => {
-    setAdvisorRequested(false)
-    await copyAndCreate(ADVISOR_FALLBACK_PROMPT)
+    void copyAndCreate(ADVISOR_FALLBACK_PROMPT)
   }
 
   const retryCreator = (): void => {
-    setAdvisorRequested(false)
     launcher.clearError()
     setCloseOnLaunch(true)
     launcher.launch('cordis')
@@ -161,13 +146,7 @@ export function CreatorCenter({ launcher, onClose, clipboard = navigator.clipboa
         onAskAdvisor={askAdvisor}
       />
 
-      {advisorRequested && launch.error !== null && (
-        <div className={styles.notice} role="alert">
-          <div><strong>AI 顾问暂时不可用</strong><p>{launch.error}</p></div>
-          <button type="button" disabled={busy} onClick={() => { void fallbackAdvisor() }}>复制顾问提问模板并打开创造模式</button>
-        </div>
-      )}
-      {!advisorRequested && launch.error !== null && (
+      {launch.error !== null && (
         <div className={styles.notice} role="alert">
           <div>
             <strong>创建说明已准备好，但创造会话未能启动</strong>

@@ -337,6 +337,7 @@
 .iconButton { display: grid; width: 31px; height: 31px; flex: 0 0 auto; place-items: center; border: 1px solid var(--creator-line); border-radius: 50%; background: var(--creator-paper); cursor: pointer; font-size: 18px; line-height: 1; }
 .detailMeta { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 13px; }
 .detailMeta span { border-radius: 5px; background: var(--creator-mist); padding: 4px 6px; color: var(--creator-blue); font-size: 9px; }
+.piReferenceNotice { margin: 12px 0 0; border-left: 3px solid #8a7ac4; background: #f7f5ff; padding: 9px 11px; color: #62558d; font-size: 10px; line-height: 1.6; }
 .compatibilityNotice { margin: 12px 0 0; border-left: 3px solid var(--creator-warm); background: #fffaf3; padding: 9px 11px; color: #7e6346; font-size: 10px; line-height: 1.6; }
 .detailIntro { margin-top: 13px; border-radius: 10px; background: var(--creator-canvas); padding: 12px; }
 .detailIntro span, .repositoryLabel { display: block; color: var(--creator-ink); font-size: 10px; font-weight: 750; }

@@ -14,9 +14,9 @@ test('local prototypes can opt in without weakening the public default', () => {
   ] }, { allowPrototype: true }))
 })
 
-test('release gate requires the Creator Center bundle and advisor knowledge', async () => {
+test('release gate requires the built Creator Center bundle', async () => {
   const seen = []
-  const result = await checkRequiredReleaseFiles(['client.js', 'SKILL.md', 'catalog.md'], async file => { seen.push(file) })
-  assert.deepEqual(result, { checked: 3 })
-  assert.deepEqual(seen, ['client.js', 'SKILL.md', 'catalog.md'])
+  const result = await checkRequiredReleaseFiles(['client.js'], async file => { seen.push(file) })
+  assert.deepEqual(result, { checked: 1 })
+  assert.deepEqual(seen, ['client.js'])
 })

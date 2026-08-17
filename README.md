@@ -66,6 +66,10 @@ The first local start may ask Harness to initialize its user directory and provi
 
 The curated extension catalog is local, reviewable, and versioned in the repository. New projects can be added as data entries without replacing the official Settings UI or weakening the creation approval boundary.
 
+## Collaboration
+
+Independent agents use separate branches and working directories. Read `AGENTS.md`, `docs/PROJECT_RULES.md`, `docs/WORK_BOARD.md`, and `docs/HANDOFF.md` before editing. Office Codex integrates core changes, office Hana handles assigned bounded work, and home Hana validates Windows and other explicitly marked home-safe tasks.
+
 ## Build
 
 ```bash

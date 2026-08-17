@@ -42,7 +42,9 @@ export interface AbilityDefinition {
         readonly checks: readonly string[];
         readonly source: string;
         readonly license: string;
-        readonly repositoryUrl: string;
+        readonly repositoryUrl?: string;
+        readonly sourceUrl?: string;
+        readonly sourceLabel?: string;
     };
 }
 export interface AbilityFilters {
@@ -75,7 +77,7 @@ export declare const FEATURED_SCENES: readonly [{
     readonly id: "workflow";
     readonly title: "建立开发工作流";
     readonly description: "规划、实现、调试、验证";
-    readonly abilityIds: readonly ["obra-superpowers", "mattpocock-skills", "lenml-ponytail"];
+    readonly abilityIds: readonly ["obra-superpowers", "mattpocock-skills"];
 }, {
     readonly id: "research";
     readonly title: "扩展资料检索";
