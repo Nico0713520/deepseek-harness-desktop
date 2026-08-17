@@ -46,7 +46,8 @@ function projectMonogram(title: string): string {
   return firstVisible.toLocaleUpperCase()
 }
 
-function repositoryOwner(repositoryUrl: string): string | undefined {
+function repositoryOwner(repositoryUrl?: string): string | undefined {
+  if (repositoryUrl === undefined) return undefined
   return /^https:\/\/github\.com\/([^/]+)/i.exec(repositoryUrl)?.[1]?.toLowerCase()
 }
 
@@ -187,6 +188,7 @@ export function AbilityLibrary({
               : ability.industryIds[0]
             const primaryDirection = ability.developerDirectionIds[0]
             const isPiExtension = ability.ecosystem === 'pi'
+            const isOfficialCapability = ability.implementation.repositoryUrl === undefined && ability.implementation.sourceUrl !== undefined
             const logoOwner = repositoryOwner(ability.implementation.repositoryUrl)
             const logoStyle = localProjectLogo(logoOwner)
             const openAbility = (): void => {
@@ -227,8 +229,8 @@ export function AbilityLibrary({
               <p className={styles.cardOutcome}>{ability.outcome}</p>
               <p className={styles.cardSummary}>{ability.summary}</p>
               <div className={styles.cardSourceLine}>
-                <span>{isPiExtension ? 'Pi 热门扩展' : (primaryDirection === undefined ? '通用能力' : DEVELOPER_DIRECTION_LABELS[primaryDirection])}</span>
-                <span>{isPiExtension ? '高阶定制参考' : 'GitHub 项目'}</span>
+                <span>{isPiExtension ? 'Pi 扩展' : (isOfficialCapability ? 'Codex 官方能力' : (primaryDirection === undefined ? '通用能力' : DEVELOPER_DIRECTION_LABELS[primaryDirection]))}</span>
+                <span>{isPiExtension ? '高级开发者学习' : (isOfficialCapability ? '官方运行时' : 'GitHub 项目')}</span>
               </div>
               <footer className={styles.cardFooter}>
                 <div className={styles.cardTags}>

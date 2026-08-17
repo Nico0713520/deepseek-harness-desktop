@@ -20,9 +20,6 @@ async function main() {
   checkReleaseAssets(manifest, { allowPrototype: process.env.WHALE_ALLOW_PROTOTYPE_ASSETS === '1' })
   await checkRequiredReleaseFiles([
     new URL('../packages/dsh-creator-center/lib/client.js', import.meta.url),
-    new URL('../packages/dsh-creator-center/advisor/SKILL.md', import.meta.url),
-    new URL('../packages/dsh-creator-center/advisor/knowledge/decision-tree.md', import.meta.url),
-    new URL('../packages/dsh-creator-center/advisor/knowledge/catalog.md', import.meta.url),
   ])
   process.stdout.write('Release artwork policy passed.\n')
 }

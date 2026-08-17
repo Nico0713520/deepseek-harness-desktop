@@ -1,4 +1,5 @@
 import { ADDITIONAL_ABILITIES } from "./additional-catalog.js";
+import { CURATED_INDUSTRY_ABILITIES } from "./curated-industry-catalog.js";
 import { DEVELOPER_DIRECTIONS, DEVELOPER_DIRECTION_LABELS, DEVELOPER_DIRECTIONS_BY_ABILITY_ID, } from "./developer-directions.js";
 export { DEVELOPER_DIRECTIONS, DEVELOPER_DIRECTION_LABELS, DEVELOPER_DIRECTIONS_BY_ABILITY_ID, };
 export const INDUSTRIES = [
@@ -45,6 +46,8 @@ export const ECOSYSTEM_LABELS = {
     community: '社区项目',
 };
 export function githubStarLabel(popularity) {
+    if (popularity?.includes('无独立 GitHub 项目'))
+        return '官方能力';
     const match = popularity?.match(/GitHub\s+(?:约\s*)?([\d,.]+(?:[KMB])?)\s*星/i);
     const stars = match?.[1];
     return stars === undefined ? '★ 未同步' : `★ ${stars}`;
@@ -55,7 +58,6 @@ const CURATED_GITHUB_STARS = {
     'panniantong-agent-reach': '72.2K',
     'firecrawl-mcp-server': '7.2K',
     'mvanhorn-last30days-skill': '58.4K',
-    'lenml-ponytail': '0',
     'ilm-alan-frontend-design': '104',
     'microsoft-playwright': '94.6K',
 };
@@ -73,7 +75,61 @@ function ability(seed) {
     };
 }
 const DEV_CHECKS = ['先阅读仓库说明并确认当前 Harness 版本', '只在用户同意后创建用户自己的 Skill 或插件', '完成后说明启用、验证和撤销方法'];
-export const ABILITIES = [
+const HIDDEN_DUPLICATE_OR_LOW_SIGNAL_ABILITY_IDS = new Set([
+    'ilm-alan-frontend-design',
+    'pi-ask-user',
+    'pi-skill-browser-tools',
+    'pi-skill-brave-search',
+    'pi-skill-transcribe',
+    'pi-skill-youtube-transcript',
+    'pi-skill-cloud-connectors',
+    'rpiv-pi',
+    'bigpowers',
+    'superpowers-zh',
+    'dsh-plugin-template',
+    'dsh-find-plugin',
+    'dsh-continual-evolve',
+    'dsh-skill-pack-security',
+    'shopline-ai-toolkit-dsh',
+    'dsh-plugin-knowledge-graph',
+    'dsh-plugin-audit-community',
+    'dsh-eval-harness',
+]);
+const CURATED_INDUSTRY_OVERRIDES = {
+    'dsh-official-ui-extension': ['programmer'],
+    'pi-mcp-adapter': ['programmer'],
+    'pi-subagents': ['programmer'],
+    'pi-hermes-memory': ['programmer'],
+    'pi-skills-collection': ['programmer', 'education', 'retail'],
+    'microsoft-playwright-mcp': ['programmer', 'retail'],
+    'github-mcp-server': ['programmer'],
+    'upstash-context7': ['programmer'],
+    'getsentry-sentry-mcp': ['programmer'],
+    'anionex-dsh-vision-toolkit': ['programmer', 'retail'],
+    'anthropic-skills': ['programmer', 'education'],
+    'modelcontextprotocol-servers': ['programmer'],
+    'codex-browser-control': ['programmer', 'retail', 'education'],
+    'codex-extension-toolkit': ['programmer'],
+    'codex-github-workflow': ['programmer'],
+    'pi-prompt-template-model': ['programmer'],
+    'awesome-dsh-plugin': ['programmer'],
+    'dsh-market': ['programmer'],
+    docling: ['programmer', 'education', 'financial-services', 'life-sciences', 'healthcare', 'government'],
+    'stanford-storm': ['education', 'financial-services', 'life-sciences', 'government'],
+    'mcp-use': ['programmer'],
+    'mcp-atlassian': ['programmer', 'government'],
+    'ui-ux-pro-max-skill': ['programmer'],
+    'leonxlnx-taste-skill': ['programmer'],
+    'pbakaus-impeccable': ['programmer'],
+    'emilkowalski-skills': ['programmer'],
+    'supabase-mcp': ['programmer'],
+    'neon-mcp-server': ['programmer'],
+    'mongodb-mcp-server': ['programmer'],
+    'redis-mcp-server': ['programmer'],
+    'awslabs-mcp': ['programmer', 'government'],
+    crewai: ['programmer'],
+};
+const RAW_ABILITIES = [
     ability({
         id: 'obra-superpowers',
         title: 'obra/superpowers',
@@ -205,32 +261,6 @@ export const ABILITIES = [
         },
     }),
     ability({
-        id: 'lenml-ponytail',
-        title: 'lenML/Ponytail',
-        outcome: '让 AI 先质疑是否需要增加代码，再选择最短可行方案。',
-        summary: '用 YAGNI、原生能力优先和小改动原则减少不必要的依赖和架构。',
-        industryIds: ['programmer'],
-        kindIds: ['coding'],
-        collectionIds: ['vibe-coding'],
-        aliases: ['Ponytail', 'YAGNI', '少写代码', '简化方案', '反过度设计'],
-        examples: ['这个功能能不能用更简单的方式做', '帮我删掉不必要的复杂架构'],
-        userProvides: '当前需求、已有实现和不能改变的行为。',
-        userReceives: '一个最小可行方案、可删除的复杂点和验证方式。',
-        suitableFor: '你担心 AI 为小需求引入太多文件、依赖或抽象层。',
-        readsOrChanges: '读取目标代码并提出经过确认的最小改动。',
-        rollback: '按变更清单回退即可。',
-        estimatedTime: '约 5–10 分钟',
-        implementation: {
-            extensionTypes: ['skill'],
-            goal: '参考 Ponytail 的公开说明，帮我加入一条简化开发准则：先判断是否可以不做、用原生能力或减少依赖，未经确认不要扩大范围。',
-            addMethod: '阅读仓库中的 Markdown 说明，将需要的规则复制到用户 Skill 目录或项目规则文件；先在一个小任务上验证，再决定是否长期启用。',
-            checks: ['先列出不增加代码的可能性', '说明每个新增文件或依赖的必要性', '验证原有行为没有被无意改变'],
-            source: 'GitHub 开源 Skill',
-            license: 'MIT',
-            repositoryUrl: 'https://github.com/lenML/Ponytail',
-        },
-    }),
-    ability({
         id: 'ilm-alan-frontend-design',
         title: 'Ilm-Alan/frontend-design',
         outcome: '让 AI 在做前端时先确定视觉方向，再落成一致的页面细节。',
@@ -283,9 +313,15 @@ export const ABILITIES = [
         },
     }),
     ...ADDITIONAL_ABILITIES,
+    ...CURATED_INDUSTRY_ABILITIES,
 ];
+export const ABILITIES = RAW_ABILITIES
+    .filter(item => !HIDDEN_DUPLICATE_OR_LOW_SIGNAL_ABILITY_IDS.has(item.id))
+    .map(item => CURATED_INDUSTRY_OVERRIDES[item.id] === undefined
+    ? item
+    : { ...item, industryIds: CURATED_INDUSTRY_OVERRIDES[item.id] });
 export const FEATURED_SCENES = [
-    { id: 'workflow', title: '建立开发工作流', description: '规划、实现、调试、验证', abilityIds: ['obra-superpowers', 'mattpocock-skills', 'lenml-ponytail'] },
+    { id: 'workflow', title: '建立开发工作流', description: '规划、实现、调试、验证', abilityIds: ['obra-superpowers', 'mattpocock-skills'] },
     { id: 'research', title: '扩展资料检索', description: '搜索、抓取、近期趋势', abilityIds: ['panniantong-agent-reach', 'firecrawl-mcp-server', 'mvanhorn-last30days-skill'] },
     { id: 'browser', title: '做浏览器自动化', description: '测试网页、采集公开资料', abilityIds: ['microsoft-playwright'] },
 ];
@@ -293,7 +329,7 @@ export const VIBE_CODING_GROUPS = [
     { id: 'new-tool', title: '从零做一个小工具', description: '把一个具体需求做成能运行的第一版。', starter: '我想做一个给谁用、解决什么问题的小工具。', access: '一个新项目目录；需要安装依赖时会先询问。', milestone: '能启动、能完成核心任务的最小版本。', confirmation: '确认第一版方向后才继续增加功能。', verify: '提供启动命令和一条完整的使用示例。', abilityId: 'mattpocock-skills' },
     { id: 'add-feature', title: '给现有项目加功能', description: '先理解项目，再做一个边界清楚的改动。', starter: '这个项目现在能做什么，我希望它再多一个什么能力。', access: '读取项目文件；修改前先列出预计变更。', milestone: '一个范围可控、可以单独验收的功能。', confirmation: '确认实现方案和文件范围后再写代码。', verify: '运行现有测试，并给出新功能的验收步骤。', abilityId: 'mattpocock-skills' },
     { id: 'fix-problem', title: '修复一个问题', description: '先复现和定位，再修复并证明问题消失。', starter: '我遇到了什么现象、怎样触发、原本应该怎样。', access: '读取日志和相关代码；不先猜着改。', milestone: '稳定复现问题并确认根因。', confirmation: '说明根因和修复范围后再改动。', verify: '加入回归检查并重跑相关测试。', abilityId: 'mattpocock-skills' },
-    { id: 'improve-code', title: '整理和改进代码', description: '做边界明确的整理，不改变原本行为。', starter: '哪部分难维护、慢或容易出错。', access: '读取目标模块和现有测试。', milestone: '列出能删除、合并或简化的具体位置。', confirmation: '确认不改变的行为和改动范围。', verify: '重跑测试并对比整理前后的行为。', abilityId: 'lenml-ponytail' },
+    { id: 'improve-code', title: '整理和改进代码', description: '做边界明确的整理，不改变原本行为。', starter: '哪部分难维护、慢或容易出错。', access: '读取目标模块和现有测试。', milestone: '列出能删除、合并或简化的具体位置。', confirmation: '确认不改变的行为和改动范围。', verify: '重跑测试并对比整理前后的行为。', abilityId: 'mattpocock-skills' },
     { id: 'browser-task', title: '做一次浏览器自动化', description: '从一个公开网页或测试页面开始。', starter: '我要访问哪个网址、读取或验证什么、什么时候停止。', access: '只访问明确允许的页面，不自动提交远程表单。', milestone: '一个可运行、可停止的小范围脚本。', confirmation: '确认页面范围、选择器和输出后再扩大。', verify: '提供样例结果、停止命令和清理方法。', abilityId: 'microsoft-playwright' },
     { id: 'learn-workflow', title: '学习项目是怎么工作的', description: '先画清结构，再完成一次有指导的小改动。', starter: '我最想理解哪条功能链路或哪个目录。', access: '只读项目即可开始。', milestone: '一张结构说明和一条关键执行路径。', confirmation: '选择一个低风险练习后再修改。', verify: '你可以自己复述流程并跑通练习。', abilityId: 'obra-superpowers' },
 ];

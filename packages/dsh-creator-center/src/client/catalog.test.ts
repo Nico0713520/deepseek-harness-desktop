@@ -51,11 +51,12 @@ describe('Creator Center catalog', () => {
       .map(item => item.id)
     expect(frontend.length).toBeGreaterThanOrEqual(10)
     expect(frontend).toEqual(expect.arrayContaining([
-      'ilm-alan-frontend-design',
       'ui-ux-pro-max-skill',
       'leonxlnx-taste-skill',
       'pbakaus-impeccable',
       'vercel-agent-skills',
+      'addyosmani-agent-skills',
+      'chrome-devtools-mcp',
     ]))
     const backend = abilitiesFor({ industry: 'programmer', kind: 'all', developerDirection: 'backend', query: '' })
       .map(item => item.id)
@@ -66,12 +67,79 @@ describe('Creator Center catalog', () => {
       'mongodb-mcp-server',
       'awslabs-mcp',
       'docker-mcp-gateway',
+      'cloudflare-skills',
+      'serena',
     ]))
+  })
+
+  it('keeps a broad but curated industry catalog and hides duplicate low-signal cards', () => {
+    expect(ABILITIES.length).toBeGreaterThanOrEqual(150)
+    expect(ABILITIES.filter(item => item.industryIds.includes('programmer')).length).toBeGreaterThanOrEqual(100)
+    expect(ABILITIES.filter(item => item.industryIds.includes('retail')).length).toBeGreaterThanOrEqual(35)
+    expect(ABILITIES.filter(item => item.industryIds.includes('financial-services')).length).toBeGreaterThanOrEqual(45)
+    expect(ABILITIES.filter(item => item.industryIds.includes('education')).length).toBeGreaterThanOrEqual(55)
+
+    const ids = new Set(ABILITIES.map(item => item.id))
+    expect(ids.has('scientific-agent-skills')).toBe(true)
+    expect(ids.has('shopify-agent-skills')).toBe(true)
+    expect(ids.has('microsoft-qlib')).toBe(true)
+    expect(ids.has('chrome-devtools-mcp')).toBe(true)
+    expect(ids.has('dsh-plugin-audit-community')).toBe(false)
+    expect(ids.has('dsh-skill-pack-security')).toBe(false)
+    expect(ids.has('shopline-ai-toolkit-dsh')).toBe(false)
+    expect(ids.has('lenml-ponytail')).toBe(false)
+    expect(ids.has('pi-plan-mode')).toBe(false)
+    expect(ids.has('ilm-alan-frontend-design')).toBe(false)
+    expect(ABILITIES.filter(item => item.implementation.repositoryUrl && /约 0 星(?:；|$)/.test(item.popularity ?? '')).length).toBe(0)
   })
 
   it('formats the GitHub star badge without inventing missing counts', () => {
     expect(githubStarLabel('GitHub 约 12.4K 星；官方项目')).toBe('★ 12.4K')
     expect(githubStarLabel('GitHub Star 未同步')).toBe('★ 未同步')
+    expect(githubStarLabel('官方能力；无独立 GitHub 项目')).toBe('官方能力')
+  })
+
+  it('shows the verified browser-use GitHub star snapshot', () => {
+    const ability = ABILITIES.find(item => item.id === 'browser-use')
+
+    expect(ability?.popularity).toContain('109.5K')
+    expect(githubStarLabel(ability?.popularity)).toBe('★ 109.5K')
+  })
+
+  it('includes Computer Use as an official reference adapter', () => {
+    const ability = ABILITIES.find(item => item.id === 'openai-computer-use')
+
+    expect(ability).toMatchObject({
+      title: 'Computer Use（Codex 官方能力）',
+      ecosystem: 'vendor',
+      trust: 'vendor-official',
+      compatibility: 'manual-adapter',
+      developerDirectionIds: ['agent-workflow'],
+      implementation: {
+        repositoryUrl: 'https://github.com/openai/openai-cua-sample-app',
+      },
+    })
+    expect(ability?.popularity).toContain('1.7K')
+    expect(ability?.summary).toContain('不是可直接复制')
+  })
+
+  it('keeps the strongest local capabilities as honest official capability cards', () => {
+    const officialIds = [
+      'codex-browser-control',
+      'codex-extension-toolkit',
+      'codex-file-workbench',
+      'codex-visualization',
+      'codex-github-workflow',
+    ]
+
+    for (const id of officialIds) {
+      const ability = ABILITIES.find(item => item.id === id)
+      expect(ability?.trust).toBe('vendor-official')
+      expect(ability?.implementation.sourceLabel).toMatch(/Codex 官方能力说明/)
+      expect(ability?.implementation.sourceUrl).toMatch(/^https:\/\/developers\.openai\.com\/codex\/use-cases/)
+      expect(ability?.implementation.repositoryUrl).toBeUndefined()
+      expect(githubStarLabel(ability?.popularity)).toBe('官方能力')
+    }
   })
 
   it('keeps a large, uniquely identified GitHub catalog with provenance metadata', () => {
@@ -83,7 +151,11 @@ describe('Creator Center catalog', () => {
       expect(ability.userReceives.length).toBeGreaterThan(3)
       expect(ability.rollback.length).toBeGreaterThan(3)
       expect(ability.implementation.checks.length).toBeGreaterThan(0)
-      expect(ability.implementation.repositoryUrl).toMatch(/^https:\/\/github\.com\//)
+      if (ability.implementation.repositoryUrl !== undefined) {
+        expect(ability.implementation.repositoryUrl).toMatch(/^https:\/\/github\.com\//)
+      } else {
+        expect(ability.implementation.sourceUrl).toMatch(/^https:\/\/developers\.openai\.com\//)
+      }
       expect(ability.implementation.addMethod.length).toBeGreaterThan(10)
       expect(ability.ecosystem).toBeDefined()
       expect(ability.trust).toBeDefined()

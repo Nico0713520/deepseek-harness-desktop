@@ -4,18 +4,13 @@ import { apply, inject } from './index.ts'
 afterEach(() => { vi.unstubAllGlobals() })
 
 describe('Creator Center client registration', () => {
-  it('registers a top-level Settings section and mirrors a selected preset into session state', async () => {
-    const advisorStatus = vi.fn(async () => ({ ok: true, json: async () => ({ managed: true }) }))
-    vi.stubGlobal('fetch', advisorStatus)
+  it('registers the extension surfaces and mirrors official Creator Mode into session state', async () => {
     const registrations: Array<Record<string, unknown>> = []
     const injectedSlots: string[] = []
     const sessionListeners = new Set<() => void>()
     const noteAgentPreset = vi.fn()
-    const apiRead = vi.fn(async () => ({
-      result: { ok: true, value: { content: '<!-- whale-extension-advisor -->' } },
-    }))
     const apiList = vi.fn(async () => ({
-      result: { ok: true, value: { presets: [{ id: 'cordis' }, { id: 'whale-extension-advisor' }] } },
+      result: { ok: true, value: { presets: [{ id: 'cordis' }] } },
     }))
     let sessionState = {
       current: 'blank-session',
@@ -39,7 +34,6 @@ describe('Creator Center client registration', () => {
         api: {
           agentPresets: {
             list: apiList,
-            read: apiRead,
           },
         },
       }),
@@ -87,12 +81,10 @@ describe('Creator Center client registration', () => {
     expect(registrations[2].inject).toEqual(expect.any(Function))
 
     const injected = (registrations[2].inject as () => { launcher: { launch(presetId: string): void } })()
-    injected.launcher.launch('whale-extension-advisor')
+    injected.launcher.launch('cordis')
     await vi.waitFor(() => {
-      expect(noteAgentPreset).toHaveBeenCalledWith('blank-session', 'whale-extension-advisor')
+      expect(noteAgentPreset).toHaveBeenCalledWith('blank-session', 'cordis')
     })
-    expect(presetSelect).toHaveBeenCalledWith('whale-extension-advisor')
-    expect(advisorStatus).toHaveBeenCalledOnce()
-    expect(apiRead).toHaveBeenCalledWith({ agentPreset: 'whale-extension-advisor' })
+    expect(presetSelect).toHaveBeenCalledWith('cordis')
   })
 })

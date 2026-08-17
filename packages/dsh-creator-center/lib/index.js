@@ -1,28 +1,6 @@
 import { homedir } from "node:os";
 import { isAbsolute, join, relative, resolve } from "node:path";
 import { mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from "node:fs";
-//#region src/status.ts
-function makeAdvisorStatusRoute({ managed }) {
-	return {
-		kind: "exact",
-		path: "/api/whale-creator-center/advisor-status",
-		handler(req, res) {
-			if (req.method !== "GET") {
-				res.writeHead(405);
-				res.end();
-				return;
-			}
-			const body = JSON.stringify({ managed });
-			res.writeHead(200, {
-				"content-type": "application/json; charset=utf-8",
-				"content-length": String(Buffer.byteLength(body)),
-				"cache-control": "no-store"
-			});
-			res.end(body);
-		}
-	};
-}
-//#endregion
 //#region src/extensions.ts
 const USER_EXTENSION_OWNER = "whale-extension-center";
 const USER_EXTENSION_REGISTRY = "whale-user-extensions.json";
@@ -214,14 +192,13 @@ const name = "whale-creator-center";
 const inject = ["webServer"];
 function apply(ctx) {
 	const host = ctx;
-	const route = makeAdvisorStatusRoute({ managed: process.env.WHALE_ADVISOR_MANAGED === "1" });
 	const userExtensionRoutes = makeUserExtensionRoutes(process.env.DSH_HOME ?? join(homedir(), ".dsh"));
 	host.effect(() => {
-		const disposers = [host.webServer.register(route), ...userExtensionRoutes.map((item) => host.webServer.register(item))];
+		const disposers = userExtensionRoutes.map((item) => host.webServer.register(item));
 		return () => {
 			for (const dispose of disposers) dispose();
 		};
-	}, "whale-creator-center: advisor and user extension routes");
+	}, "whale-creator-center: user extension routes");
 }
 //#endregion
 export { apply, inject, name };

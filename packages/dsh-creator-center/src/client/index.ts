@@ -2,7 +2,6 @@ import type { ClientContext } from '@deepseek-ai/dsh-client-runtime/client'
 import type { SidebarPrimaryActionOwnerProps } from '@deepseek-ai/dsh-client-ui-sidebar/client'
 import type {} from '@deepseek-ai/dsh-client-ui-layout/client'
 import type {} from '@deepseek-ai/dsh-client-ui-slots'
-import { isManagedAdvisorHost } from './advisor-status.ts'
 import { CreatorCenterSidebarAction } from './CreatorCenterSidebarAction.tsx'
 import { CreatorCenterSurface } from './CreatorCenterSurface.tsx'
 import { MyExtensionsSidebarAction } from './MyExtensionsSidebarAction.tsx'
@@ -17,9 +16,6 @@ interface AgentPresetSeatFace {
   }
   select(presetId: string): Promise<void>
 }
-
-const ADVISOR_PRESET_ID = 'whale-extension-advisor'
-const ADVISOR_MARKER = '<!-- whale-extension-advisor -->'
 
 function agentPresetSeat(ctx: ClientContext): AgentPresetSeatFace | undefined {
   const slots = ctx.slots as unknown as {
@@ -45,7 +41,17 @@ export function apply(ctx: ClientContext): void {
     sessions: ctx.sessions.list as unknown as SessionStore,
     startSession: () => { ctx.workspaces.startSession() },
     isPresetAvailable: async (presetId) => {
-      const response = await api.agentPresets.list({})
+      // The built-in Creator preset is already mounted by the official web
+      // bundle. Do not make the Creator Center depend on a roster refresh;
+      // a stale user patch can temporarily make agentPreset.list fail even
+      // though the official seat is usable.
+      if (presetId === 'cordis' && agentPresetSeat(ctx) !== undefined) return true
+      let response
+      try {
+        response = await api.agentPresets.list({})
+      } catch {
+        return false
+      }
       if (!response.result.ok) return false
       return response.result.value.presets.some((preset: { id: string; broken?: string }) => (
         preset.id === presetId && preset.broken === undefined
@@ -54,15 +60,6 @@ export function apply(ctx: ClientContext): void {
     selectPreset: async (sessionId, presetId) => {
       const seat = agentPresetSeat(ctx)
       if (seat === undefined) throw new Error('官方 Agent 预设选择器暂时不可用')
-      if (presetId === ADVISOR_PRESET_ID) {
-        if (!await isManagedAdvisorHost()) {
-          throw new Error('内置 AI 扩展顾问不可用，请改用官方创造模式')
-        }
-        const response = await api.agentPresets.read({ agentPreset: presetId })
-        if (!response.result.ok || !response.result.value.content.includes(ADVISOR_MARKER)) {
-          throw new Error('内置 AI 扩展顾问不可用，请改用官方创造模式')
-        }
-      }
       await seat.select(presetId)
       const seatState = seat.hooks.agentPresetSeat.getSnapshot()
       if (seatState.error !== null) throw new Error(seatState.error)

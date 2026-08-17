@@ -1,7 +1,7 @@
 {
   "name": "@whale-desktop/dsh-creator-center",
   "version": "0.1.0",
-  "description": "Beginner Creator Center and AI Extension Advisor for DeepSeek Harness Whale Desktop.",
+  "description": "Beginner Extension Center for DeepSeek Harness Desktop.",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
@@ -28,7 +28,6 @@
   },
   "files": [
     "lib",
-    "advisor",
     "cordis.patch.yml",
     "LICENSE"
   ],

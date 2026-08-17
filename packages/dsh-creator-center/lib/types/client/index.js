@@ -1,11 +1,8 @@
-import { isManagedAdvisorHost } from "./advisor-status.js";
 import { CreatorCenterSidebarAction } from "./CreatorCenterSidebarAction.js";
 import { CreatorCenterSurface } from "./CreatorCenterSurface.js";
 import { MyExtensionsSidebarAction } from "./MyExtensionsSidebarAction.js";
 import { CreatorNavigationController } from "./creator-navigation.js";
 import { SessionLauncher } from "./session-launcher.js";
-const ADVISOR_PRESET_ID = 'whale-extension-advisor';
-const ADVISOR_MARKER = '<!-- whale-extension-advisor -->';
 function agentPresetSeat(ctx) {
     const slots = ctx.slots;
     const entry = slots.entriesOfSlot('conversation.hero.agentPreset')[0];
@@ -20,7 +17,19 @@ export function apply(ctx) {
         sessions: ctx.sessions.list,
         startSession: () => { ctx.workspaces.startSession(); },
         isPresetAvailable: async (presetId) => {
-            const response = await api.agentPresets.list({});
+            // The built-in Creator preset is already mounted by the official web
+            // bundle. Do not make the Creator Center depend on a roster refresh;
+            // a stale user patch can temporarily make agentPreset.list fail even
+            // though the official seat is usable.
+            if (presetId === 'cordis' && agentPresetSeat(ctx) !== undefined)
+                return true;
+            let response;
+            try {
+                response = await api.agentPresets.list({});
+            }
+            catch {
+                return false;
+            }
             if (!response.result.ok)
                 return false;
             return response.result.value.presets.some((preset) => (preset.id === presetId && preset.broken === undefined));
@@ -29,15 +38,6 @@ export function apply(ctx) {
             const seat = agentPresetSeat(ctx);
             if (seat === undefined)
                 throw new Error('官方 Agent 预设选择器暂时不可用');
-            if (presetId === ADVISOR_PRESET_ID) {
-                if (!await isManagedAdvisorHost()) {
-                    throw new Error('内置 AI 扩展顾问不可用，请改用官方创造模式');
-                }
-                const response = await api.agentPresets.read({ agentPreset: presetId });
-                if (!response.result.ok || !response.result.value.content.includes(ADVISOR_MARKER)) {
-                    throw new Error('内置 AI 扩展顾问不可用，请改用官方创造模式');
-                }
-            }
             await seat.select(presetId);
             const seatState = seat.hooks.agentPresetSeat.getSnapshot();
             if (seatState.error !== null)

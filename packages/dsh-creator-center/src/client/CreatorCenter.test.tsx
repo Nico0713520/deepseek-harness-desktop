@@ -145,14 +145,17 @@ describe('Creator Center', () => {
     expect(screen.getByRole('status').textContent).toContain('请粘贴并发送')
   })
 
-  it('opens the AI advisor without copying a synthetic user message', () => {
+  it('copies the advisor prompt before opening official Creator Mode', async () => {
+    const order: string[] = []
     const kit = setup()
+    kit.clipboard.writeText.mockImplementation(async () => { order.push('copy') })
+    kit.launch.mockImplementation(() => { order.push('launch') })
 
     fireEvent.click(screen.getByRole('button', { name: '查看“Panniantong/Agent-Reach”方案' }))
     fireEvent.click(screen.getByRole('button', { name: '先问 AI 是否适合我' }))
 
-    expect(kit.launch).toHaveBeenCalledWith('whale-extension-advisor')
-    expect(kit.clipboard.writeText).not.toHaveBeenCalled()
+    await vi.waitFor(() => expect(order).toEqual(['copy', 'launch']))
+    expect(kit.launch).toHaveBeenCalledWith('cordis')
   })
 
   it('leaves Settings after the requested blank session is ready', async () => {
@@ -162,20 +165,8 @@ describe('Creator Center', () => {
     fireEvent.click(screen.getByRole('button', { name: '先问 AI 是否适合我' }))
     expect(kit.close).not.toHaveBeenCalled()
 
-    kit.publish({ busy: false, error: null, launchedPreset: 'whale-extension-advisor' })
+    kit.publish({ busy: false, error: null, launchedPreset: 'cordis' })
     await vi.waitFor(() => expect(kit.close).toHaveBeenCalledOnce())
-  })
-
-  it('offers the official Creator Mode fallback when advisor selection fails', async () => {
-    const kit = setup()
-    fireEvent.click(screen.getByRole('button', { name: '查看“Panniantong/Agent-Reach”方案' }))
-    fireEvent.click(screen.getByRole('button', { name: '先问 AI 是否适合我' }))
-    kit.publish({ busy: false, error: 'advisor preset is unavailable', launchedPreset: null })
-
-    fireEvent.click(await screen.findByRole('button', { name: '复制顾问提问模板并打开创造模式' }))
-
-    await vi.waitFor(() => expect(kit.launch).toHaveBeenLastCalledWith('cordis'))
-    expect(kit.clipboard.writeText).toHaveBeenCalledOnce()
   })
 
   it('keeps Settings open and explains an ordinary Creator Mode launch failure', async () => {

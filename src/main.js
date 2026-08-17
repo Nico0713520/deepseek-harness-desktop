@@ -11,12 +11,7 @@ import {
   Tray,
 } from 'electron'
 import { startDshService } from './dsh-service.js'
-import {
-  isManagedAdvisorProvision,
-  provisionAdvisorPreset,
-  resolveBundledAdvisorSkillDir,
-  resolveOfficialCordisPresetDir,
-} from './advisor-preset-provisioner.js'
+import { removeManagedAdvisorPreset } from './advisor-preset-cleanup.js'
 import { applyMacTitleBarStyle } from './mac-titlebar.js'
 import {
   provisionBundledFeatures,
@@ -166,16 +161,11 @@ async function launch() {
     }
   }
 
-  const advisorProvision = await provisionAdvisorPreset({
-    dshHome: environment.DSH_HOME,
-    sourcePresetDir: resolveOfficialCordisPresetDir(),
-    advisorSkillDir: resolveBundledAdvisorSkillDir(),
-  })
-  environment.WHALE_ADVISOR_MANAGED = isManagedAdvisorProvision(advisorProvision) ? '1' : '0'
-  if (advisorProvision.status === 'conflict') {
-    console.warn('AI Extension Advisor preset id is already owned by the user; Creator Center will use its safe fallback.')
-  } else if (advisorProvision.status === 'failed') {
-    console.warn(`AI Extension Advisor is unavailable: ${advisorProvision.error}`)
+  const advisorCleanup = await removeManagedAdvisorPreset({ dshHome: environment.DSH_HOME })
+  if (advisorCleanup.status === 'preserved') {
+    console.warn('A user-owned legacy AI Extension Advisor preset was found and left untouched.')
+  } else if (advisorCleanup.status === 'failed') {
+    console.warn(`Legacy AI Extension Advisor cleanup failed: ${advisorCleanup.error}`)
   }
 
   service = startDshService({
