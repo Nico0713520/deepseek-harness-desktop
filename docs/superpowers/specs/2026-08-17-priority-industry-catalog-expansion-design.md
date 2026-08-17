@@ -9,7 +9,7 @@
 - IT 与软件开发
 - 零售与电商
 - 金融
-- 科研与学术
+- 科研与学术，重点服务高校学生、研究生、博士生、教师和留学生
 
 目录继续坚持“推荐与教学，不自动安装”。用户可以查看 GitHub 项目、理解用途、判断与 DeepSeek Harness 的接入方式，再决定是否让创造模式生成自己的适配版本。
 
@@ -20,7 +20,7 @@
 - 程序员条目多，但缺少安全研究、代码理解、可观测性、IaC、Agent 沙箱和厂商官方 Skills。
 - 零售与电商条目大多是通用工具，缺少 Shopify、Amazon SP-API、支付、ERP、客服、商品分析和实验平台的完整链路。
 - 金融专用条目主要是 OpenBB、CCXT 和 yfinance，缺少金融 Agent、量化研究、回测、监管文件和金融 Skill。
-- “生命科学”不能代替广义科研；论文检索、引用管理、学术写作、PDF 解析和科研计算需要独立入口。
+- “生命科学”不能代替广义科研；高校和留学生更常见的痛点是选题、文献检索、精读、综述、引用管理、论文写作、英文润色、排版、统计分析、投稿和审稿修改。
 
 ## 收录原则
 
@@ -41,7 +41,19 @@
 
 - `research-science`：科研与学术
 
-这样“科研与学术”负责跨学科研究流程，“生命科学”继续负责生物、化学、医药等垂直方向。一张卡可以同时属于两个行业。
+这样“科研与学术”负责跨学科的高校学术流程，“生命科学”继续负责生物、化学、医药和实验计算等垂直方向。一张卡可以同时属于两个行业，但 RDKit、Scanpy、scvi-tools 等专业计算库不进入“科研与学术”的首批核心卡片。
+
+“科研与学术”的内容优先级固定为：
+
+1. 文献检索、筛选与系统综述
+2. Zotero、BibTeX 与引用真实性
+3. 论文精读、笔记、证据与观点整理
+4. 学术写作、英文润色和中英双语辅助
+5. LaTeX、Typst、Word/Pandoc 与期刊格式
+6. 统计分析与可复现研究
+7. 投稿、同行评审、rebuttal 和修改
+
+整篇论文或学位论文自动代写项目不作为主卖点。所有写作类条目都要强调“基于用户自己的研究材料辅助”，不得承诺替用户生成可直接提交的作业、论文或虚构引用。
 
 ### 程序员开发方向
 
@@ -145,35 +157,70 @@
 
 金融详情页必须明确：默认只做资料、研究、回测或开发参考，不自动下单，不转移资金，不构成投资建议。
 
-### 科研与学术（25）
+### 科研与学术（44）
 
-- `K-Dense-AI/scientific-agent-skills`
-- `Orchestra-Research/AI-Research-SKILLs`
+#### 学术 Skill 与论文工作流
+
+- `LeonChaoX/qinyan-academic-skills`
 - `Imbad0202/academic-research-skills`
+- `Research-Equality/RE-paper-writing`
+- `bahayonghang/academic-writing-skills`
+- `labarba/sciwrite`
+- `BESSER-PEARL/research-agent-skills`
+- `ShaishavMaisuria/research-paper-lifecycle-skills`
+- `ShZhao27208/Aut_Sci_Write`
+- `Zhangyanbo/vibe-paper-writing`
+- `hyl-ailab/scholar-forge`
+- `Orchestra-Research/AI-Research-SKILLs`
+- `K-Dense-AI/scientific-agent-skills`
+
+#### 文献检索、综述与引用管理
+
 - `openags/paper-search-mcp`
+- `54yyyu/zotero-mcp`
+- `yilewang/llm-for-zotero`
+- `veale/academic-mcp`
 - `zotero/zotero`
 - `retorquere/zotero-better-bibtex`
-- `54yyyu/zotero-mcp`
+- `JabRef/jabref`
+- `papis/papis`
+- `asreview/asreview`
+- `vitorfs/parsifal`
+- `citation-style-language/styles`
+- `citation-js/citation-js`
+- `inukshuk/anystyle`
 - `assafelovic/gpt-researcher`
 - `langchain-ai/open_deep_research`
-- `microsoft/graphrag`
-- `deepset-ai/haystack`
-- `run-llama/llama_index`
+
+#### 论文读取、PDF 与双语辅助
+
 - `grobidOrg/grobid`
 - `opendatalab/MinerU`
 - `datalab-to/marker`
 - `PDFMathTranslate/PDFMathTranslate`
-- `karpathy/autoresearch`
-- `aiming-lab/AutoResearchClaw`
-- `pola-rs/polars`
-- `dask/dask`
-- `apache/arrow`
-- `deepchem/deepchem`
-- `rdkit/rdkit`
-- `scverse/scanpy`
-- `scverse/scvi-tools`
 
-科研详情页必须明确：保留论文与数据来源、区分事实和模型推断、避免生成不存在的引用，并提示需要人工复核的方法和结果。
+#### 写作、排版与出版
+
+- `typst/typst`
+- `jgm/pandoc`
+- `quarto-dev/quarto-cli`
+- `overleaf/overleaf`
+- `James-Yu/LaTeX-Workshop`
+- `tectonic-typesetting/tectonic`
+- `languagetool-org/languagetool`
+- `vale-cli/vale`
+- `manubot/manubot`
+
+#### 统计分析与可复现研究
+
+- `marimo-team/marimo`
+- `jasp-stats/jasp-desktop`
+- `jamovi/jamovi`
+- `statsmodels/statsmodels`
+
+现有的 `Future-House/paper-qa`、`stanford-oval/storm`、`jupyterlab/jupyterlab`、`docling-project/docling` 和 `microsoft/markitdown` 保留并补充“科研与学术”行业映射，不重复创建卡片。
+
+科研详情页必须明确：保留论文与数据来源、区分事实和模型推断、避免生成不存在的引用，并提示需要人工复核的方法和结果。论文写作类条目必须把用户自己的研究问题、数据、实验、笔记和参考文献作为输入，不把模型生成内容描述成可直接提交的学术成果。
 
 ## 数据与代码组织
 
@@ -201,14 +248,14 @@
 
 ## 验收标准
 
-- 总目录从 94 项提升到至少 180 项。
-- 新增 92 个候选中没有重复 ID 或重复 GitHub URL。
+- 总目录从 94 项提升到至少 200 项。
+- 新增 111 个候选中没有重复 ID 或重复 GitHub URL。
 - IT 新增条目全部拥有开发方向。
-- 新增“科研与学术”行业可独立筛选，并至少有 20 个专用条目。
+- 新增“科研与学术”行业可独立筛选，并至少有 35 个高校学术专用条目。
+- 科研首屏优先展示文献检索、Zotero、论文阅读、学术写作、排版和统计工具，不优先展示生物化学专业计算库。
 - 电商至少有 15 个专用条目，覆盖店铺开发、平台 API、支付、ERP、客服、分析与 SEO。
 - 金融至少有 15 个专用条目，覆盖数据、研究、Agent、回测、量化平台和监管文件。
 - 归档仓库不得进入目录。
 - 所有详情页都有 GitHub 链接、许可证、添加方式、风险检查和回滚说明。
 - 不增加实时 Star 请求、不增加新的状态徽标、不修改“我的扩展”的本机逻辑。
 - 目录单测、Creator Center 构建和桌面端测试通过。
-
